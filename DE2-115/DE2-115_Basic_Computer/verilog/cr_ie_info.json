@@ -1,0 +1,22 @@
+{
+	"system" : {
+		"platform" : "windows64",
+		"os_name" : "Windows 7",
+		"os_version" : "6.1"
+	},
+	"error" : {
+		"executable" : "quartus_fit",
+		"comment" : "not_applicable",
+		"error_message" : "Internal Error",
+		"source_file" : "/quartus/fitter/vpr20k/cuda_arch/cuda_ale_legality_check.c",
+		"line" : "241",
+		"stack_trace" : "\t0x7feb8b5e490: fitter_vpr20kmain + 0x4ee490 (vpr_qi_jump_to_exit + 0x70)\n\t0x7feb8750b07: fitter_vpr20kmain + 0xe0b07 (vpr_exit_at_line + 0x97)\n\t0x7feb8750b50: fitter_vpr20kmain + 0xe0b50 (handle_assertion_failure_stripped + 0x30)\n\t0x7feb8cb5f52: fitter_vpr20kmain + 0x645f52 (cuda_ale_legality_group_of_blocks_legal + 0x132)\n\t0x7feb8835f09: fitter_vpr20kmain + 0x1c5f09 (aa_ale_legality_group_of_blocks_legal + 0xf9)\n\t0x7feb86f4865: fitter_vpr20kmain + 0x84865 (cl_legality_ale_check_ble_group + 0x75)\n\t0x7feb87095b8: fitter_vpr20kmain + 0x995b8 (l_cl_regpack_perform_packing_of_lut_and_ff_cells_with_common_connections + 0x1e8)\n\t0x7feb8707cb2: fitter_vpr20kmain + 0x97cb2 (cl_regpack_find_good_lut_ff_pairs + 0x152)\n\t0x7feb86a86c5: fitter_vpr20kmain + 0x386c5 (cl_build_cluster_of_block_from_scratch + 0x145)\n\t0x7feb869f8c5: fitter_vpr20kmain + 0x2f8c5 (do_clustering + 0x4f5)\n\t0x7feb86d8caf: fitter_vpr20kmain + 0x68caf (cl_flow_pack_to_cbes_2 + 0xa8f)\n\t0x7feb86d8127: fitter_vpr20kmain + 0x68127 (cl_flow_pack_to_cbes + 0x77)\n\t0x7feb88ae871: fitter_vpr20kmain + 0x23e871 (l_do_clustering_phase + 0x171)\n\t0x7feb88add41: fitter_vpr20kmain + 0x23dd41 (aa_flow_place + 0x21)\n\t0x7feb88ada9d: fitter_vpr20kmain + 0x23da9d (aa_flow_fit + 0x11d)\n\t0x7feb8b5dd1c: fitter_vpr20kmain + 0x4edd1c (VPR_QI_FACADE::vpr_qi_main + 0x3c)\n\t0x7fec1f526f0: fitter_fitapi + 0x326f0 (fitapi_run_vpr + 0x70)\n\t0x7fec0710298: FITTER_FITCC + 0x50298 (FITCC_EXPERT::run_vpr + 0x138)\n\t0x7fec070fd65: FITTER_FITCC + 0x4fd65 (FITCC_EXPERT::place_and_route + 0xf5)\n\t0x7fec070f22d: FITTER_FITCC + 0x4f22d (FITCC_EXPERT::invoke_fitter + 0x69d)\n\t0x7febcd99cdb: fitter_fcuda + 0x9cdb (fcuda_execute + 0x1eb)\n\t0x7fec214edbf: FITTER_FMAIN + 0xedbf (fmain_start + 0x89f)\n\t0x7fec1fab2be: comp_qfit_legacy_flow + 0xb2be (qfit_execute_fit + 0x1ee)\n\t0x7fec1fa2fdb: comp_qfit_legacy_flow + 0x2fdb (QFIT_FRAMEWORK::execute + 0x49b)\n\t0x7fec1fb773d: comp_qfit_legacy_flow + 0x1773d (qfit_legacy_flow_run_legacy_fitter_flow + 0x23d)\n\t 0x50614410: tcl86 + 0x14410 (TclInvokeStringCommand + 0xf0)\n\t 0x506161e2: tcl86 + 0x161e2 (TclNRRunCallbacks + 0x62)\n\t 0x50617a65: tcl86 + 0x17a65 (TclEvalEx + 0xa65)\n\t 0x506a6f8b: tcl86 + 0xa6f8b (Tcl_FSEvalFileEx + 0x22b)\n\t 0x506a5646: tcl86 + 0xa5646 (Tcl_EvalFile + 0x36)\n\t0x7fede8f25f6: comp_qexe + 0x125f6 (qexe_evaluate_tcl_script + 0x376)\n\t0x7fede8f1861: comp_qexe + 0x11861 (qexe_do_tcl + 0x331)\n\t0x7fede8f6715: comp_qexe + 0x16715 (qexe_run_tcl_option + 0x585)\n\t0x7fed2231d2f: comp_qcu + 0x31d2f (qcu_run_tcl_option + 0xa4f)\n\t0x7fede8f606a: comp_qexe + 0x1606a (qexe_run + 0x39a)\n\t0x7fede8f6dd1: comp_qexe + 0x16dd1 (qexe_standard_main + 0xc1)\n\t0x13fe32233: quartus_fit + 0x2233 (qfit2_main + 0x73)\n\t0x7fee16d28e8: CCL_MSG + 0x128e8 (msg_main_thread + 0x18)\n\t0x7fee16d3f0e: CCL_MSG + 0x13f0e (msg_thread_wrapper + 0x6e)\n\t0x7feee2e2840: ccl_mem + 0x2840 (mem_thread_wrapper + 0x70)\n\t0x7fee16d2541: CCL_MSG + 0x12541 (msg_exe_main + 0xa1)\n\t0x13fe3287e: quartus_fit + 0x287e (__tmainCRTStartup + 0x10e)\n\t 0x76c659cc: kernel32 + 0x159cc (BaseThreadInitThunk + 0xc)\n\t 0x76d9b890: ntdll + 0x2b890 (RtlUserThreadStart + 0x20)\n",
+		"subsystem" : "VPR20KMAIN"
+	},
+	"quartus" : {
+		"quartus_bits" : "64",
+		"version" : "15.1.0",
+		"build" : "142",
+		"edition" : "Standard Edition"
+	}
+}

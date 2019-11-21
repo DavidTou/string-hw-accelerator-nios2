@@ -1,0 +1,15 @@
+PLL_Name	nios_system:NiosII|nios_system_Audio_Subsystem:audio_subsystem|nios_system_Audio_Subsystem_Audio_PLL:audio_pll|altera_up_altpll:audio_pll|altpll:PLL_for_DE_Series_Boards|altpll_dkb2:auto_generated|pll1
+PLLJITTER	25
+PLLSPEmax	84
+PLLSPEmin	-53
+
+PLL_Name	nios_system:NiosII|nios_system_System_PLL:system_pll|altera_up_altpll:sys_pll|altpll:PLL_for_DE_Series_Boards|altpll_3lb2:auto_generated|pll1
+PLLJITTER	35
+PLLSPEmax	84
+PLLSPEmin	-53
+
+PLL_Name	nios_system:NiosII|nios_system_VGA_Subsystem:vga_subsystem|nios_system_VGA_Subsystem_VGA_PLL:vga_pll|altera_up_altpll:video_pll|altpll:PLL_for_DE_Series_Boards|altpll_8fb2:auto_generated|pll1
+PLLJITTER	30
+PLLSPEmax	84
+PLLSPEmin	-53
+

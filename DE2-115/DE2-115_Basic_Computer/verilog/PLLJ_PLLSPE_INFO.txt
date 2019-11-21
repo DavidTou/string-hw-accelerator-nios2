@@ -1,0 +1,5 @@
+PLL_Name	nios_system:NiosII|nios_system_System_PLL:system_pll|altera_up_altpll:sys_pll|altpll:PLL_for_DE_Series_Boards|altpll_3lb2:auto_generated|pll1
+PLLJITTER	35
+PLLSPEmax	84
+PLLSPEmin	-53
+
