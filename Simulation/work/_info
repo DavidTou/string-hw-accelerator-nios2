@@ -1,0 +1,85 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/Users/David/Documents/MyAltera/assignment3
+vGCD_HW
+Z0 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+!s110 1571167362
+!i10b 1
+!s100 1=SlC>Y>IO<MNP>aZbVOX3
+I;6fHz`TSadmeC=jWW>3H`2
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+!s105 GCD_HW_sv_unit
+S1
+Z2 dC:/Users/David/Documents/MyAltera/Midterm/Simulation
+w1571167116
+8C:/Users/David/Documents/MyAltera/Midterm/GCD_HW_accelerator/GCD_HW.sv
+FC:/Users/David/Documents/MyAltera/Midterm/GCD_HW_accelerator/GCD_HW.sv
+Z3 L0 25
+Z4 OV;L;10.5b;63
+r1
+!s85 0
+31
+!s108 1571167362.000000
+!s107 C:/Users/David/Documents/MyAltera/Midterm/GCD_HW_accelerator/GCD_HW.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/David/Documents/MyAltera/Midterm/GCD_HW_accelerator/GCD_HW.sv|
+!i113 1
+Z5 o-work work -sv
+Z6 tCvgOpt 0
+n@g@c@d_@h@w
+vGCD_HW_64
+R0
+Z7 !s110 1571171925
+!i10b 1
+!s100 Uf?:4Vo3c@e<X^?TX76<;3
+I4XFi@mfHD8c46l1G9KWFH3
+R1
+!s105 GCD_HW_64_sv_unit
+S1
+R2
+w1571171655
+8C:/Users/David/Documents/MyAltera/Midterm/GCD_HW_accelerator/GCD_HW_64.sv
+FC:/Users/David/Documents/MyAltera/Midterm/GCD_HW_accelerator/GCD_HW_64.sv
+L0 24
+R4
+r1
+!s85 0
+31
+Z8 !s108 1571171925.000000
+!s107 C:/Users/David/Documents/MyAltera/Midterm/GCD_HW_accelerator/GCD_HW_64.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/David/Documents/MyAltera/Midterm/GCD_HW_accelerator/GCD_HW_64.sv|
+!i113 1
+R5
+R6
+n@g@c@d_@h@w_64
+vGCD_HW_tb
+R0
+R7
+!i10b 1
+!s100 3gMbz^_zRKLT6d5dWXWHT2
+Il0]<VMgb4QIj]LPm2A6Eh3
+R1
+!s105 GCD_HW_tb_sv_unit
+S1
+R2
+w1571171921
+8C:/Users/David/Documents/MyAltera/Midterm/Simulation/GCD_HW_tb.sv
+FC:/Users/David/Documents/MyAltera/Midterm/Simulation/GCD_HW_tb.sv
+R3
+R4
+r1
+!s85 0
+31
+R8
+!s107 C:/Users/David/Documents/MyAltera/Midterm/Simulation/GCD_HW_tb.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/David/Documents/MyAltera/Midterm/Simulation/GCD_HW_tb.sv|
+!i113 1
+R5
+R6
+n@g@c@d_@h@w_tb

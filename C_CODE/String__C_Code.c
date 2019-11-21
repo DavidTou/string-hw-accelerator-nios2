@@ -22,6 +22,7 @@
 
 // needed for printf
 #include <stdio.h>
+#include <string.h>
 
 /* function prototypes */
 unsigned int gcd_SW(unsigned int, unsigned int);
@@ -49,42 +50,22 @@ void main() {
 		ticksSW=0;
 		ticksHW=0;
 		GCD = 0;
-		printf("#### HW/SW GCD Comparison ####\n");
-		printf("NOTE: Enter non-zero unsigned integers\n");
-		// Terminal Prompt
-		// Operand A
-		printf("Insert opA: ");
-		opA=inputParamTerminal(buffer);
+		printf("#### string.h vs String HW peripheral ####\n");
 		
-		// Operand B
-		printf("Insert opB: ");
-		opB=inputParamTerminal(buffer);
-		
-		// ###### SOFTWARE ######
-		// GCD SW calculation
+		char str1[5] = "ABCDE"; 		// double quotes add null terminator
+		char str2[5] = "ABCDE"; 		// double quotes add null terminator
+
 		start_timer();
-		GCD = gcd_SW(opA,opB);
-		*(TIMER_ptr + 4) = 0x1; //dummy write to snap_low
-		ticksSW = 0xFFFF - *(TIMER_ptr + 4);
-		printf("SW_GCD = %d\n", GCD );		// Print Result to Terminal
-		printf("SW_Clock Cycles = %d\n", ticksSW );
-		// ###### END SOFTWARE ######
-		GCD=0;
-		// ###### HARDWARE ######
-		
-		//*(GCD_HW_ptr) = opA;
-		start_timer();
-		//*(GCD_HW_ptr+1) = opB;
-		GCD = gcd_HW(opA,opB);
-		// poll until bit 0 of address 2 is set to 1
-		//while(!(*(GCD_HW_ptr+2) & 0x0001));
-		//GCD = *(GCD_HW_ptr+3);
+		int ret = strcmp(str1,str2);
 		*(TIMER_ptr + 4) = 0x1; //dummy write to snap_low
 		ticksHW = 0xFFFF - *(TIMER_ptr + 4);
-		printf("HW_GCD = %d\n", GCD );		// Print Result to Terminal
-		printf("HW_Clock Cycles = %d\n", ticksHW );
-		// ###### END HARDWARE ######
-		printf("#### END HW/SW GCD Comparison ####\n");
+		
+		if(ret ==0 )
+			printf("Equal strings!!\n");
+		else
+			printf("Different strings!!\n");
+		
+		
 		
 	}
 }
