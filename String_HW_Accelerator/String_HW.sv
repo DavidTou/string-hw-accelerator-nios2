@@ -24,11 +24,12 @@
  * ###############################################################################
  */
 
-module GCD_HW (input logic clk, reset, go,
+module String_HW (input logic clk, reset, go,
 			   input logic [2:0]  index,
-			   input logic  [7:0] [5:0] A,
-			   output logic [7:0] [5:0] B,
-			   output logic done
+			   input logic [0:1] [7:0] A, B,
+			   input logic [1:0] lengthA, lengthB,
+			   output logic done,
+			   output logic [0:1][7:0] result
 			  );
 
 	parameter RESET=3'b000, S1=3'b001, S2=3'b010,
@@ -36,8 +37,7 @@ module GCD_HW (input logic clk, reset, go,
 				 S6=3'b110, DONE =3'b111;
 
 	logic [2:0] state, nextstate;
-	
-	integer memory_index_0, memory_index_1;
+	integer count;
 	
 	always_ff @(posedge clk)
 		if (reset) state <= RESET;		// Asynchronous Reset
@@ -48,35 +48,61 @@ module GCD_HW (input logic clk, reset, go,
 				// RESET State
 				RESET: 	begin 
 							done <= 0;
-							FIFO_write <= 0;
-							memory_index_0 <= 0;
-							memory_index_1 <= 0;
 							nextstate <= S1;
-						end
-				
-						end
-							
+							count <= 0;
+						end	
+				// Wait for go signal
+				S1: begin 
+						done <= 0;
+						if (go)
+							nextstate <= S2;
+						else
+							nextstate <= S1;
+					end
+				// String Compare [index = 0]
 				// Read index for computation
-				S2:   	begin 
-							if (index == 3'd0)
-								nextstate <= S3;
-							else if (index == 3'd1)
-								nextstate <= S4;
-							else 
-								nextstate <= S2;	// error, no valid index
-						end
+				S2:  begin 
+						if (index == 0)
+							nextstate <= S3;
+						else if (index == 1)
+							nextstate <= S4;
+						else 
+							nextstate <= S2;	// error, no valid index
+					end
 				// String Compare [index = 0]
 				S3:	begin
+						if ((A & B) == A)
+							result <= 1;	// equal
+						else
+							result <= 0;	// not equal
 						nextstate <= DONE;
 					end
 						
-				// Sring Command [index = 1]
+				// Sring To Upper [index = 1]
 				S4: begin
-						nextstate <= DONE;
+						// if character is lowercase
+						if (count < lengthA) begin
+							if ((A[count] > 90) && (A[count] < 123))
+								result[count] = A[count] - 32;
+							else
+								result[count] = A[count];
+								
+							count = count + 1;	// Increment element counter
+							nextstate = S4;
+							end
+						else begin
+							count = 0;
+							nextstate = DONE;
+						end
 					end
 				// DONE State. 
 			  DONE: begin
-						nextstate <= S1;
+						done <= 1;
+						// Wait until go signal is deasserted 
+						if (~go)	
+							nextstate <= S1;
+						else 
+							nextstate <= DONE;
 					end
 			
 		       default: nextstate <= RESET;
