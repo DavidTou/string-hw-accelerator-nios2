@@ -1,4 +1,4 @@
-C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW.sv {1 {vlog -work work -sv -stats=none {C:\Users\Matthew\Documents\GitHub\string-hw-accelerator-nios2\String_HW_Accelerator\String_HW.sv}
+C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW.sv {1 {vlog -work work -sv -stats=none C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module String_HW
 

@@ -26,10 +26,10 @@
 
 module String_HW (input logic clk, reset, go,
 			   input logic [2:0]  index,
-			   input logic [0:1] [7:0] A, B,
-			   input logic [1:0] lengthA, lengthB,
+			   input logic [0:3] [7:0] A, B,
+			   input logic [2:0] lengthA, lengthB,
 			   output logic done,
-			   output logic [0:1][7:0] result
+			   output logic [0:3][7:0] result
 			  );
 
 	parameter RESET=3'b000, S1=3'b001, S2=3'b010,
@@ -37,7 +37,7 @@ module String_HW (input logic clk, reset, go,
 				 S6=3'b110, DONE =3'b111;
 
 	logic [2:0] state, nextstate;
-	integer count;
+	integer i, count;
 	
 	always_ff @(posedge clk)
 		if (reset) state <= RESET;		// Asynchronous Reset
@@ -75,45 +75,34 @@ module String_HW (input logic clk, reset, go,
 				// String Compare [index = 0]
 				S3:	begin
 						if (A == B)
-							result <= 1;	// equal
+							result <= 1;
 						else
-							result <= 0;	// not equal
-						nextstate <= DONE;
-					end
-						
-				// Sring To Upper [index = 1]
-				S4: begin
-						// if character is lowercase
-						if (count < lengthA) begin
-							if ((A[count] >= "a") && (A[count] <= "z"))
-								result[count] = A[count] - 32;
-							else
-								result[count] = A[count];
+							result <= 0;
 								
-							count = count + 1;	// Increment element counter
-							nextstate = S4;
-							end
-						else begin
-							count = 0;
-							nextstate = DONE;
-						end
+						nextstate <= DONE;
+				
+					end
+				
+						
+				// String To Upper [index = 1]
+				S4: begin
+						for (i = 0; i < 4; i = i+1) 
+							if (A[i] >= "a" && A[i] <= "z") // if character is lowercase
+								result[i] <= A[i] - 32;		// Convert to uppercase
+							else
+								result[i] <= A[i];			// Unchanged
+				
+						nextstate <= DONE;
 					end
 				// String to Lower [index = 2]
 				S5: begin
-						// if character is uppercase
-						if (count < lengthA) begin
-							if ((A[count] >= "A") && (A[count] <= "Z"))
-								result[count] = A[count] + 32;
+						for (i = 0; i < 4; i = i+1) 
+							if (A[i] >= "A" && A[i] <= "Z") // if character is uppercase
+								result[i] <= A[i] + 32;		// Convert to lowercase
 							else
-								result[count] = A[count];
-								
-							count = count + 1;	// Increment element counter
-							nextstate = S5;
-							end
-						else begin
-							count = 0;
-							nextstate = DONE;
-						end
+								result[i] <= A[i];			// Unchanged
+				
+						nextstate <= DONE;
 					end
 				// DONE State. 
 			  DONE: begin
