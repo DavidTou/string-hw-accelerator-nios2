@@ -22,6 +22,9 @@
 
 // needed for printf
 #include <stdio.h>
+#include <string.h>
+
+#define CLOCK_RATE 50000000.0
 
 /* function prototypes */
 unsigned int gcd_SW(unsigned int, unsigned int);
@@ -31,8 +34,9 @@ unsigned int get_uint( void );
 void put_char( char c );
 unsigned int pow(unsigned int n, char p);
 unsigned int stringToInt32bit(char buffer[],unsigned lastIndex);
-unsigned int inputParamTerminal( char buffer []) ;
+void inputParamTerminal( char buffer []) ;
 void start_timer();
+unsigned int snapshot_timer();
 
 // POINTERS
 volatile int * TIMER_ptr = (int *)TIMER_BASE;
@@ -40,63 +44,46 @@ volatile int * GCD_HW_ptr = (int *)GCD_HW_32_BASE;
 
 void main() {
 	
-	unsigned int opA,opB, GCD, ticksHW,ticksSW;
-	char buffer [10];
-	while(1){
+	unsigned int ticksHW,ticksSW;
+	//while(1){
 		// reset for next round
-		opA=0;
-		opB=0;
 		ticksSW=0;
 		ticksHW=0;
-		GCD = 0;
-		printf("#### HW/SW GCD Comparison ####\n");
-		printf("NOTE: Enter non-zero unsigned integers\n");
-		// Terminal Prompt
-		// Operand A
-		printf("Insert opA: ");
-		opA=inputParamTerminal(buffer);
+		printf("#### string.h vs String HW peripheral ####\n");
 		
-		// Operand B
-		printf("Insert opB: ");
-		opB=inputParamTerminal(buffer);
-		
-		// ###### SOFTWARE ######
-		// GCD SW calculation
+		char str1[128]; 		// double quotes add null terminator
+		char str2[128]; 		// double quotes add null terminator
+
+		printf("String 1: ");
+		inputParamTerminal(str1);
+		printf("String 1: %s\n",str1);
+
+		printf("String 2: ");
+		inputParamTerminal(str2);
+		printf("String 2: %s\n",str2);
+		//strcpy(str1, "abcdef");
+   		//strcpy(str2, "ABCDEF");
+
 		start_timer();
-		GCD = gcd_SW(opA,opB);
-		*(TIMER_ptr + 4) = 0x1; //dummy write to snap_low
-		ticksSW = 0xFFFF - *(TIMER_ptr + 4);
-		printf("SW_GCD = %d\n", GCD );		// Print Result to Terminal
-		printf("SW_Clock Cycles = %d\n", ticksSW );
-		// ###### END SOFTWARE ######
-		GCD=0;
-		// ###### HARDWARE ######
+		int ret = strcmp(str1,str2);
+		ticksHW = snapshot_timer();
 		
-		//*(GCD_HW_ptr) = opA;
-		start_timer();
-		//*(GCD_HW_ptr+1) = opB;
-		GCD = gcd_HW(opA,opB);
-		// poll until bit 0 of address 2 is set to 1
-		//while(!(*(GCD_HW_ptr+2) & 0x0001));
-		//GCD = *(GCD_HW_ptr+3);
-		*(TIMER_ptr + 4) = 0x1; //dummy write to snap_low
-		ticksHW = 0xFFFF - *(TIMER_ptr + 4);
-		printf("HW_GCD = %d\n", GCD );		// Print Result to Terminal
-		printf("HW_Clock Cycles = %d\n", ticksHW );
-		// ###### END HARDWARE ######
-		printf("#### END HW/SW GCD Comparison ####\n");
+		printf("=========== strcmp(str1,str2) ===========\n");
+		if(ret == 0) printf("Result = EQUAL\n"); else printf("Result = NOT EQUAL\n");
+		printf("CC     = %-10d\n",ticksHW);
+		printf("ET (s) = %-10f\n",ticksHW/CLOCK_RATE);
+		printf("=========================================\n");
 		
-	}
 }
 /********************************************************************************
  * inputParamTerminal Function 
 ********************************************************************************/
-unsigned int inputParamTerminal( char buffer []) 
+void inputParamTerminal( char buffer []) 
 {
 	unsigned char pos=0;
 	char a;
 	a=get_char();
-	while(a != '\r' && a != '\n') // carriage return, new line
+	while(a != '\r' && a != '\n' & pos<128) // carriage return, new line
 	{
 		// if something inserted
 		if(a!='\0'&& a!='\r' && a!='\n') {
@@ -104,11 +91,17 @@ unsigned int inputParamTerminal( char buffer [])
 			pos++;
 			put_char(a);			// print ASCII number
 		}
+		else if(a == '\r')
+			pos--;
+		
 		a=get_char();
 	}
+	if(pos==128)
+		put_char('\n');
 	put_char(a);
-
-	return stringToInt32bit(buffer,pos);
+	// add null char
+	buffer[pos] = '\0';
+	return;
 }
 
 /********************************************************************************
@@ -119,6 +112,16 @@ void start_timer(){
 	volatile int * TIMER_ptr = (int *)TIMER_BASE;
 	*(TIMER_ptr + 2) = 0xFFFF;			// Reset timer to 0xFFFF
 	*(TIMER_ptr + 1) = 0x4;				// Set start bit
+}
+
+/********************************************************************************
+ * snapshot_timer Function 
+********************************************************************************/
+
+unsigned int snapshot_timer()
+{
+	*(TIMER_ptr + 4) = 0x1; //dummy write to snap_low
+	return 0xFFFF - *(TIMER_ptr + 4);
 }
 
 /********************************************************************************

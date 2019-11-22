@@ -106,7 +106,4 @@ module String_HW (input logic clk, reset, go,
 					end
 			
 		       default: nextstate <= RESET;
-			endcase
-	end
-
-endmodule
+				 
