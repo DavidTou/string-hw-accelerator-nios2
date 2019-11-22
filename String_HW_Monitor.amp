@@ -13,7 +13,6 @@
             <source_file filepath="true">C_CODE/String__C_Code.c</source_file>
             <source_file filepath="true">C_CODE/address_map_nios2.h</source_file>
             <source_file filepath="true">C_CODE/nios2_ctrl_reg_macros.h</source_file>
-            <source_file filepath="true">C_CODE/niosII_jtag_uart.c</source_file>
         </source_files>
         <options>
             <compiler_flags>-g -O1 -ffunction-sections -fverbose-asm -fno-inline -mno-cache-volatile</compiler_flags>
