@@ -50,28 +50,31 @@ module String_HW (input logic clk, reset, go,
 							done <= 0;
 							nextstate <= S1;
 							count <= 0;
+							result <= 0;
 						end	
 				// Wait for go signal
 				S1: begin 
 						done <= 0;
+						result <= 0;
 						if (go)
 							nextstate <= S2;
 						else
 							nextstate <= S1;
 					end
-				// String Compare [index = 0]
+
 				// Read index for computation
-				S2:  begin 
-						if (index == 0)
-							nextstate <= S3;
-						else if (index == 1)
-							nextstate <= S4;
-						else 
-							nextstate <= S2;	// error, no valid index
+				S2: begin 
+						case (index)
+								0: nextstate <= S3;		// String Compare
+								1: nextstate <= S4; 	// String To Upper
+								2: nextstate <= S5; 	// String To Lower
+						  default: nextstate <= RESET; 	// Invalid index
+						endcase
 					end
+					
 				// String Compare [index = 0]
 				S3:	begin
-						if ((A & B) == A)
+						if (A == B)
 							result <= 1;	// equal
 						else
 							result <= 0;	// not equal
@@ -82,13 +85,30 @@ module String_HW (input logic clk, reset, go,
 				S4: begin
 						// if character is lowercase
 						if (count < lengthA) begin
-							if ((A[count] > 90) && (A[count] < 123))
+							if ((A[count] >= "a") && (A[count] <= "z"))
 								result[count] = A[count] - 32;
 							else
 								result[count] = A[count];
 								
 							count = count + 1;	// Increment element counter
 							nextstate = S4;
+							end
+						else begin
+							count = 0;
+							nextstate = DONE;
+						end
+					end
+				// String to Lower [index = 2]
+				S5: begin
+						// if character is uppercase
+						if (count < lengthA) begin
+							if ((A[count] >= "A") && (A[count] <= "Z"))
+								result[count] = A[count] + 32;
+							else
+								result[count] = A[count];
+								
+							count = count + 1;	// Increment element counter
+							nextstate = S5;
 							end
 						else begin
 							count = 0;
@@ -106,4 +126,6 @@ module String_HW (input logic clk, reset, go,
 					end
 			
 		       default: nextstate <= RESET;
-				 
+			endcase
+		end
+endmodule

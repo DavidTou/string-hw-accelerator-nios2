@@ -46,47 +46,92 @@ module String_HW_TB;
 		reset = 1;	#20;
 		reset = 0;
 		
-/************** Test index 0 (string compare), inputs (8, 6)******************/ 
-		A = 8'd8;
-		B = 8'd6;
+/************** Test index 0 (string compare), inputs (ab, ac)******************/ 
+		A = "ab";
+		B = "ac";
+		lengthA = 2;
+		lengthB = 2;
 		index = 0;
 		go = 1;     #200;
 		
 		assert (R == 0) 
-			$display("String_Compare(%0d,%0d) == %0d PASSED",8,6,0);
+			$display("String Compare(%s,%s) == %0d PASSED",A,B,R);
 		else 
-			$display("Case GCD A = %0d B = %0d, R = %0d failed",A[0],B[0],R);
+			$display("String Compare(%s,%s) == %0d failed",A,B,R);
 		
 		go = 0;	#20;
 	
-/************** Test index 0 (string compare), inputs (8, 8)******************/ 
-		A = 8'd8;
-		B = 8'd8;
-		index = 0;  #20;
-	    go = 1;     #200;
+/************** Test index 0 (string compare), inputs (ab, ab)******************/ 
+		A = "ab";
+		B = "ab";
+		lengthA = 2;
+		lengthB = 2;
+		index = 0;
+		go = 1;     #200;
 		
 		assert (R == 1) 
-			$display("String_Compare(%0d,%0d) == %0d PASSED",8,8,1);
+			$display("String Compare(%s,%s) == %0d PASSED",A,B,R);
 		else 
-			$display("Case GCD A = %0d B = %0d, R = %0d failed",A[0],B[0],R);
-
+			$display("String Compare(%s,%s) == %0d failed",A,B,R);
+		
 		go = 0;	#20;
 		
 /************** Test index 1 (string To Upper), inputs (ab)******************/ 
-		A[0] = 8'd97;	// 'a'
-		A[1] = 8'd98;   // 'b'
+		A[0] = "a";
+		A[1] = "b";   
 		lengthA = 2;
 		index = 1;  #20;
 	    go = 1;     #200;
 		
-		assert (R[0] == 65 && R[1] == 66) 
-			$display("String_To_Upper(%0d %0d) == %0d %0d PASSED",97,98, 65, 66);
+		assert (R == "AB") 
+			$display("String_To_Upper(%s) == %s PASSED", A, R);
 		else 
-			$display("Case GCD A = %0d B = %0d, R = %0d %0d failed",97,96, R[0],R[1]);
+			$display("Case String_To_Upper(%s) == %s failed", A, R);
+
+		go = 0;	#20;
+		
+/************** Test index 1 (string To Upper), inputs (aB)******************/ 
+		A[0] = "a";
+		A[1] = "B";   
+		lengthA = 2;
+		index = 1;  #20;
+	    go = 1;     #200;
+		
+		assert (R == "AB") 
+			$display("String_To_Upper(%s) == %s PASSED", A, R);
+		else 
+			$display("Case String_To_Upper(%s) == %s failed", A, R);
+
+		go = 0;	#20;
+
+/************** Test index 2 (string To Lower), inputs (AB)******************/ 
+		A[0] = "A";
+		A[1] = "B";   
+		lengthA = 2;
+		index = 2;  #20;
+	    go = 1;     #200;
+		
+		assert (R == "ab") 
+			$display("String_To_Upper(%s) == %s PASSED", A, R);
+		else 
+			$display("Case String_To_Upper(%s) == %s failed", A, R);
+
+		go = 0;	#20;
+		
+/************** Test index 2 (string To Lower), inputs (aB)******************/ 
+		A[0] = "a";
+		A[1] = "B";   
+		lengthA = 2;
+		index = 2;  #20;
+	    go = 1;     #200;
+		
+		assert (R == "ab") 
+			$display("String_To_Upper(%s) == %s PASSED", A, R);
+		else 
+			$display("Case String_To_Upper(%s) == %s failed", A, R);
 
 		go = 0;	#20;
 	end
-
 	always  begin
 		clk <= 1; #5;
 		clk <= 0; #5;
