@@ -63,8 +63,6 @@ void main() {
 		*(String_HW_ptr) = (uint32_t) out;
 		printf("1^ 4 chars: %s\n",out);
 
-
-		
 		//printf("String 2: ");
 		//inputParamTerminal(str2);
 		printf("4 chars read: %s\n",(char)*(String_HW_ptr));
