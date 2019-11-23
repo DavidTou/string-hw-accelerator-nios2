@@ -1,8 +1,0 @@
-C:/Users/David/Documents/MyAltera/Midterm/GCD_HW_accelerator/GCD_HW_64.sv {1 {vlog -work work -sv -stats=none C:/Users/David/Documents/MyAltera/Midterm/GCD_HW_accelerator/GCD_HW_64.sv
-Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module GCD_HW_64
-
-Top level modules:
-	GCD_HW_64
-
-} {} {}}

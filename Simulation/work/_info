@@ -7,79 +7,54 @@ z2
 !i10e 25
 !i10f 100
 cModel Technology
-dC:/Users/David/Documents/MyAltera/assignment3
-vGCD_HW
+dC:/Users/David/Documents/GitHub/string-hw-accelerator-nios2
+vString_HW_Avalon
 Z0 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
-!s110 1571167362
+Z1 !s110 1574549086
 !i10b 1
-!s100 1=SlC>Y>IO<MNP>aZbVOX3
-I;6fHz`TSadmeC=jWW>3H`2
-Z1 VDg1SIo80bB@j0V0VzS_@n1
-!s105 GCD_HW_sv_unit
+!s100 cSlnBBUXU6E[5okbF9:PD3
+I7<oTEV1QjfnR=8lL@B7OL2
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+!s105 String_FIFO_HW_Avalon_sv_unit
 S1
-Z2 dC:/Users/David/Documents/MyAltera/Midterm/Simulation
-w1571167116
-8C:/Users/David/Documents/MyAltera/Midterm/GCD_HW_accelerator/GCD_HW.sv
-FC:/Users/David/Documents/MyAltera/Midterm/GCD_HW_accelerator/GCD_HW.sv
-Z3 L0 25
+Z3 dC:/Users/David/Documents/GitHub/string-hw-accelerator-nios2/Simulation
+w1574549067
+8C:\Users\David\Documents\GitHub\string-hw-accelerator-nios2\Simulation\String_FIFO_HW_Avalon.sv
+FC:\Users\David\Documents\GitHub\string-hw-accelerator-nios2\Simulation\String_FIFO_HW_Avalon.sv
+L0 31
 Z4 OV;L;10.5b;63
 r1
 !s85 0
 31
-!s108 1571167362.000000
-!s107 C:/Users/David/Documents/MyAltera/Midterm/GCD_HW_accelerator/GCD_HW.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/David/Documents/MyAltera/Midterm/GCD_HW_accelerator/GCD_HW.sv|
+Z5 !s108 1574549086.000000
+!s107 C:\Users\David\Documents\GitHub\string-hw-accelerator-nios2\Simulation\String_FIFO_HW_Avalon.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:\Users\David\Documents\GitHub\string-hw-accelerator-nios2\Simulation\String_FIFO_HW_Avalon.sv|
 !i113 1
-Z5 o-work work -sv
-Z6 tCvgOpt 0
-n@g@c@d_@h@w
-vGCD_HW_64
+Z6 o-work work -sv
+Z7 tCvgOpt 0
+n@string_@h@w_@avalon
+vString_HW_TB
 R0
-Z7 !s110 1571171925
-!i10b 1
-!s100 Uf?:4Vo3c@e<X^?TX76<;3
-I4XFi@mfHD8c46l1G9KWFH3
 R1
-!s105 GCD_HW_64_sv_unit
-S1
+!i10b 1
+!s100 ]nL`O^Eo?XfUk9nm8R]NN3
+IT=]hU9=ROiXJkTk7`T9N?2
 R2
-w1571171655
-8C:/Users/David/Documents/MyAltera/Midterm/GCD_HW_accelerator/GCD_HW_64.sv
-FC:/Users/David/Documents/MyAltera/Midterm/GCD_HW_accelerator/GCD_HW_64.sv
+!s105 String_FIFO_HW_Avalon_TB_sv_unit
+S1
+R3
+w1574548942
+8C:\Users\David\Documents\GitHub\string-hw-accelerator-nios2\Simulation\String_FIFO_HW_Avalon_TB.sv
+FC:\Users\David\Documents\GitHub\string-hw-accelerator-nios2\Simulation\String_FIFO_HW_Avalon_TB.sv
 L0 24
 R4
 r1
 !s85 0
 31
-Z8 !s108 1571171925.000000
-!s107 C:/Users/David/Documents/MyAltera/Midterm/GCD_HW_accelerator/GCD_HW_64.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/David/Documents/MyAltera/Midterm/GCD_HW_accelerator/GCD_HW_64.sv|
-!i113 1
 R5
+!s107 C:\Users\David\Documents\GitHub\string-hw-accelerator-nios2\Simulation\String_FIFO_HW_Avalon_TB.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:\Users\David\Documents\GitHub\string-hw-accelerator-nios2\Simulation\String_FIFO_HW_Avalon_TB.sv|
+!i113 1
 R6
-n@g@c@d_@h@w_64
-vGCD_HW_tb
-R0
 R7
-!i10b 1
-!s100 3gMbz^_zRKLT6d5dWXWHT2
-Il0]<VMgb4QIj]LPm2A6Eh3
-R1
-!s105 GCD_HW_tb_sv_unit
-S1
-R2
-w1571171921
-8C:/Users/David/Documents/MyAltera/Midterm/Simulation/GCD_HW_tb.sv
-FC:/Users/David/Documents/MyAltera/Midterm/Simulation/GCD_HW_tb.sv
-R3
-R4
-r1
-!s85 0
-31
-R8
-!s107 C:/Users/David/Documents/MyAltera/Midterm/Simulation/GCD_HW_tb.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/David/Documents/MyAltera/Midterm/Simulation/GCD_HW_tb.sv|
-!i113 1
-R5
-R6
-n@g@c@d_@h@w_tb
+n@string_@h@w_@t@b
