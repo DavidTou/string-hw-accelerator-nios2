@@ -1,6 +1,14 @@
 <sld_project_info>
   <project>
+<<<<<<< HEAD
+<<<<<<< HEAD
     <hash md5_digest_80b="cc97844e3575873b403e"/>
+=======
+    <hash md5_digest_80b="5d8a7729808d6243e1d7"/>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+    <hash md5_digest_80b="5d8a7729808d6243e1d7"/>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
   </project>
   <file_info>
     <file device="EP4CE115F29C8" path="DE2_115_Basic_Computer.sof" usercode="0xFFFFFFFF"/>
@@ -217,7 +225,15 @@
   <sld_infos>
     <sld_info hpath="nios_system:NiosII" name="NiosII">
       <assignment_values>
+<<<<<<< HEAD
+<<<<<<< HEAD
         <assignment_value text="QSYS_NAME nios_system HAS_SOPCINFO 1 GENERATION_ID 1574544043"/>
+=======
+        <assignment_value text="QSYS_NAME nios_system HAS_SOPCINFO 1 GENERATION_ID 1574543443"/>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+        <assignment_value text="QSYS_NAME nios_system HAS_SOPCINFO 1 GENERATION_ID 1574543443"/>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
       </assignment_values>
       <parameters/>
     </sld_info>

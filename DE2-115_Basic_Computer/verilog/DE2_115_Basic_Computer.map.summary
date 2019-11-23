@@ -1,14 +1,36 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
 Analysis & Synthesis Status : Successful - Sat Nov 23 15:24:16 2019
+=======
+Analysis & Synthesis Status : Successful - Sat Nov 23 15:18:16 2019
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+Analysis & Synthesis Status : Successful - Sat Nov 23 15:18:16 2019
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : DE2_115_Basic_Computer
 Top-level Entity Name : DE2_115_Basic_Computer
 Family : Cyclone IV E
+<<<<<<< HEAD
+<<<<<<< HEAD
 Total logic elements : 12,472
     Total combinational functions : 10,195
     Dedicated logic registers : 7,066
 Total registers : 7066
 Total pins : 242
+=======
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+Total logic elements : 11,901
+    Total combinational functions : 9,517
+    Dedicated logic registers : 6,675
+Total registers : 6675
+Total pins : 123
+<<<<<<< HEAD
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
 Total virtual pins : 0
-Total memory bits : 15,161
+Total memory bits : 12,857
 Embedded Multiplier 9-bit elements : 7
 Total PLLs : 1

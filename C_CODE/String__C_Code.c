@@ -23,28 +23,28 @@
 // needed for printf
 #include <stdio.h>
 #include <string.h>
+#include <stdint.h>
 
 #define CLOCK_RATE 50000000.0
 
 /* function prototypes */
-unsigned int gcd_SW(unsigned int, unsigned int);
-unsigned int gcd_HW(unsigned int, unsigned int);
 char get_char( void );
-unsigned int get_uint( void );
+uint32_t get_uint( void );
 void put_char( char c );
-unsigned int pow(unsigned int n, char p);
-unsigned int stringToInt32bit(char buffer[],unsigned lastIndex);
+uint32_t pow(uint32_t n, char p);
+uint32_t stringToInt32bit(char buffer[],unsigned lastIndex);
 void inputParamTerminal( char buffer []) ;
 void start_timer();
-unsigned int snapshot_timer();
+uint32_t snapshot_timer();
+void get4Chars(char* string,char *out, int index);
 
 // POINTERS
 volatile int * TIMER_ptr = (int *)TIMER_BASE;
-volatile int * GCD_HW_ptr = (int *)GCD_HW_32_BASE;
+volatile int * String_HW_ptr = (int *)String_HW_BASE;
 
 void main() {
 	
-	unsigned int ticksHW,ticksSW;
+	uint32_t ticksHW,ticksSW;
 	//while(1){
 		// reset for next round
 		ticksSW=0;
@@ -53,14 +53,22 @@ void main() {
 		
 		char str1[128]; 		// double quotes add null terminator
 		char str2[128]; 		// double quotes add null terminator
-
+		char out [4];
 		printf("String 1: ");
 		inputParamTerminal(str1);
-		printf("String 1: %s\n",str1);
+		get4Chars(str1,out, 0);
+		*(String_HW_ptr) = (uint32_t) out;
+		printf("0^ 4 chars: %s\n",out);
+		get4Chars(str1,out, 1);
+		*(String_HW_ptr) = (uint32_t) out;
+		printf("1^ 4 chars: %s\n",out);
 
-		printf("String 2: ");
-		inputParamTerminal(str2);
-		printf("String 2: %s\n",str2);
+
+		
+		//printf("String 2: ");
+		//inputParamTerminal(str2);
+		printf("4 chars read: %s\n",(char)*(String_HW_ptr));
+		printf("4 chars read: %s\n",*(String_HW_ptr));
 		//strcpy(str1, "abcdef");
    		//strcpy(str2, "ABCDEF");
 
@@ -75,6 +83,21 @@ void main() {
 		printf("=========================================\n");
 		
 }
+/********************************************************************************
+ * get4Chars(char index) 
+ * index specifies 4 char blocks
+********************************************************************************/
+void get4Chars(char* string,char *out, int index)
+{
+	//char out [4];
+	out[0]=string[0+4*index];
+	out[1]=string[1+4*index];
+	out[2]=string[2+4*index];
+	out[3]=string[3+4*index];
+	//return (uint32_t)out;
+}
+
+
 /********************************************************************************
  * inputParamTerminal Function 
 ********************************************************************************/
@@ -118,19 +141,19 @@ void start_timer(){
  * snapshot_timer Function 
 ********************************************************************************/
 
-unsigned int snapshot_timer()
+uint32_t snapshot_timer()
 {
 	*(TIMER_ptr + 4) = 0x1; //dummy write to snap_low
 	return 0xFFFF - *(TIMER_ptr + 4);
 }
 
 /********************************************************************************
- * stringToInt32bit Function converts inputted string to unsigned integer 32 bit
+ * stringToInt32bit Function converts inputted string to uint32_teger 32 bit
 ********************************************************************************/
 
-unsigned int stringToInt32bit(char buffer[],unsigned lastIndex)
+uint32_t stringToInt32bit(char buffer[],unsigned lastIndex)
 {
-	unsigned int n=0;
+	uint32_t n=0;
 	int k;
 	for(k=0; k<lastIndex;k++) {
 		n+=(buffer[k]-0x30)*pow(10,lastIndex-k-1);	// ASCII to int
@@ -144,9 +167,9 @@ unsigned int stringToInt32bit(char buffer[],unsigned lastIndex)
  * POW Function
 ********************************************************************************/
 
-unsigned int pow(unsigned int base, char p)
+uint32_t pow(uint32_t base, char p)
 {
-	unsigned int result=1;
+	uint32_t result=1;
 	char exp;
 	for(exp=p; exp>0;exp--)
 		result = result*base;
@@ -154,43 +177,6 @@ unsigned int pow(unsigned int base, char p)
 	return result;
 }
 
-/********************************************************************************
- * GCD HARWARE Function
-********************************************************************************/
-
-unsigned int gcd_HW(unsigned int opA, unsigned int opB)
-{
-	unsigned int GCD=0;
-	// WRITE Operands to Avalon Interface
-	*(GCD_HW_ptr) = opA;
-	*(GCD_HW_ptr+1) = opB;
-	// Poll until bit 0 of Control_Register(address 2) is set to 1
-	while(!(*(GCD_HW_ptr+2) & 0x0001));
-	GCD = *(GCD_HW_ptr+3);
-	return GCD;
-}
-
-/********************************************************************************
- * GCD SOFTWARE Algorithm Function
-********************************************************************************/
-
-unsigned int gcd_SW(unsigned int m, unsigned int n)
-{
-	unsigned int temp;
-	if (n > m)
-	{
-		temp = m;
-		m = n;
-		n = temp;
-	}
-	while (n != 0)
-	{
-		temp = m % n; // Remeinder
-		m = n;
-		n = temp;
-	}
-	return m;
-}
 
 /********************************************************************************
 * Subroutine to read a character from the JTAG UART

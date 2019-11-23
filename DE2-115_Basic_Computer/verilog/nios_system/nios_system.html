@@ -67,7 +67,15 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </table>
   <table class="blueBar">
    <tr>
+<<<<<<< HEAD
+<<<<<<< HEAD
     <td class="l">2019.11.23.15:20:43</td>
+=======
+    <td class="l">2019.11.23.15:10:43</td>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+    <td class="l">2019.11.23.15:10:43</td>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
     <td class="r">Datasheet</td>
    </tr>
   </table>
@@ -87,6 +95,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </a> Nios II 18.1
      <br/>All Components
      <br/>&#160;&#160;
+<<<<<<< HEAD
+<<<<<<< HEAD
      <a href="#module_Expansion_JP5"><b>Expansion_JP5</b>
      </a> altera_up_avalon_parallel_port 18.0
      <br/>&#160;&#160;
@@ -99,6 +109,16 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <a href="#module_HEX7_HEX4"><b>HEX7_HEX4</b>
      </a> altera_up_avalon_parallel_port 18.0
      <br/>&#160;&#160;
+=======
+     <a href="#module_Green_LEDs"><b>Green_LEDs</b>
+     </a> altera_up_avalon_parallel_port 18.0
+     <br/>&#160;&#160;
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+     <a href="#module_Green_LEDs"><b>Green_LEDs</b>
+     </a> altera_up_avalon_parallel_port 18.0
+     <br/>&#160;&#160;
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
      <a href="#module_Interval_Timer"><b>Interval_Timer</b>
      </a> altera_avalon_timer 18.1
      <br/>&#160;&#160;
@@ -120,9 +140,15 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <a href="#module_SRAM"><b>SRAM</b>
      </a> altera_up_avalon_sram 18.0
      <br/>&#160;&#160;
+<<<<<<< HEAD
+<<<<<<< HEAD
      <a href="#module_Serial_Port"><b>Serial_Port</b>
      </a> altera_up_avalon_rs232 17.1
      <br/>&#160;&#160;
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
      <a href="#module_Slider_Switches"><b>Slider_Switches</b>
      </a> altera_up_avalon_parallel_port 18.0
      <br/>&#160;&#160;
@@ -132,6 +158,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <a href="#module_SysID"><b>SysID</b>
      </a> altera_avalon_sysid_qsys 18.1</span>
    </div>
+<<<<<<< HEAD
+<<<<<<< HEAD
   </div>
   <div style="width:100% ;  height:10px"> </div>
   <div class="label">Memory Map</div>
@@ -818,11 +846,208 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <h2>Software Assignments</h2>(none)</td>
     </tr>
    </table>
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
   </div>
-  <a name="module_HEX7_HEX4"> </a>
+  <div style="width:100% ;  height:10px"> </div>
+  <div class="label">Memory Map</div>
+  <table class="mmap">
+   <tr>
+    <td class="empty" rowspan="2"></td>
+    <td class="mastermodule" colspan="1">
+     <a href="#module_JTAG_to_FPGA_Bridge"><b>JTAG_to_FPGA_Bridge</b>
+     </a>
+    </td>
+    <td class="mastermodule" colspan="2">
+     <a href="#module_Nios2"><b>Nios2</b>
+     </a>
+    </td>
+   </tr>
+   <tr>
+    <td class="masterlr">&#160;master</td>
+    <td class="masterl">&#160;data_master</td>
+    <td class="masterr">&#160;instruction_master</td>
+   </tr>
+   <tr>
+    <td class="slavemodule">&#160;
+     <a href="#module_Green_LEDs"><b>Green_LEDs</b>
+     </a>
+    </td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slaveb">avalon_parallel_port_slave&#160;</td>
+    <td class="addr"><span style="color:#989898">0x</span>10000010</td>
+    <td class="addr"><span style="color:#989898">0x</span>10000010</td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slavemodule">&#160;
+     <a href="#module_Interval_Timer"><b>Interval_Timer</b>
+     </a>
+    </td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slaveb">s1&#160;</td>
+    <td class="addr"><span style="color:#989898">0x</span>10002000</td>
+    <td class="addr"><span style="color:#989898">0x</span>10002000</td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slavemodule">&#160;
+     <a href="#module_JTAG_UART"><b>JTAG_UART</b>
+     </a>
+    </td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slaveb">avalon_jtag_slave&#160;</td>
+    <td class="addr"><span style="color:#989898">0x</span>10001000</td>
+    <td class="addr"><span style="color:#989898">0x</span>10001000</td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slavemodule">&#160;
+     <a href="#module_Nios2"><b>Nios2</b>
+     </a>
+    </td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slaveb">debug_mem_slave&#160;</td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>0a000000</td>
+    <td class="addr"><span style="color:#989898">0x</span>0a000000</td>
+   </tr>
+   <tr>
+    <td class="slavemodule">&#160;
+     <a href="#module_Pushbuttons"><b>Pushbuttons</b>
+     </a>
+    </td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slaveb">avalon_parallel_port_slave&#160;</td>
+    <td class="addr"><span style="color:#989898">0x</span>10000050</td>
+    <td class="addr"><span style="color:#989898">0x</span>10000050</td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slavemodule">&#160;
+     <a href="#module_Red_LEDs"><b>Red_LEDs</b>
+     </a>
+    </td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slaveb">avalon_parallel_port_slave&#160;</td>
+    <td class="addr"><span style="color:#989898">0x</span>10000000</td>
+    <td class="addr"><span style="color:#989898">0x</span>10000000</td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slavemodule">&#160;
+     <a href="#module_SDRAM"><b>SDRAM</b>
+     </a>
+    </td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slaveb">s1&#160;</td>
+    <td class="addr"><span style="color:#989898">0x</span>00000000</td>
+    <td class="addr"><span style="color:#989898">0x</span>00000000</td>
+    <td class="addr"><span style="color:#989898">0x</span>00000000</td>
+   </tr>
+   <tr>
+    <td class="slavemodule">&#160;
+     <a href="#module_SRAM"><b>SRAM</b>
+     </a>
+    </td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slaveb">avalon_sram_slave&#160;</td>
+    <td class="addr"><span style="color:#989898">0x</span>08000000</td>
+    <td class="addr"><span style="color:#989898">0x</span>08000000</td>
+    <td class="addr"><span style="color:#989898">0x</span>08000000</td>
+   </tr>
+   <tr>
+    <td class="slavemodule">&#160;
+     <a href="#module_Slider_Switches"><b>Slider_Switches</b>
+     </a>
+    </td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slaveb">avalon_parallel_port_slave&#160;</td>
+    <td class="addr"><span style="color:#989898">0x</span>10000040</td>
+    <td class="addr"><span style="color:#989898">0x</span>10000040</td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slavemodule">&#160;
+     <a href="#module_String_HW_0"><b>String_HW_0</b>
+     </a>
+    </td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slaveb">avalon_slave_0&#160;</td>
+    <td class="addr"><span style="color:#989898">0x</span>08200000</td>
+    <td class="addr"><span style="color:#989898">0x</span>08200000</td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slavemodule">&#160;
+     <a href="#module_SysID"><b>SysID</b>
+     </a>
+    </td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slaveb">control_slave&#160;</td>
+    <td class="addr"><span style="color:#989898">0x</span>10002020</td>
+    <td class="addr"><span style="color:#989898">0x</span>10002020</td>
+    <td class="empty"></td>
+   </tr>
+  </table>
+  <a name="module_Green_LEDs"> </a>
   <div>
    <hr/>
+<<<<<<< HEAD
+<<<<<<< HEAD
    <h2>HEX7_HEX4</h2>altera_up_avalon_parallel_port v18.0
+=======
+   <h2>Green_LEDs</h2>altera_up_avalon_parallel_port v18.0
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+   <h2>Green_LEDs</h2>altera_up_avalon_parallel_port v18.0
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
@@ -831,7 +1056,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_Nios2">Nios2</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="12">HEX7_HEX4</td>
+      <td class="main" rowspan="12">Green_LEDs</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_parallel_port_slave</td>
@@ -891,7 +1116,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">preset</td>
-        <td class="parametervalue">Seven Segment Displays</td>
+        <td class="parametervalue">LEDs</td>
        </tr>
        <tr>
         <td class="parametername">leds</td>
@@ -899,7 +1124,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">sevensegs</td>
-        <td class="parametervalue">7 to 4</td>
+        <td class="parametervalue">3 to 0</td>
        </tr>
        <tr>
         <td class="parametername">gpio</td>
@@ -907,7 +1132,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">DW</td>
-        <td class="parametervalue">32</td>
+        <td class="parametervalue">9</td>
        </tr>
        <tr>
         <td class="parametername">direction</td>
@@ -1352,7 +1577,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_System_PLL">System_PLL</a>
       </td>
       <td class="from">sys_clk&#160;&#160;</td>
-      <td class="main" rowspan="45">JTAG_to_FPGA_Bridge</td>
+      <td class="main" rowspan="36">JTAG_to_FPGA_Bridge</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clk</td>
@@ -1380,6 +1605,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">master&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
+<<<<<<< HEAD
+       <a href="#module_Slider_Switches">Slider_Switches</a>
+=======
        <a href="#module_JTAG_UART">JTAG_UART</a>
       </td>
      </tr>
@@ -1413,38 +1641,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="from">master&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
        <a href="#module_Green_LEDs">Green_LEDs</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;avalon_parallel_port_slave</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">master&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_HEX3_HEX0">HEX3_HEX0</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;avalon_parallel_port_slave</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">master&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_HEX7_HEX4">HEX7_HEX4</a>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
       </td>
      </tr>
      <tr>
@@ -1476,6 +1673,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">master&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
+<<<<<<< HEAD
+=======
        <a href="#module_Pushbuttons">Pushbuttons</a>
       </td>
      </tr>
@@ -1492,29 +1691,14 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">master&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
-       <a href="#module_Expansion_JP5">Expansion_JP5</a>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+       <a href="#module_String_HW_0">String_HW_0</a>
       </td>
      </tr>
      <tr>
       <td></td>
       <td></td>
-      <td class="to">&#160;&#160;avalon_parallel_port_slave</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">master&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_Serial_Port">Serial_Port</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;avalon_rs232_slave</td>
+      <td class="to">&#160;&#160;avalon_slave_0</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -1647,12 +1831,71 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
+<<<<<<< HEAD
+=======
      <tr>
       <td class="neighbor" rowspan="4">
        <a href="#module_System_PLL">System_PLL</a>
       </td>
       <td class="from">sys_clk&#160;&#160;</td>
+      <td class="main" rowspan="69">Nios2</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clk</td>
+     </tr>
+     <tr>
+      <td class="from">reset_source&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;reset</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">data_master&#160;&#160;</td>
+      <td class="neighbor" rowspan="6">
+       <a href="#module_JTAG_UART">JTAG_UART</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;avalon_jtag_slave</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;irq</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">debug_reset_request&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;reset</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+     <tr>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_System_PLL">System_PLL</a>
+      </td>
+      <td class="from">sys_clk&#160;&#160;</td>
+<<<<<<< HEAD
       <td class="main" rowspan="91">Nios2</td>
+=======
+      <td class="main" rowspan="69">Nios2</td>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
      </tr>
      <tr>
       <td class="to">&#160;&#160;clk</td>
@@ -1704,6 +1947,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
       <td class="neighbor" rowspan="4">
+<<<<<<< HEAD
        <a href="#module_Red_LEDs">Red_LEDs</a>
       </td>
      </tr>
@@ -1756,58 +2000,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
       <td class="neighbor" rowspan="4">
-       <a href="#module_HEX3_HEX0">HEX3_HEX0</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;avalon_parallel_port_slave</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">debug_reset_request&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="4">
-       <a href="#module_HEX7_HEX4">HEX7_HEX4</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;avalon_parallel_port_slave</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">debug_reset_request&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="4">
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
        <a href="#module_Slider_Switches">Slider_Switches</a>
       </td>
      </tr>
@@ -1869,60 +2063,15 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="6">
-       <a href="#module_Expansion_JP5">Expansion_JP5</a>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_String_HW_0">String_HW_0</a>
+<<<<<<< HEAD
       </td>
      </tr>
      <tr>
       <td></td>
       <td></td>
-      <td class="to">&#160;&#160;avalon_parallel_port_slave</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;interrupt</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">debug_reset_request&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="6">
-       <a href="#module_Serial_Port">Serial_Port</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;avalon_rs232_slave</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;interrupt</td>
+      <td class="to">&#160;&#160;avalon_slave_0</td>
      </tr>
      <tr>
       <td></td>
@@ -1943,12 +2092,27 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="from">data_master&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
        <a href="#module_String_HW_0">String_HW_0</a>
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
       </td>
      </tr>
      <tr>
       <td></td>
       <td></td>
       <td class="to">&#160;&#160;avalon_slave_0</td>
+<<<<<<< HEAD
+=======
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">debug_reset_request&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;reset</td>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -2815,7 +2979,15 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">dataSlaveMapParam</td>
+<<<<<<< HEAD
+<<<<<<< HEAD
         <td class="parametervalue">&lt;address-map&gt;&lt;slave name='SDRAM.s1' start='0x0' end='0x8000000' type='altera_avalon_new_sdram_controller.s1' /&gt;&lt;slave name='SRAM.avalon_sram_slave' start='0x8000000' end='0x8200000' type='altera_up_avalon_sram.avalon_sram_slave' /&gt;&lt;slave name='String_HW_0.avalon_slave_0' start='0x8200000' end='0x8200020' type='String_HW.avalon_slave_0' /&gt;&lt;slave name='Nios2.debug_mem_slave' start='0xA000000' end='0xA000800' type='altera_nios2_gen2.debug_mem_slave' /&gt;&lt;slave name='Red_LEDs.avalon_parallel_port_slave' start='0x10000000' end='0x10000010' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /&gt;&lt;slave name='Green_LEDs.avalon_parallel_port_slave' start='0x10000010' end='0x10000020' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /&gt;&lt;slave name='HEX3_HEX0.avalon_parallel_port_slave' start='0x10000020' end='0x10000030' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /&gt;&lt;slave name='HEX7_HEX4.avalon_parallel_port_slave' start='0x10000030' end='0x10000040' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /&gt;&lt;slave name='Slider_Switches.avalon_parallel_port_slave' start='0x10000040' end='0x10000050' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /&gt;&lt;slave name='Pushbuttons.avalon_parallel_port_slave' start='0x10000050' end='0x10000060' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /&gt;&lt;slave name='Expansion_JP5.avalon_parallel_port_slave' start='0x10000060' end='0x10000070' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /&gt;&lt;slave name='JTAG_UART.avalon_jtag_slave' start='0x10001000' end='0x10001008' type='altera_avalon_jtag_uart.avalon_jtag_slave' /&gt;&lt;slave name='Serial_Port.avalon_rs232_slave' start='0x10001010' end='0x10001018' type='altera_up_avalon_rs232.avalon_rs232_slave' /&gt;&lt;slave name='Interval_Timer.s1' start='0x10002000' end='0x10002020' type='altera_avalon_timer.s1' /&gt;&lt;slave name='SysID.control_slave' start='0x10002020' end='0x10002028' type='altera_avalon_sysid_qsys.control_slave' /&gt;&lt;/address-map&gt;</td>
+=======
+        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='SDRAM.s1' start='0x0' end='0x8000000' type='altera_avalon_new_sdram_controller.s1' /&gt;&lt;slave name='SRAM.avalon_sram_slave' start='0x8000000' end='0x8200000' type='altera_up_avalon_sram.avalon_sram_slave' /&gt;&lt;slave name='String_HW_0.avalon_slave_0' start='0x8200000' end='0x8200020' type='String_HW.avalon_slave_0' /&gt;&lt;slave name='Nios2.debug_mem_slave' start='0xA000000' end='0xA000800' type='altera_nios2_gen2.debug_mem_slave' /&gt;&lt;slave name='Red_LEDs.avalon_parallel_port_slave' start='0x10000000' end='0x10000010' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /&gt;&lt;slave name='Green_LEDs.avalon_parallel_port_slave' start='0x10000010' end='0x10000020' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /&gt;&lt;slave name='Slider_Switches.avalon_parallel_port_slave' start='0x10000040' end='0x10000050' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /&gt;&lt;slave name='Pushbuttons.avalon_parallel_port_slave' start='0x10000050' end='0x10000060' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /&gt;&lt;slave name='JTAG_UART.avalon_jtag_slave' start='0x10001000' end='0x10001008' type='altera_avalon_jtag_uart.avalon_jtag_slave' /&gt;&lt;slave name='Interval_Timer.s1' start='0x10002000' end='0x10002020' type='altera_avalon_timer.s1' /&gt;&lt;slave name='SysID.control_slave' start='0x10002020' end='0x10002028' type='altera_avalon_sysid_qsys.control_slave' /&gt;&lt;/address-map&gt;</td>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='SDRAM.s1' start='0x0' end='0x8000000' type='altera_avalon_new_sdram_controller.s1' /&gt;&lt;slave name='SRAM.avalon_sram_slave' start='0x8000000' end='0x8200000' type='altera_up_avalon_sram.avalon_sram_slave' /&gt;&lt;slave name='String_HW_0.avalon_slave_0' start='0x8200000' end='0x8200020' type='String_HW.avalon_slave_0' /&gt;&lt;slave name='Nios2.debug_mem_slave' start='0xA000000' end='0xA000800' type='altera_nios2_gen2.debug_mem_slave' /&gt;&lt;slave name='Red_LEDs.avalon_parallel_port_slave' start='0x10000000' end='0x10000010' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /&gt;&lt;slave name='Green_LEDs.avalon_parallel_port_slave' start='0x10000010' end='0x10000020' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /&gt;&lt;slave name='Slider_Switches.avalon_parallel_port_slave' start='0x10000040' end='0x10000050' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /&gt;&lt;slave name='Pushbuttons.avalon_parallel_port_slave' start='0x10000050' end='0x10000060' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /&gt;&lt;slave name='JTAG_UART.avalon_jtag_slave' start='0x10001000' end='0x10001008' type='altera_avalon_jtag_uart.avalon_jtag_slave' /&gt;&lt;slave name='Interval_Timer.s1' start='0x10002000' end='0x10002020' type='altera_avalon_timer.s1' /&gt;&lt;slave name='SysID.control_slave' start='0x10002020' end='0x10002028' type='altera_avalon_sysid_qsys.control_slave' /&gt;&lt;/address-map&gt;</td>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
        </tr>
        <tr>
         <td class="parametername">tightlyCoupledDataMaster0MapParam</td>
@@ -2867,7 +3039,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">internalIrqMaskSystemInfo</td>
-        <td class="parametervalue">3331</td>
+        <td class="parametervalue">259</td>
        </tr>
        <tr>
         <td class="parametername">customInstSlavesSystemInfo</td>
@@ -3781,129 +3953,18 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     </tr>
    </table>
   </div>
-  <a name="module_Serial_Port"> </a>
-  <div>
-   <hr/>
-   <h2>Serial_Port</h2>altera_up_avalon_rs232 v17.1
-   <br/>
-   <div class="greydiv">
-    <table class="connectionboxes">
-     <tr>
-      <td class="neighbor" rowspan="6">
-       <a href="#module_Nios2">Nios2</a>
-      </td>
-      <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="14">Serial_Port</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;avalon_rs232_slave</td>
-     </tr>
-     <tr>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;interrupt</td>
-     </tr>
-     <tr>
-      <td class="from">debug_reset_request&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_JTAG_to_FPGA_Bridge">JTAG_to_FPGA_Bridge</a>
-      </td>
-      <td class="from">master&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;avalon_rs232_slave</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="4">
-       <a href="#module_System_PLL">System_PLL</a>
-      </td>
-      <td class="from">sys_clk&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;clk</td>
-     </tr>
-     <tr>
-      <td class="from">reset_source&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset</td>
-     </tr>
-    </table>
-   </div>
-   <br/>
-   <br/>
-   <table class="flowbox">
-    <tr>
-     <td class="parametersbox">
-      <h2>Parameters</h2>
-      <table>
-       <tr>
-        <td class="parametername">ref_clk_freq</td>
-        <td class="parametervalue">5.0E7</td>
-       </tr>
-       <tr>
-        <td class="parametername">avalon_bus_type</td>
-        <td class="parametervalue">Memory Mapped</td>
-       </tr>
-       <tr>
-        <td class="parametername">baud</td>
-        <td class="parametervalue">115200</td>
-       </tr>
-       <tr>
-        <td class="parametername">parity</td>
-        <td class="parametervalue">Odd</td>
-       </tr>
-       <tr>
-        <td class="parametername">data_bits</td>
-        <td class="parametervalue">8</td>
-       </tr>
-       <tr>
-        <td class="parametername">stop_bits</td>
-        <td class="parametervalue">1</td>
-       </tr>
-       <tr>
-        <td class="parametername">AUTO_DEVICE_FAMILY</td>
-        <td class="parametervalue">CYCLONEIVE</td>
-       </tr>
-       <tr>
-        <td class="parametername">AUTO_CLK_CLOCK_RATE</td>
-        <td class="parametervalue">50000000</td>
-       </tr>
-       <tr>
-        <td class="parametername">deviceFamily</td>
-        <td class="parametervalue">Cyclone IV E</td>
-       </tr>
-       <tr>
-        <td class="parametername">generateLegacySim</td>
-        <td class="parametervalue">false</td>
-       </tr>
-      </table>
-     </td>
-    </tr>
-   </table>&#160;&#160;
-   <table class="flowbox">
-    <tr>
-     <td class="parametersbox">
-      <h2>Software Assignments</h2>(none)</td>
-    </tr>
-   </table>
-  </div>
   <a name="module_Slider_Switches"> </a>
   <div>
    <hr/>
+<<<<<<< HEAD
+<<<<<<< HEAD
+   <h2>Serial_Port</h2>altera_up_avalon_rs232 v17.1
+=======
    <h2>Slider_Switches</h2>altera_up_avalon_parallel_port v18.0
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+   <h2>Slider_Switches</h2>altera_up_avalon_parallel_port v18.0
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
@@ -3963,6 +4024,17 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <h2>Parameters</h2>
       <table>
        <tr>
+<<<<<<< HEAD
+<<<<<<< HEAD
+        <td class="parametername">ref_clk_freq</td>
+        <td class="parametervalue">5.0E7</td>
+       </tr>
+       <tr>
+        <td class="parametername">avalon_bus_type</td>
+        <td class="parametervalue">Memory Mapped</td>
+=======
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
         <td class="parametername">board</td>
         <td class="parametervalue">DE2-115</td>
        </tr>
@@ -3973,6 +4045,10 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <tr>
         <td class="parametername">preset</td>
         <td class="parametervalue">Slider Switches</td>
+<<<<<<< HEAD
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
        </tr>
        <tr>
         <td class="parametername">leds</td>
@@ -4048,6 +4124,96 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <a name="module_String_HW_0"> </a>
   <div>
    <hr/>
+<<<<<<< HEAD
+<<<<<<< HEAD
+   <h2>Slider_Switches</h2>altera_up_avalon_parallel_port v18.0
+=======
+   <h2>String_HW_0</h2>String_HW v1.0
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+   <h2>String_HW_0</h2>String_HW v1.0
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_Nios2">Nios2</a>
+      </td>
+      <td class="from">data_master&#160;&#160;</td>
+      <td class="main" rowspan="12">String_HW_0</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;avalon_slave_0</td>
+     </tr>
+     <tr>
+      <td class="from">debug_reset_request&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;reset</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_JTAG_to_FPGA_Bridge">JTAG_to_FPGA_Bridge</a>
+      </td>
+      <td class="from">master&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;avalon_slave_0</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_System_PLL">System_PLL</a>
+      </td>
+      <td class="from">sys_clk&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr>
+      <td class="from">reset_source&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;reset</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+<<<<<<< HEAD
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
+  <a name="module_String_HW_0"> </a>
+  <div>
+   <hr/>
    <h2>String_HW_0</h2>String_HW v1.0
    <br/>
    <div class="greydiv">
@@ -4090,6 +4256,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <h2>Parameters</h2>
       <table>
        <tr>
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
         <td class="parametername">deviceFamily</td>
         <td class="parametervalue">UNKNOWN</td>
        </tr>
@@ -4176,7 +4344,15 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">timestamp</td>
+<<<<<<< HEAD
+<<<<<<< HEAD
         <td class="parametervalue">1574544043</td>
+=======
+        <td class="parametervalue">1574543443</td>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+        <td class="parametervalue">1574543443</td>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
        </tr>
        <tr>
         <td class="parametername">deviceFamily</td>
@@ -4201,7 +4377,15 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">TIMESTAMP</td>
+<<<<<<< HEAD
+<<<<<<< HEAD
         <td class="parametervalue">1574544043</td>
+=======
+        <td class="parametervalue">1574543443</td>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+        <td class="parametervalue">1574543443</td>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
        </tr>
       </table>
      </td>
@@ -4294,7 +4478,15 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <table class="blueBar">
    <tr>
     <td class="l">generation took 0.01 seconds</td>
+<<<<<<< HEAD
+<<<<<<< HEAD
     <td class="r">rendering took 0.08 seconds</td>
+=======
+    <td class="r">rendering took 0.07 seconds</td>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+    <td class="r">rendering took 0.07 seconds</td>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
    </tr>
   </table>
  </body>

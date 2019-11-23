@@ -1,16 +1,38 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
 Fitter Status : Successful - Sat Nov 23 15:25:43 2019
+=======
+Fitter Status : Successful - Sat Nov 23 15:19:28 2019
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+Fitter Status : Successful - Sat Nov 23 15:19:28 2019
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : DE2_115_Basic_Computer
 Top-level Entity Name : DE2_115_Basic_Computer
 Family : Cyclone IV E
 Device : EP4CE115F29C8
 Timing Models : Final
+<<<<<<< HEAD
+<<<<<<< HEAD
 Total logic elements : 11,397 / 114,480 ( 10 % )
     Total combinational functions : 10,220 / 114,480 ( 9 % )
     Dedicated logic registers : 6,770 / 114,480 ( 6 % )
 Total registers : 7131
 Total pins : 242 / 529 ( 46 % )
+=======
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+Total logic elements : 10,847 / 114,480 ( 9 % )
+    Total combinational functions : 9,543 / 114,480 ( 8 % )
+    Dedicated logic registers : 6,548 / 114,480 ( 6 % )
+Total registers : 6740
+Total pins : 123 / 529 ( 23 % )
+<<<<<<< HEAD
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
 Total virtual pins : 0
-Total memory bits : 15,161 / 3,981,312 ( < 1 % )
+Total memory bits : 12,857 / 3,981,312 ( < 1 % )
 Embedded Multiplier 9-bit elements : 7 / 532 ( 1 % )
 Total PLLs : 1 / 4 ( 25 % )

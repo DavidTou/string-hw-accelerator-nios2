@@ -29,7 +29,15 @@
 // Generation parameters:
 //   output_name:         nios_system_mm_interconnect_0_rsp_demux
 //   ST_DATA_W:           110
+<<<<<<< HEAD
+<<<<<<< HEAD
 //   ST_CHANNEL_W:        15
+=======
+//   ST_CHANNEL_W:        11
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+//   ST_CHANNEL_W:        11
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
 //   NUM_OUTPUTS:         2
 //   VALID_WIDTH:         1
 // ------------------------------------------
@@ -47,7 +55,15 @@ module nios_system_mm_interconnect_0_rsp_demux
     // -------------------
     input  [1-1      : 0]   sink_valid,
     input  [110-1    : 0]   sink_data, // ST_DATA_W=110
+<<<<<<< HEAD
+<<<<<<< HEAD
     input  [15-1 : 0]   sink_channel, // ST_CHANNEL_W=15
+=======
+    input  [11-1 : 0]   sink_channel, // ST_CHANNEL_W=11
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+    input  [11-1 : 0]   sink_channel, // ST_CHANNEL_W=11
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
     input                         sink_startofpacket,
     input                         sink_endofpacket,
     output                        sink_ready,
@@ -57,14 +73,30 @@ module nios_system_mm_interconnect_0_rsp_demux
     // -------------------
     output reg                      src0_valid,
     output reg [110-1    : 0] src0_data, // ST_DATA_W=110
+<<<<<<< HEAD
+<<<<<<< HEAD
     output reg [15-1 : 0] src0_channel, // ST_CHANNEL_W=15
+=======
+    output reg [11-1 : 0] src0_channel, // ST_CHANNEL_W=11
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+    output reg [11-1 : 0] src0_channel, // ST_CHANNEL_W=11
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
     output reg                      src0_startofpacket,
     output reg                      src0_endofpacket,
     input                           src0_ready,
 
     output reg                      src1_valid,
     output reg [110-1    : 0] src1_data, // ST_DATA_W=110
+<<<<<<< HEAD
+<<<<<<< HEAD
     output reg [15-1 : 0] src1_channel, // ST_CHANNEL_W=15
+=======
+    output reg [11-1 : 0] src1_channel, // ST_CHANNEL_W=11
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+    output reg [11-1 : 0] src1_channel, // ST_CHANNEL_W=11
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
     output reg                      src1_startofpacket,
     output reg                      src1_endofpacket,
     input                           src1_ready,
@@ -109,7 +141,15 @@ module nios_system_mm_interconnect_0_rsp_demux
     assign ready_vector[0] = src0_ready;
     assign ready_vector[1] = src1_ready;
 
+<<<<<<< HEAD
+<<<<<<< HEAD
     assign sink_ready = |(sink_channel & {{13{1'b0}},{ready_vector[NUM_OUTPUTS - 1 : 0]}});
+=======
+    assign sink_ready = |(sink_channel & {{9{1'b0}},{ready_vector[NUM_OUTPUTS - 1 : 0]}});
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+    assign sink_ready = |(sink_channel & {{9{1'b0}},{ready_vector[NUM_OUTPUTS - 1 : 0]}});
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
 
 endmodule
 

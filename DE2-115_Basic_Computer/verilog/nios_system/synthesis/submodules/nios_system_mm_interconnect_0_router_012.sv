@@ -50,9 +50,21 @@ module nios_system_mm_interconnect_0_router_012_default_decode
                DEFAULT_DESTID = 1 
    )
   (output [96 - 93 : 0] default_destination_id,
+<<<<<<< HEAD
+<<<<<<< HEAD
    output [15-1 : 0] default_wr_channel,
    output [15-1 : 0] default_rd_channel,
    output [15-1 : 0] default_src_channel
+=======
+   output [11-1 : 0] default_wr_channel,
+   output [11-1 : 0] default_rd_channel,
+   output [11-1 : 0] default_src_channel
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+   output [11-1 : 0] default_wr_channel,
+   output [11-1 : 0] default_rd_channel,
+   output [11-1 : 0] default_src_channel
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
   );
 
   assign default_destination_id = 
@@ -63,7 +75,15 @@ module nios_system_mm_interconnect_0_router_012_default_decode
       assign default_src_channel = '0;
     end
     else begin : default_channel_assignment
+<<<<<<< HEAD
+<<<<<<< HEAD
       assign default_src_channel = 15'b1 << DEFAULT_CHANNEL;
+=======
+      assign default_src_channel = 11'b1 << DEFAULT_CHANNEL;
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+      assign default_src_channel = 11'b1 << DEFAULT_CHANNEL;
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
     end
   endgenerate
 
@@ -73,8 +93,18 @@ module nios_system_mm_interconnect_0_router_012_default_decode
       assign default_rd_channel = '0;
     end
     else begin : default_rw_channel_assignment
+<<<<<<< HEAD
+<<<<<<< HEAD
       assign default_wr_channel = 15'b1 << DEFAULT_WR_CHANNEL;
       assign default_rd_channel = 15'b1 << DEFAULT_RD_CHANNEL;
+=======
+      assign default_wr_channel = 11'b1 << DEFAULT_WR_CHANNEL;
+      assign default_rd_channel = 11'b1 << DEFAULT_RD_CHANNEL;
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+      assign default_wr_channel = 11'b1 << DEFAULT_WR_CHANNEL;
+      assign default_rd_channel = 11'b1 << DEFAULT_RD_CHANNEL;
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
     end
   endgenerate
 
@@ -103,7 +133,15 @@ module nios_system_mm_interconnect_0_router_012
     // -------------------
     output                          src_valid,
     output reg [110-1    : 0] src_data,
+<<<<<<< HEAD
+<<<<<<< HEAD
     output reg [15-1 : 0] src_channel,
+=======
+    output reg [11-1 : 0] src_channel,
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+    output reg [11-1 : 0] src_channel,
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
     output                          src_startofpacket,
     output                          src_endofpacket,
     input                           src_ready
@@ -119,7 +157,15 @@ module nios_system_mm_interconnect_0_router_012
     localparam PKT_PROTECTION_H = 100;
     localparam PKT_PROTECTION_L = 98;
     localparam ST_DATA_W = 110;
+<<<<<<< HEAD
+<<<<<<< HEAD
     localparam ST_CHANNEL_W = 15;
+=======
+    localparam ST_CHANNEL_W = 11;
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+    localparam ST_CHANNEL_W = 11;
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
     localparam DECODER_TYPE = 1;
 
     localparam PKT_TRANS_WRITE = 70;
@@ -158,7 +204,15 @@ module nios_system_mm_interconnect_0_router_012
     assign src_valid         = sink_valid;
     assign src_startofpacket = sink_startofpacket;
     assign src_endofpacket   = sink_endofpacket;
+<<<<<<< HEAD
+<<<<<<< HEAD
     wire [15-1 : 0] default_src_channel;
+=======
+    wire [11-1 : 0] default_src_channel;
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+    wire [11-1 : 0] default_src_channel;
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
 
 
 
@@ -185,7 +239,25 @@ module nios_system_mm_interconnect_0_router_012
 
 
         if (destid == 1 ) begin
+<<<<<<< HEAD
+<<<<<<< HEAD
             src_channel = 15'b1;
+=======
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+            src_channel = 11'b001;
+        end
+
+        if (destid == 0 ) begin
+            src_channel = 11'b010;
+        end
+
+        if (destid == 2  && read_transaction) begin
+            src_channel = 11'b100;
+<<<<<<< HEAD
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
         end
 
 

@@ -4,16 +4,7 @@
 
 `timescale 1 ps / 1 ps
 module nios_system (
-		inout  wire [31:0] expansion_jp5_export,       //        expansion_jp5.export
 		output wire [8:0]  green_leds_export,          //           green_leds.export
-		output wire [6:0]  hex3_hex0_HEX0,             //            hex3_hex0.HEX0
-		output wire [6:0]  hex3_hex0_HEX1,             //                     .HEX1
-		output wire [6:0]  hex3_hex0_HEX2,             //                     .HEX2
-		output wire [6:0]  hex3_hex0_HEX3,             //                     .HEX3
-		output wire [6:0]  hex7_hex4_HEX4,             //            hex7_hex4.HEX4
-		output wire [6:0]  hex7_hex4_HEX5,             //                     .HEX5
-		output wire [6:0]  hex7_hex4_HEX6,             //                     .HEX6
-		output wire [6:0]  hex7_hex4_HEX7,             //                     .HEX7
 		input  wire [3:0]  pushbuttons_export,         //          pushbuttons.export
 		output wire [17:0] red_leds_export,            //             red_leds.export
 		output wire [12:0] sdram_addr,                 //                sdram.addr
@@ -26,8 +17,6 @@ module nios_system (
 		output wire        sdram_ras_n,                //                     .ras_n
 		output wire        sdram_we_n,                 //                     .we_n
 		output wire        sdram_clk_clk,              //            sdram_clk.clk
-		input  wire        serial_port_RXD,            //          serial_port.RXD
-		output wire        serial_port_TXD,            //                     .TXD
 		input  wire [17:0] slider_switches_export,     //      slider_switches.export
 		inout  wire [15:0] sram_DQ,                    //                 sram.DQ
 		output wire [19:0] sram_ADDR,                  //                     .ADDR
@@ -40,7 +29,15 @@ module nios_system (
 		input  wire        system_pll_ref_reset_reset  // system_pll_ref_reset.reset
 	);
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 	wire         system_pll_sys_clk_clk;                                                   // System_PLL:sys_clk_clk -> [Expansion_JP5:clk, Green_LEDs:clk, HEX3_HEX0:clk, HEX7_HEX4:clk, Interval_Timer:clk, JTAG_UART:clk, JTAG_to_FPGA_Bridge:clk_clk, Nios2:clk, Pushbuttons:clk, Red_LEDs:clk, SDRAM:clk, SRAM:clk, Serial_Port:clk, Slider_Switches:clk, String_HW_0:clk, SysID:clock, irq_mapper:clk, mm_interconnect_0:System_PLL_sys_clk_clk, rst_controller:clk, rst_controller_002:clk]
+=======
+	wire         system_pll_sys_clk_clk;                                                   // System_PLL:sys_clk_clk -> [Green_LEDs:clk, Interval_Timer:clk, JTAG_UART:clk, JTAG_to_FPGA_Bridge:clk_clk, Nios2:clk, Pushbuttons:clk, Red_LEDs:clk, SDRAM:clk, SRAM:clk, Slider_Switches:clk, String_HW_0:clk, SysID:clock, irq_mapper:clk, mm_interconnect_0:System_PLL_sys_clk_clk, rst_controller:clk]
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+	wire         system_pll_sys_clk_clk;                                                   // System_PLL:sys_clk_clk -> [Green_LEDs:clk, Interval_Timer:clk, JTAG_UART:clk, JTAG_to_FPGA_Bridge:clk_clk, Nios2:clk, Pushbuttons:clk, Red_LEDs:clk, SDRAM:clk, SRAM:clk, Slider_Switches:clk, String_HW_0:clk, SysID:clock, irq_mapper:clk, mm_interconnect_0:System_PLL_sys_clk_clk, rst_controller:clk]
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
 	wire         nios2_custom_instruction_master_readra;                                   // Nios2:D_ci_readra -> Nios2_custom_instruction_master_translator:ci_slave_readra
 	wire   [4:0] nios2_custom_instruction_master_a;                                        // Nios2:D_ci_a -> Nios2_custom_instruction_master_translator:ci_slave_a
 	wire   [4:0] nios2_custom_instruction_master_b;                                        // Nios2:D_ci_b -> Nios2_custom_instruction_master_translator:ci_slave_b
@@ -143,20 +140,6 @@ module nios_system (
 	wire   [3:0] mm_interconnect_0_green_leds_avalon_parallel_port_slave_byteenable;       // mm_interconnect_0:Green_LEDs_avalon_parallel_port_slave_byteenable -> Green_LEDs:byteenable
 	wire         mm_interconnect_0_green_leds_avalon_parallel_port_slave_write;            // mm_interconnect_0:Green_LEDs_avalon_parallel_port_slave_write -> Green_LEDs:write
 	wire  [31:0] mm_interconnect_0_green_leds_avalon_parallel_port_slave_writedata;        // mm_interconnect_0:Green_LEDs_avalon_parallel_port_slave_writedata -> Green_LEDs:writedata
-	wire         mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_chipselect;        // mm_interconnect_0:HEX3_HEX0_avalon_parallel_port_slave_chipselect -> HEX3_HEX0:chipselect
-	wire  [31:0] mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_readdata;          // HEX3_HEX0:readdata -> mm_interconnect_0:HEX3_HEX0_avalon_parallel_port_slave_readdata
-	wire   [1:0] mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_address;           // mm_interconnect_0:HEX3_HEX0_avalon_parallel_port_slave_address -> HEX3_HEX0:address
-	wire         mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_read;              // mm_interconnect_0:HEX3_HEX0_avalon_parallel_port_slave_read -> HEX3_HEX0:read
-	wire   [3:0] mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_byteenable;        // mm_interconnect_0:HEX3_HEX0_avalon_parallel_port_slave_byteenable -> HEX3_HEX0:byteenable
-	wire         mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_write;             // mm_interconnect_0:HEX3_HEX0_avalon_parallel_port_slave_write -> HEX3_HEX0:write
-	wire  [31:0] mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_writedata;         // mm_interconnect_0:HEX3_HEX0_avalon_parallel_port_slave_writedata -> HEX3_HEX0:writedata
-	wire         mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_chipselect;        // mm_interconnect_0:HEX7_HEX4_avalon_parallel_port_slave_chipselect -> HEX7_HEX4:chipselect
-	wire  [31:0] mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_readdata;          // HEX7_HEX4:readdata -> mm_interconnect_0:HEX7_HEX4_avalon_parallel_port_slave_readdata
-	wire   [1:0] mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_address;           // mm_interconnect_0:HEX7_HEX4_avalon_parallel_port_slave_address -> HEX7_HEX4:address
-	wire         mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_read;              // mm_interconnect_0:HEX7_HEX4_avalon_parallel_port_slave_read -> HEX7_HEX4:read
-	wire   [3:0] mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_byteenable;        // mm_interconnect_0:HEX7_HEX4_avalon_parallel_port_slave_byteenable -> HEX7_HEX4:byteenable
-	wire         mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_write;             // mm_interconnect_0:HEX7_HEX4_avalon_parallel_port_slave_write -> HEX7_HEX4:write
-	wire  [31:0] mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_writedata;         // mm_interconnect_0:HEX7_HEX4_avalon_parallel_port_slave_writedata -> HEX7_HEX4:writedata
 	wire         mm_interconnect_0_slider_switches_avalon_parallel_port_slave_chipselect;  // mm_interconnect_0:Slider_Switches_avalon_parallel_port_slave_chipselect -> Slider_Switches:chipselect
 	wire  [31:0] mm_interconnect_0_slider_switches_avalon_parallel_port_slave_readdata;    // Slider_Switches:readdata -> mm_interconnect_0:Slider_Switches_avalon_parallel_port_slave_readdata
 	wire   [1:0] mm_interconnect_0_slider_switches_avalon_parallel_port_slave_address;     // mm_interconnect_0:Slider_Switches_avalon_parallel_port_slave_address -> Slider_Switches:address
@@ -171,6 +154,8 @@ module nios_system (
 	wire   [3:0] mm_interconnect_0_pushbuttons_avalon_parallel_port_slave_byteenable;      // mm_interconnect_0:Pushbuttons_avalon_parallel_port_slave_byteenable -> Pushbuttons:byteenable
 	wire         mm_interconnect_0_pushbuttons_avalon_parallel_port_slave_write;           // mm_interconnect_0:Pushbuttons_avalon_parallel_port_slave_write -> Pushbuttons:write
 	wire  [31:0] mm_interconnect_0_pushbuttons_avalon_parallel_port_slave_writedata;       // mm_interconnect_0:Pushbuttons_avalon_parallel_port_slave_writedata -> Pushbuttons:writedata
+<<<<<<< HEAD
+<<<<<<< HEAD
 	wire         mm_interconnect_0_expansion_jp5_avalon_parallel_port_slave_chipselect;    // mm_interconnect_0:Expansion_JP5_avalon_parallel_port_slave_chipselect -> Expansion_JP5:chipselect
 	wire  [31:0] mm_interconnect_0_expansion_jp5_avalon_parallel_port_slave_readdata;      // Expansion_JP5:readdata -> mm_interconnect_0:Expansion_JP5_avalon_parallel_port_slave_readdata
 	wire   [1:0] mm_interconnect_0_expansion_jp5_avalon_parallel_port_slave_address;       // mm_interconnect_0:Expansion_JP5_avalon_parallel_port_slave_address -> Expansion_JP5:address
@@ -185,6 +170,10 @@ module nios_system (
 	wire   [3:0] mm_interconnect_0_serial_port_avalon_rs232_slave_byteenable;              // mm_interconnect_0:Serial_Port_avalon_rs232_slave_byteenable -> Serial_Port:byteenable
 	wire         mm_interconnect_0_serial_port_avalon_rs232_slave_write;                   // mm_interconnect_0:Serial_Port_avalon_rs232_slave_write -> Serial_Port:write
 	wire  [31:0] mm_interconnect_0_serial_port_avalon_rs232_slave_writedata;               // mm_interconnect_0:Serial_Port_avalon_rs232_slave_writedata -> Serial_Port:writedata
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
 	wire         mm_interconnect_0_string_hw_0_avalon_slave_0_chipselect;                  // mm_interconnect_0:String_HW_0_avalon_slave_0_chipselect -> String_HW_0:chipselect
 	wire  [31:0] mm_interconnect_0_string_hw_0_avalon_slave_0_readdata;                    // String_HW_0:readdata -> mm_interconnect_0:String_HW_0_avalon_slave_0_readdata
 	wire   [2:0] mm_interconnect_0_string_hw_0_avalon_slave_0_address;                     // mm_interconnect_0:String_HW_0_avalon_slave_0_address -> String_HW_0:address
@@ -223,30 +212,17 @@ module nios_system (
 	wire         mm_interconnect_0_interval_timer_s1_write;                                // mm_interconnect_0:Interval_Timer_s1_write -> Interval_Timer:write_n
 	wire  [15:0] mm_interconnect_0_interval_timer_s1_writedata;                            // mm_interconnect_0:Interval_Timer_s1_writedata -> Interval_Timer:writedata
 	wire         irq_mapper_receiver0_irq;                                                 // Pushbuttons:irq -> irq_mapper:receiver0_irq
-	wire         irq_mapper_receiver1_irq;                                                 // Expansion_JP5:irq -> irq_mapper:receiver1_irq
-	wire         irq_mapper_receiver2_irq;                                                 // Serial_Port:irq -> irq_mapper:receiver2_irq
-	wire         irq_mapper_receiver3_irq;                                                 // JTAG_UART:av_irq -> irq_mapper:receiver3_irq
-	wire         irq_mapper_receiver4_irq;                                                 // Interval_Timer:irq -> irq_mapper:receiver4_irq
+	wire         irq_mapper_receiver1_irq;                                                 // JTAG_UART:av_irq -> irq_mapper:receiver1_irq
+	wire         irq_mapper_receiver2_irq;                                                 // Interval_Timer:irq -> irq_mapper:receiver2_irq
 	wire  [31:0] nios2_irq_irq;                                                            // irq_mapper:sender_irq -> Nios2:irq
-	wire         rst_controller_reset_out_reset;                                           // rst_controller:reset_out -> [Expansion_JP5:reset, Green_LEDs:reset, HEX3_HEX0:reset, HEX7_HEX4:reset, Interval_Timer:reset_n, JTAG_UART:rst_n, Nios2:reset_n, Pushbuttons:reset, Red_LEDs:reset, SDRAM:reset_n, SRAM:reset, Serial_Port:reset, Slider_Switches:reset, SysID:reset_n, irq_mapper:reset, mm_interconnect_0:JTAG_to_FPGA_Bridge_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_0:Nios2_reset_reset_bridge_in_reset_reset]
+	wire         rst_controller_reset_out_reset;                                           // rst_controller:reset_out -> [Green_LEDs:reset, Interval_Timer:reset_n, JTAG_UART:rst_n, Nios2:reset_n, Pushbuttons:reset, Red_LEDs:reset, SDRAM:reset_n, SRAM:reset, Slider_Switches:reset, String_HW_0:reset, SysID:reset_n, irq_mapper:reset, mm_interconnect_0:JTAG_to_FPGA_Bridge_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_0:Nios2_reset_reset_bridge_in_reset_reset]
 	wire         nios2_debug_reset_request_reset;                                          // Nios2:debug_reset_request -> [rst_controller:reset_in0, rst_controller_001:reset_in0]
 	wire         system_pll_reset_source_reset;                                            // System_PLL:reset_source_reset -> [rst_controller:reset_in1, rst_controller_001:reset_in1, rst_controller_002:reset_in0]
 	wire         rst_controller_001_reset_out_reset;                                       // rst_controller_001:reset_out -> JTAG_to_FPGA_Bridge:clk_reset_reset
+<<<<<<< HEAD
 	wire         rst_controller_002_reset_out_reset;                                       // rst_controller_002:reset_out -> [String_HW_0:reset, mm_interconnect_0:String_HW_0_reset_reset_bridge_in_reset_reset]
-
-	nios_system_Expansion_JP5 expansion_jp5 (
-		.clk        (system_pll_sys_clk_clk),                                                //                        clk.clk
-		.reset      (rst_controller_reset_out_reset),                                        //                      reset.reset
-		.address    (mm_interconnect_0_expansion_jp5_avalon_parallel_port_slave_address),    // avalon_parallel_port_slave.address
-		.byteenable (mm_interconnect_0_expansion_jp5_avalon_parallel_port_slave_byteenable), //                           .byteenable
-		.chipselect (mm_interconnect_0_expansion_jp5_avalon_parallel_port_slave_chipselect), //                           .chipselect
-		.read       (mm_interconnect_0_expansion_jp5_avalon_parallel_port_slave_read),       //                           .read
-		.write      (mm_interconnect_0_expansion_jp5_avalon_parallel_port_slave_write),      //                           .write
-		.writedata  (mm_interconnect_0_expansion_jp5_avalon_parallel_port_slave_writedata),  //                           .writedata
-		.readdata   (mm_interconnect_0_expansion_jp5_avalon_parallel_port_slave_readdata),   //                           .readdata
-		.GPIO       (expansion_jp5_export),                                                  //         external_interface.export
-		.irq        (irq_mapper_receiver1_irq)                                               //                  interrupt.irq
-	);
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
 
 	nios_system_Green_LEDs green_leds (
 		.clk        (system_pll_sys_clk_clk),                                             //                        clk.clk
@@ -261,38 +237,6 @@ module nios_system (
 		.LEDG       (green_leds_export)                                                   //         external_interface.export
 	);
 
-	nios_system_HEX3_HEX0 hex3_hex0 (
-		.clk        (system_pll_sys_clk_clk),                                            //                        clk.clk
-		.reset      (rst_controller_reset_out_reset),                                    //                      reset.reset
-		.address    (mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_address),    // avalon_parallel_port_slave.address
-		.byteenable (mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_byteenable), //                           .byteenable
-		.chipselect (mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_chipselect), //                           .chipselect
-		.read       (mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_read),       //                           .read
-		.write      (mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_write),      //                           .write
-		.writedata  (mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_writedata),  //                           .writedata
-		.readdata   (mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_readdata),   //                           .readdata
-		.HEX0       (hex3_hex0_HEX0),                                                    //         external_interface.export
-		.HEX1       (hex3_hex0_HEX1),                                                    //                           .export
-		.HEX2       (hex3_hex0_HEX2),                                                    //                           .export
-		.HEX3       (hex3_hex0_HEX3)                                                     //                           .export
-	);
-
-	nios_system_HEX7_HEX4 hex7_hex4 (
-		.clk        (system_pll_sys_clk_clk),                                            //                        clk.clk
-		.reset      (rst_controller_reset_out_reset),                                    //                      reset.reset
-		.address    (mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_address),    // avalon_parallel_port_slave.address
-		.byteenable (mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_byteenable), //                           .byteenable
-		.chipselect (mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_chipselect), //                           .chipselect
-		.read       (mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_read),       //                           .read
-		.write      (mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_write),      //                           .write
-		.writedata  (mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_writedata),  //                           .writedata
-		.readdata   (mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_readdata),   //                           .readdata
-		.HEX4       (hex7_hex4_HEX4),                                                    //         external_interface.export
-		.HEX5       (hex7_hex4_HEX5),                                                    //                           .export
-		.HEX6       (hex7_hex4_HEX6),                                                    //                           .export
-		.HEX7       (hex7_hex4_HEX7)                                                     //                           .export
-	);
-
 	nios_system_Interval_Timer interval_timer (
 		.clk        (system_pll_sys_clk_clk),                         //   clk.clk
 		.reset_n    (~rst_controller_reset_out_reset),                // reset.reset_n
@@ -301,7 +245,7 @@ module nios_system (
 		.readdata   (mm_interconnect_0_interval_timer_s1_readdata),   //      .readdata
 		.chipselect (mm_interconnect_0_interval_timer_s1_chipselect), //      .chipselect
 		.write_n    (~mm_interconnect_0_interval_timer_s1_write),     //      .write_n
-		.irq        (irq_mapper_receiver4_irq)                        //   irq.irq
+		.irq        (irq_mapper_receiver2_irq)                        //   irq.irq
 	);
 
 	nios_system_JTAG_UART jtag_uart (
@@ -314,7 +258,7 @@ module nios_system (
 		.av_write_n     (~mm_interconnect_0_jtag_uart_avalon_jtag_slave_write),      //                  .write_n
 		.av_writedata   (mm_interconnect_0_jtag_uart_avalon_jtag_slave_writedata),   //                  .writedata
 		.av_waitrequest (mm_interconnect_0_jtag_uart_avalon_jtag_slave_waitrequest), //                  .waitrequest
-		.av_irq         (irq_mapper_receiver3_irq)                                   //               irq.irq
+		.av_irq         (irq_mapper_receiver1_irq)                                   //               irq.irq
 	);
 
 	nios_system_JTAG_to_FPGA_Bridge #(
@@ -463,21 +407,6 @@ module nios_system (
 		.readdatavalid (mm_interconnect_0_sram_avalon_sram_slave_readdatavalid)  //                   .readdatavalid
 	);
 
-	nios_system_Serial_Port serial_port (
-		.clk        (system_pll_sys_clk_clk),                                      //                clk.clk
-		.reset      (rst_controller_reset_out_reset),                              //              reset.reset
-		.address    (mm_interconnect_0_serial_port_avalon_rs232_slave_address),    // avalon_rs232_slave.address
-		.chipselect (mm_interconnect_0_serial_port_avalon_rs232_slave_chipselect), //                   .chipselect
-		.byteenable (mm_interconnect_0_serial_port_avalon_rs232_slave_byteenable), //                   .byteenable
-		.read       (mm_interconnect_0_serial_port_avalon_rs232_slave_read),       //                   .read
-		.write      (mm_interconnect_0_serial_port_avalon_rs232_slave_write),      //                   .write
-		.writedata  (mm_interconnect_0_serial_port_avalon_rs232_slave_writedata),  //                   .writedata
-		.readdata   (mm_interconnect_0_serial_port_avalon_rs232_slave_readdata),   //                   .readdata
-		.irq        (irq_mapper_receiver2_irq),                                    //          interrupt.irq
-		.UART_RXD   (serial_port_RXD),                                             // external_interface.export
-		.UART_TXD   (serial_port_TXD)                                              //                   .export
-	);
-
 	nios_system_Slider_Switches slider_switches (
 		.clk        (system_pll_sys_clk_clk),                                                  //                        clk.clk
 		.reset      (rst_controller_reset_out_reset),                                          //                      reset.reset
@@ -493,7 +422,15 @@ module nios_system (
 
 	String_HW_Avalon string_hw_0 (
 		.clk        (system_pll_sys_clk_clk),                                  //          clock.clk
+<<<<<<< HEAD
+<<<<<<< HEAD
 		.reset      (rst_controller_002_reset_out_reset),                      //          reset.reset
+=======
+		.reset      (rst_controller_reset_out_reset),                          //          reset.reset
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+		.reset      (rst_controller_reset_out_reset),                          //          reset.reset
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
 		.writedata  (mm_interconnect_0_string_hw_0_avalon_slave_0_writedata),  // avalon_slave_0.writedata
 		.address    (mm_interconnect_0_string_hw_0_avalon_slave_0_address),    //               .address
 		.readdata   (mm_interconnect_0_string_hw_0_avalon_slave_0_readdata),   //               .readdata
@@ -685,13 +622,6 @@ module nios_system (
 		.Nios2_instruction_master_waitrequest                      (nios2_instruction_master_waitrequest),                                    //                                                    .waitrequest
 		.Nios2_instruction_master_read                             (nios2_instruction_master_read),                                           //                                                    .read
 		.Nios2_instruction_master_readdata                         (nios2_instruction_master_readdata),                                       //                                                    .readdata
-		.Expansion_JP5_avalon_parallel_port_slave_address          (mm_interconnect_0_expansion_jp5_avalon_parallel_port_slave_address),      //            Expansion_JP5_avalon_parallel_port_slave.address
-		.Expansion_JP5_avalon_parallel_port_slave_write            (mm_interconnect_0_expansion_jp5_avalon_parallel_port_slave_write),        //                                                    .write
-		.Expansion_JP5_avalon_parallel_port_slave_read             (mm_interconnect_0_expansion_jp5_avalon_parallel_port_slave_read),         //                                                    .read
-		.Expansion_JP5_avalon_parallel_port_slave_readdata         (mm_interconnect_0_expansion_jp5_avalon_parallel_port_slave_readdata),     //                                                    .readdata
-		.Expansion_JP5_avalon_parallel_port_slave_writedata        (mm_interconnect_0_expansion_jp5_avalon_parallel_port_slave_writedata),    //                                                    .writedata
-		.Expansion_JP5_avalon_parallel_port_slave_byteenable       (mm_interconnect_0_expansion_jp5_avalon_parallel_port_slave_byteenable),   //                                                    .byteenable
-		.Expansion_JP5_avalon_parallel_port_slave_chipselect       (mm_interconnect_0_expansion_jp5_avalon_parallel_port_slave_chipselect),   //                                                    .chipselect
 		.Green_LEDs_avalon_parallel_port_slave_address             (mm_interconnect_0_green_leds_avalon_parallel_port_slave_address),         //               Green_LEDs_avalon_parallel_port_slave.address
 		.Green_LEDs_avalon_parallel_port_slave_write               (mm_interconnect_0_green_leds_avalon_parallel_port_slave_write),           //                                                    .write
 		.Green_LEDs_avalon_parallel_port_slave_read                (mm_interconnect_0_green_leds_avalon_parallel_port_slave_read),            //                                                    .read
@@ -699,20 +629,6 @@ module nios_system (
 		.Green_LEDs_avalon_parallel_port_slave_writedata           (mm_interconnect_0_green_leds_avalon_parallel_port_slave_writedata),       //                                                    .writedata
 		.Green_LEDs_avalon_parallel_port_slave_byteenable          (mm_interconnect_0_green_leds_avalon_parallel_port_slave_byteenable),      //                                                    .byteenable
 		.Green_LEDs_avalon_parallel_port_slave_chipselect          (mm_interconnect_0_green_leds_avalon_parallel_port_slave_chipselect),      //                                                    .chipselect
-		.HEX3_HEX0_avalon_parallel_port_slave_address              (mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_address),          //                HEX3_HEX0_avalon_parallel_port_slave.address
-		.HEX3_HEX0_avalon_parallel_port_slave_write                (mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_write),            //                                                    .write
-		.HEX3_HEX0_avalon_parallel_port_slave_read                 (mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_read),             //                                                    .read
-		.HEX3_HEX0_avalon_parallel_port_slave_readdata             (mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_readdata),         //                                                    .readdata
-		.HEX3_HEX0_avalon_parallel_port_slave_writedata            (mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_writedata),        //                                                    .writedata
-		.HEX3_HEX0_avalon_parallel_port_slave_byteenable           (mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_byteenable),       //                                                    .byteenable
-		.HEX3_HEX0_avalon_parallel_port_slave_chipselect           (mm_interconnect_0_hex3_hex0_avalon_parallel_port_slave_chipselect),       //                                                    .chipselect
-		.HEX7_HEX4_avalon_parallel_port_slave_address              (mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_address),          //                HEX7_HEX4_avalon_parallel_port_slave.address
-		.HEX7_HEX4_avalon_parallel_port_slave_write                (mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_write),            //                                                    .write
-		.HEX7_HEX4_avalon_parallel_port_slave_read                 (mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_read),             //                                                    .read
-		.HEX7_HEX4_avalon_parallel_port_slave_readdata             (mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_readdata),         //                                                    .readdata
-		.HEX7_HEX4_avalon_parallel_port_slave_writedata            (mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_writedata),        //                                                    .writedata
-		.HEX7_HEX4_avalon_parallel_port_slave_byteenable           (mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_byteenable),       //                                                    .byteenable
-		.HEX7_HEX4_avalon_parallel_port_slave_chipselect           (mm_interconnect_0_hex7_hex4_avalon_parallel_port_slave_chipselect),       //                                                    .chipselect
 		.Interval_Timer_s1_address                                 (mm_interconnect_0_interval_timer_s1_address),                             //                                   Interval_Timer_s1.address
 		.Interval_Timer_s1_write                                   (mm_interconnect_0_interval_timer_s1_write),                               //                                                    .write
 		.Interval_Timer_s1_readdata                                (mm_interconnect_0_interval_timer_s1_readdata),                            //                                                    .readdata
@@ -756,13 +672,6 @@ module nios_system (
 		.SDRAM_s1_readdatavalid                                    (mm_interconnect_0_sdram_s1_readdatavalid),                                //                                                    .readdatavalid
 		.SDRAM_s1_waitrequest                                      (mm_interconnect_0_sdram_s1_waitrequest),                                  //                                                    .waitrequest
 		.SDRAM_s1_chipselect                                       (mm_interconnect_0_sdram_s1_chipselect),                                   //                                                    .chipselect
-		.Serial_Port_avalon_rs232_slave_address                    (mm_interconnect_0_serial_port_avalon_rs232_slave_address),                //                      Serial_Port_avalon_rs232_slave.address
-		.Serial_Port_avalon_rs232_slave_write                      (mm_interconnect_0_serial_port_avalon_rs232_slave_write),                  //                                                    .write
-		.Serial_Port_avalon_rs232_slave_read                       (mm_interconnect_0_serial_port_avalon_rs232_slave_read),                   //                                                    .read
-		.Serial_Port_avalon_rs232_slave_readdata                   (mm_interconnect_0_serial_port_avalon_rs232_slave_readdata),               //                                                    .readdata
-		.Serial_Port_avalon_rs232_slave_writedata                  (mm_interconnect_0_serial_port_avalon_rs232_slave_writedata),              //                                                    .writedata
-		.Serial_Port_avalon_rs232_slave_byteenable                 (mm_interconnect_0_serial_port_avalon_rs232_slave_byteenable),             //                                                    .byteenable
-		.Serial_Port_avalon_rs232_slave_chipselect                 (mm_interconnect_0_serial_port_avalon_rs232_slave_chipselect),             //                                                    .chipselect
 		.Slider_Switches_avalon_parallel_port_slave_address        (mm_interconnect_0_slider_switches_avalon_parallel_port_slave_address),    //          Slider_Switches_avalon_parallel_port_slave.address
 		.Slider_Switches_avalon_parallel_port_slave_write          (mm_interconnect_0_slider_switches_avalon_parallel_port_slave_write),      //                                                    .write
 		.Slider_Switches_avalon_parallel_port_slave_read           (mm_interconnect_0_slider_switches_avalon_parallel_port_slave_read),       //                                                    .read
@@ -793,8 +702,6 @@ module nios_system (
 		.receiver0_irq (irq_mapper_receiver0_irq),       // receiver0.irq
 		.receiver1_irq (irq_mapper_receiver1_irq),       // receiver1.irq
 		.receiver2_irq (irq_mapper_receiver2_irq),       // receiver2.irq
-		.receiver3_irq (irq_mapper_receiver3_irq),       // receiver3.irq
-		.receiver4_irq (irq_mapper_receiver4_irq),       // receiver4.irq
 		.sender_irq    (nios2_irq_irq)                   //    sender.irq
 	);
 

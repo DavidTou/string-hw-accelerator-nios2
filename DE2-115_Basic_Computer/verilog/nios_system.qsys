@@ -243,6 +243,20 @@
    }
    element String_HW_0.avalon_slave_0
    {
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+<<<<<<< HEAD
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
       datum baseAddress
       {
          value = "136314880";
@@ -294,26 +308,14 @@
  <parameter name="timeStamp" value="0" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
- <interface
-   name="expansion_jp5"
-   internal="Expansion_JP5.external_interface"
-   type="conduit"
-   dir="end" />
+ <interface name="expansion_jp5" internal="Expansion_JP5.external_interface" />
  <interface
    name="green_leds"
    internal="Green_LEDs.external_interface"
    type="conduit"
    dir="end" />
- <interface
-   name="hex3_hex0"
-   internal="HEX3_HEX0.external_interface"
-   type="conduit"
-   dir="end" />
- <interface
-   name="hex7_hex4"
-   internal="HEX7_HEX4.external_interface"
-   type="conduit"
-   dir="end" />
+ <interface name="hex3_hex0" internal="HEX3_HEX0.external_interface" />
+ <interface name="hex7_hex4" internal="HEX7_HEX4.external_interface" />
  <interface
    name="pushbuttons"
    internal="Pushbuttons.external_interface"
@@ -330,11 +332,7 @@
    internal="System_PLL.sdram_clk"
    type="clock"
    dir="start" />
- <interface
-   name="serial_port"
-   internal="Serial_Port.external_interface"
-   type="conduit"
-   dir="end" />
+ <interface name="serial_port" internal="Serial_Port.external_interface" />
  <interface
    name="slider_switches"
    internal="Slider_Switches.external_interface"
@@ -359,7 +357,15 @@
    name="Expansion_JP5"
    kind="altera_up_avalon_parallel_port"
    version="18.0"
+<<<<<<< HEAD
+<<<<<<< HEAD
    enabled="1">
+=======
+   enabled="0">
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+   enabled="0">
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone IV E" />
   <parameter name="board" value="DE2-115" />
@@ -399,7 +405,15 @@
    name="HEX3_HEX0"
    kind="altera_up_avalon_parallel_port"
    version="18.0"
+<<<<<<< HEAD
+<<<<<<< HEAD
    enabled="1">
+=======
+   enabled="0">
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+   enabled="0">
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone IV E" />
   <parameter name="board" value="DE2-115" />
@@ -419,7 +433,15 @@
    name="HEX7_HEX4"
    kind="altera_up_avalon_parallel_port"
    version="18.0"
+<<<<<<< HEAD
+<<<<<<< HEAD
    enabled="1">
+=======
+   enabled="0">
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+   enabled="0">
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone IV E" />
   <parameter name="board" value="DE2-115" />
@@ -504,7 +526,15 @@
   <parameter name="dataAddrWidth" value="29" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
+<<<<<<< HEAD
+<<<<<<< HEAD
   <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='SDRAM.s1' start='0x0' end='0x8000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='SRAM.avalon_sram_slave' start='0x8000000' end='0x8200000' type='altera_up_avalon_sram.avalon_sram_slave' /><slave name='String_HW_0.avalon_slave_0' start='0x8200000' end='0x8200020' type='String_HW.avalon_slave_0' /><slave name='Nios2.debug_mem_slave' start='0xA000000' end='0xA000800' type='altera_nios2_gen2.debug_mem_slave' /><slave name='Red_LEDs.avalon_parallel_port_slave' start='0x10000000' end='0x10000010' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /><slave name='Green_LEDs.avalon_parallel_port_slave' start='0x10000010' end='0x10000020' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /><slave name='HEX3_HEX0.avalon_parallel_port_slave' start='0x10000020' end='0x10000030' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /><slave name='HEX7_HEX4.avalon_parallel_port_slave' start='0x10000030' end='0x10000040' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /><slave name='Slider_Switches.avalon_parallel_port_slave' start='0x10000040' end='0x10000050' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /><slave name='Pushbuttons.avalon_parallel_port_slave' start='0x10000050' end='0x10000060' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /><slave name='Expansion_JP5.avalon_parallel_port_slave' start='0x10000060' end='0x10000070' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /><slave name='JTAG_UART.avalon_jtag_slave' start='0x10001000' end='0x10001008' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='Serial_Port.avalon_rs232_slave' start='0x10001010' end='0x10001018' type='altera_up_avalon_rs232.avalon_rs232_slave' /><slave name='Interval_Timer.s1' start='0x10002000' end='0x10002020' type='altera_avalon_timer.s1' /><slave name='SysID.control_slave' start='0x10002020' end='0x10002028' type='altera_avalon_sysid_qsys.control_slave' /></address-map>]]></parameter>
+=======
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='SDRAM.s1' start='0x0' end='0x8000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='SRAM.avalon_sram_slave' start='0x8000000' end='0x8200000' type='altera_up_avalon_sram.avalon_sram_slave' /><slave name='String_HW_0.avalon_slave_0' start='0x8200000' end='0x8200020' type='String_HW.avalon_slave_0' /><slave name='Nios2.debug_mem_slave' start='0xA000000' end='0xA000800' type='altera_nios2_gen2.debug_mem_slave' /><slave name='Red_LEDs.avalon_parallel_port_slave' start='0x10000000' end='0x10000010' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /><slave name='Green_LEDs.avalon_parallel_port_slave' start='0x10000010' end='0x10000020' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /><slave name='Slider_Switches.avalon_parallel_port_slave' start='0x10000040' end='0x10000050' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /><slave name='Pushbuttons.avalon_parallel_port_slave' start='0x10000050' end='0x10000060' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /><slave name='JTAG_UART.avalon_jtag_slave' start='0x10001000' end='0x10001008' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='Interval_Timer.s1' start='0x10002000' end='0x10002020' type='altera_avalon_timer.s1' /><slave name='SysID.control_slave' start='0x10002020' end='0x10002028' type='altera_avalon_sysid_qsys.control_slave' /></address-map>]]></parameter>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='SDRAM.s1' start='0x0' end='0x8000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='SRAM.avalon_sram_slave' start='0x8000000' end='0x8200000' type='altera_up_avalon_sram.avalon_sram_slave' /><slave name='String_HW_0.avalon_slave_0' start='0x8200000' end='0x8200020' type='String_HW.avalon_slave_0' /><slave name='Nios2.debug_mem_slave' start='0xA000000' end='0xA000800' type='altera_nios2_gen2.debug_mem_slave' /><slave name='Red_LEDs.avalon_parallel_port_slave' start='0x10000000' end='0x10000010' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /><slave name='Green_LEDs.avalon_parallel_port_slave' start='0x10000010' end='0x10000020' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /><slave name='Slider_Switches.avalon_parallel_port_slave' start='0x10000040' end='0x10000050' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /><slave name='Pushbuttons.avalon_parallel_port_slave' start='0x10000050' end='0x10000060' type='altera_up_avalon_parallel_port.avalon_parallel_port_slave' /><slave name='JTAG_UART.avalon_jtag_slave' start='0x10001000' end='0x10001008' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='Interval_Timer.s1' start='0x10002000' end='0x10002020' type='altera_avalon_timer.s1' /><slave name='SysID.control_slave' start='0x10002020' end='0x10002028' type='altera_avalon_sysid_qsys.control_slave' /></address-map>]]></parameter>
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -550,7 +580,7 @@
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="3331" />
+  <parameter name="internalIrqMaskSystemInfo" value="259" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -748,7 +778,15 @@
    name="Serial_Port"
    kind="altera_up_avalon_rs232"
    version="17.1"
+<<<<<<< HEAD
+<<<<<<< HEAD
    enabled="1">
+=======
+   enabled="0">
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+   enabled="0">
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone IV E" />
   <parameter name="avalon_bus_type" value="Memory Mapped" />
@@ -1043,6 +1081,24 @@
  <connection
    kind="avalon"
    version="18.1"
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+   start="JTAG_to_FPGA_Bridge.master"
+   end="String_HW_0.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x08200000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+<<<<<<< HEAD
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
    start="JTAG_to_FPGA_Bridge.master"
    end="SRAM.avalon_sram_slave">
   <parameter name="arbitrationPriority" value="1" />
@@ -1270,6 +1326,20 @@
  <connection
    kind="reset"
    version="18.1"
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+   start="Nios2.debug_reset_request"
+   end="String_HW_0.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+<<<<<<< HEAD
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
    start="System_PLL.reset_source"
    end="JTAG_to_FPGA_Bridge.clk_reset" />
  <connection

@@ -45,7 +45,15 @@
 //   PIPELINE_ARB:        0
 //   PKT_TRANS_LOCK:      72 (arbitration locking enabled)
 //   ST_DATA_W:           110
+<<<<<<< HEAD
+<<<<<<< HEAD
 //   ST_CHANNEL_W:        15
+=======
+//   ST_CHANNEL_W:        11
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+//   ST_CHANNEL_W:        11
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
 // ------------------------------------------
 
 module nios_system_mm_interconnect_0_rsp_mux_002
@@ -55,21 +63,45 @@ module nios_system_mm_interconnect_0_rsp_mux_002
     // ----------------------
     input                       sink0_valid,
     input [110-1   : 0]  sink0_data,
+<<<<<<< HEAD
+<<<<<<< HEAD
     input [15-1: 0]  sink0_channel,
+=======
+    input [11-1: 0]  sink0_channel,
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+    input [11-1: 0]  sink0_channel,
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
     input                       sink0_startofpacket,
     input                       sink0_endofpacket,
     output                      sink0_ready,
 
     input                       sink1_valid,
     input [110-1   : 0]  sink1_data,
+<<<<<<< HEAD
+<<<<<<< HEAD
     input [15-1: 0]  sink1_channel,
+=======
+    input [11-1: 0]  sink1_channel,
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+    input [11-1: 0]  sink1_channel,
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
     input                       sink1_startofpacket,
     input                       sink1_endofpacket,
     output                      sink1_ready,
 
     input                       sink2_valid,
     input [110-1   : 0]  sink2_data,
+<<<<<<< HEAD
+<<<<<<< HEAD
     input [15-1: 0]  sink2_channel,
+=======
+    input [11-1: 0]  sink2_channel,
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+    input [11-1: 0]  sink2_channel,
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
     input                       sink2_startofpacket,
     input                       sink2_endofpacket,
     output                      sink2_ready,
@@ -80,7 +112,15 @@ module nios_system_mm_interconnect_0_rsp_mux_002
     // ----------------------
     output                      src_valid,
     output [110-1    : 0] src_data,
+<<<<<<< HEAD
+<<<<<<< HEAD
     output [15-1 : 0] src_channel,
+=======
+    output [11-1 : 0] src_channel,
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+    output [11-1 : 0] src_channel,
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
     output                      src_startofpacket,
     output                      src_endofpacket,
     input                       src_ready,
@@ -91,12 +131,28 @@ module nios_system_mm_interconnect_0_rsp_mux_002
     input clk,
     input reset
 );
+<<<<<<< HEAD
+<<<<<<< HEAD
     localparam PAYLOAD_W        = 110 + 15 + 2;
+=======
+    localparam PAYLOAD_W        = 110 + 11 + 2;
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+    localparam PAYLOAD_W        = 110 + 11 + 2;
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
     localparam NUM_INPUTS       = 3;
     localparam SHARE_COUNTER_W  = 1;
     localparam PIPELINE_ARB     = 0;
     localparam ST_DATA_W        = 110;
+<<<<<<< HEAD
+<<<<<<< HEAD
     localparam ST_CHANNEL_W     = 15;
+=======
+    localparam ST_CHANNEL_W     = 11;
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
+=======
+    localparam ST_CHANNEL_W     = 11;
+>>>>>>> 77e6515f64cbd19562c831958f3c58b9772983c6
     localparam PKT_TRANS_LOCK   = 72;
 
     // ------------------------------------------
