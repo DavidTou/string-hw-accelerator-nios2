@@ -80,18 +80,13 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 				readdata <= 0;
 				control[31:1] <= 0;
 				end
-			else if (write_reg_A)		A <= writedata;				// Write to register A
-			else if (read_reg_A)		readdata <= A;				// Read register A
-			else if (write_reg_B)		B <= writedata;				// Write to register B
-			else if (read_reg_B)   		readdata <= B;				// Read register B
-			else if (write_reg_Control) control[31:1] <= writedata;	// Write control register (ignore bit 0: done)
-			else if (read_reg_Control)	readdata <= control;		// Read control register 			
-			else if (read_reg_Result)	readdata <= result;			// Read result from register 3	
-			
-			if (done)
-				control[1] <= 1;
-			else
-				control[1] <= 0;
+			else if (write_reg_A)		A <= writedata;						// Write to register A
+			else if (read_reg_A)		readdata <= A;						// Read register A
+			else if (write_reg_B)		B <= writedata;						// Write to register B
+			else if (read_reg_B)   		readdata <= B;						// Read register B
+			else if (write_reg_Control) control[31:1] <= writedata[31:1];	// Write control register (ignore bit 0: done)
+			else if (read_reg_Control)	readdata <= control;				// Read control register 			
+			else if (read_reg_Result)	readdata <= result;					// Read result from register 3		
 		 end
 		
 /* 
