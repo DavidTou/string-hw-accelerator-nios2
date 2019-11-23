@@ -27,7 +27,7 @@
 module String_HW (input logic clk, reset, go,
 			   input logic [2:0]  index,
 			   input logic [0:3] [7:0] A, B,
-			   input logic [2:0] lengthA, lengthB,
+			   input logic [2:0] length,
 			   output logic done,
 			   output logic [0:3][7:0] result
 			  );
@@ -40,7 +40,7 @@ module String_HW (input logic clk, reset, go,
 	integer i, count;
 	
 	always_ff @(posedge clk)
-		if (reset) state <= RESET;		// Asynchronous Reset
+		if (reset) state <= RESET;		// synchronous Reset
 		else state <= nextstate;
 	
 	always@(posedge clk) begin

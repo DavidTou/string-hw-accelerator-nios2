@@ -24,9 +24,8 @@
 module String_HW_TB;			
 	logic clk, reset, go, done;
 	logic [2:0] index;
-	logic [0:3] [7:0] A, B;
-	logic [2:0] lengthA, lengthB;
-	logic [0:3] [7:0] R;
+	logic [0:3] [7:0] A, B, R;
+	logic [2:0] length;
 
 	String_HW dut(.clk(clk),
 		.reset(reset),
