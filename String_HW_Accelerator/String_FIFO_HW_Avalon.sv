@@ -80,8 +80,11 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 	//logic [31:0]  queueA [15:0];    // A bounded queue of 32-bits with maximum size of 16 slots 16*32 = 512 bits
 	
 	// Read lasts 2 cc
-	always_ff@(posedge read) begin
-		indexOut++;
+	always_ff@(posedge read or posedge reset) begin
+		if(reset)
+			indexOut <= 0;
+		else
+			indexOut++;
 	end
 	// Process Read & Write Commands
 	always_ff@(posedge clk or posedge reset)
@@ -90,7 +93,6 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 				readdata <= 0;
 				control[31:1] <= 0;
 				indexIn <= 0;
-				indexOut <= 0;
 				// clear 2d fifo
 				queueA <= '{default:32'b00};
 				end
