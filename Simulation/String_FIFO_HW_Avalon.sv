@@ -28,23 +28,16 @@
  * ###############################################################################
  */
 
-module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, chipselect);
-<<<<<<< HEAD
-=======
-// queueA,indexIn,indexOut);
->>>>>>> b95b728ef8b84b3e6f3be0191d3e18c5c5a58807
+module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, chipselect, queueA,indexIn,indexOut);
    // signals for connecting to the Avalon fabric
    input logic clk, reset, read, write, chipselect;
    input logic [2:0] address;
    input logic [31:0] writedata;
    output logic [31:0] readdata;
-<<<<<<< HEAD
-=======
    
-   logic [31:0]  queueA [0:3];
-   logic [3:0]   indexIn;			// indexIn for writes
-   logic [3:0]   indexOut;			// indexOut for reads
->>>>>>> b95b728ef8b84b3e6f3be0191d3e18c5c5a58807
+   output logic [31:0]  queueA [0:3];
+   output logic [3:0]   indexIn;			// indexIn for writes
+	output logic [3:0]   indexOut;			// indexOut for reads
 	
    logic go, done;
    logic [2:0] index;
@@ -83,18 +76,8 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 			    .done(done),
 			    .result(result)
 			   ); */
-<<<<<<< HEAD
-	logic [31:0]  queueA [15:0];    // A bounded queue of 32-bits with maximum size of 16 slots 16*32 = 512 bits
-	logic [3:0]   indexIn;			// indexIn for writes
-	logic [3:0]   indexOut;			// indexOut for reads
-=======
 	//logic [31:0]  queueA [15:0];    // A bounded queue of 32-bits with maximum size of 16 slots 16*32 = 512 bits
 	
-	// Read lasts 2 cc
-	always_ff@(posedge read) begin
-		indexOut++;
-	end
->>>>>>> b95b728ef8b84b3e6f3be0191d3e18c5c5a58807
 	// Process Read & Write Commands
 	always_ff@(posedge clk or posedge reset)
 		begin
@@ -107,11 +90,7 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 				queueA <= '{default:32'b00};
 				end
 			else if (write_reg_A)		queueA[indexIn++] <= writedata;//A <= writedata;				// Write to register A
-<<<<<<< HEAD
-			else if (read_reg_A)		readdata<= queueA[indexOut++];//readdata <= A;				// Read register A
-=======
-			else if (read_reg_A)		begin readdata<= queueA[indexOut];end//readdata <= A;				// Read register A
->>>>>>> b95b728ef8b84b3e6f3be0191d3e18c5c5a58807
+			else if (read_reg_A)		begin readdata<= queueA[indexOut++]; indexOut/=2; end//readdata <= A;				// Read register A
 			else if (write_reg_B)		B <= writedata;				// Write to register B
 			else if (read_reg_B)   		readdata <= B;				// Read register B
 			//else if (write_reg_Control) control[31:1] <= writedata;	// Write control register (ignore bit 0: done)

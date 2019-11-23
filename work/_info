@@ -1,0 +1,60 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/Users/David/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator
+vString_HW_Avalon
+Z0 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+Z1 !s110 1574548362
+!i10b 1
+!s100 H0`1ETGi>BDGPmW[Zb2552
+IIE]3nXK>lDjX@Q:[FAM1U1
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+!s105 String_FIFO_HW_Avalon_sv_unit
+S1
+Z3 dC:/Users/David/Documents/GitHub/string-hw-accelerator-nios2
+w1574547900
+8C:/Users/David/Documents/GitHub/string-hw-accelerator-nios2/Simulation/String_FIFO_HW_Avalon.sv
+FC:/Users/David/Documents/GitHub/string-hw-accelerator-nios2/Simulation/String_FIFO_HW_Avalon.sv
+L0 31
+Z4 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z5 !s108 1574548362.000000
+!s107 C:/Users/David/Documents/GitHub/string-hw-accelerator-nios2/Simulation/String_FIFO_HW_Avalon.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/David/Documents/GitHub/string-hw-accelerator-nios2/Simulation/String_FIFO_HW_Avalon.sv|
+!i113 1
+Z6 o-work work -sv
+Z7 tCvgOpt 0
+n@string_@h@w_@avalon
+vString_HW_TB
+R0
+R1
+!i10b 1
+!s100 HMJb1U6AZ;aY0=g1kzJZJ1
+I4ka`Ql1`C`ag2@SC`b?Dj3
+R2
+!s105 String_FIFO_HW_Avalon_TB_sv_unit
+S1
+R3
+w1574548017
+8C:/Users/David/Documents/GitHub/string-hw-accelerator-nios2/Simulation/String_FIFO_HW_Avalon_TB.sv
+FC:/Users/David/Documents/GitHub/string-hw-accelerator-nios2/Simulation/String_FIFO_HW_Avalon_TB.sv
+L0 24
+R4
+r1
+!s85 0
+31
+R5
+!s107 C:/Users/David/Documents/GitHub/string-hw-accelerator-nios2/Simulation/String_FIFO_HW_Avalon_TB.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/David/Documents/GitHub/string-hw-accelerator-nios2/Simulation/String_FIFO_HW_Avalon_TB.sv|
+!i113 1
+R6
+R7
+n@string_@h@w_@t@b
