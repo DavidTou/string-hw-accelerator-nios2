@@ -1,13 +1,13 @@
-// (C) 2001-2016 Altera Corporation. All rights reserved.
-// Your use of Altera Corporation's design tools, logic functions and other 
+// (C) 2001-2018 Intel Corporation. All rights reserved.
+// Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
-// files any of the foregoing (including device programming or simulation 
+// files from any of the foregoing (including device programming or simulation 
 // files), and any associated documentation or information are expressly subject 
-// to the terms and conditions of the Altera Program License Subscription 
-// Agreement, Altera MegaCore Function License Agreement, or other applicable 
+// to the terms and conditions of the Intel Program License Subscription 
+// Agreement, Intel FPGA IP License Agreement, or other applicable 
 // license agreement, including, without limitation, that your use is for the 
-// sole purpose of programming logic devices manufactured by Altera and sold by 
-// Altera or its authorized distributors.  Please refer to the applicable 
+// sole purpose of programming logic devices manufactured by Intel and sold by 
+// Intel or its authorized distributors.  Please refer to the applicable 
 // agreement for further details.
 
 
@@ -24,10 +24,10 @@
 // agreement for further details.
 
 
-// $Id: //acds/rel/16.0/ip/merlin/altera_merlin_router/altera_merlin_router.sv.terp#1 $
+// $Id: //acds/rel/18.1std/ip/merlin/altera_merlin_router/altera_merlin_router.sv.terp#1 $
 // $Revision: #1 $
-// $Date: 2016/02/08 $
-// $Author: swbranch $
+// $Date: 2018/07/18 $
+// $Author: psgswbuild $
 
 // -------------------------------------------------------
 // Merlin Router
@@ -49,21 +49,21 @@ module nios_system_mm_interconnect_0_router_012_default_decode
                DEFAULT_RD_CHANNEL = -1,
                DEFAULT_DESTID = 1 
    )
-  (output [78 - 75 : 0] default_destination_id,
-   output [14-1 : 0] default_wr_channel,
-   output [14-1 : 0] default_rd_channel,
-   output [14-1 : 0] default_src_channel
+  (output [96 - 93 : 0] default_destination_id,
+   output [15-1 : 0] default_wr_channel,
+   output [15-1 : 0] default_rd_channel,
+   output [15-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
-    DEFAULT_DESTID[78 - 75 : 0];
+    DEFAULT_DESTID[96 - 93 : 0];
 
   generate
     if (DEFAULT_CHANNEL == -1) begin : no_default_channel_assignment
       assign default_src_channel = '0;
     end
     else begin : default_channel_assignment
-      assign default_src_channel = 14'b1 << DEFAULT_CHANNEL;
+      assign default_src_channel = 15'b1 << DEFAULT_CHANNEL;
     end
   endgenerate
 
@@ -73,8 +73,8 @@ module nios_system_mm_interconnect_0_router_012_default_decode
       assign default_rd_channel = '0;
     end
     else begin : default_rw_channel_assignment
-      assign default_wr_channel = 14'b1 << DEFAULT_WR_CHANNEL;
-      assign default_rd_channel = 14'b1 << DEFAULT_RD_CHANNEL;
+      assign default_wr_channel = 15'b1 << DEFAULT_WR_CHANNEL;
+      assign default_rd_channel = 15'b1 << DEFAULT_RD_CHANNEL;
     end
   endgenerate
 
@@ -93,7 +93,7 @@ module nios_system_mm_interconnect_0_router_012
     // Command Sink (Input)
     // -------------------
     input                       sink_valid,
-    input  [92-1 : 0]    sink_data,
+    input  [110-1 : 0]    sink_data,
     input                       sink_startofpacket,
     input                       sink_endofpacket,
     output                      sink_ready,
@@ -102,8 +102,8 @@ module nios_system_mm_interconnect_0_router_012
     // Command Source (Output)
     // -------------------
     output                          src_valid,
-    output reg [92-1    : 0] src_data,
-    output reg [14-1 : 0] src_channel,
+    output reg [110-1    : 0] src_data,
+    output reg [15-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
     input                           src_ready
@@ -112,18 +112,18 @@ module nios_system_mm_interconnect_0_router_012
     // -------------------------------------------------------
     // Local parameters and variables
     // -------------------------------------------------------
-    localparam PKT_ADDR_H = 49;
-    localparam PKT_ADDR_L = 18;
-    localparam PKT_DEST_ID_H = 78;
-    localparam PKT_DEST_ID_L = 75;
-    localparam PKT_PROTECTION_H = 82;
-    localparam PKT_PROTECTION_L = 80;
-    localparam ST_DATA_W = 92;
-    localparam ST_CHANNEL_W = 14;
+    localparam PKT_ADDR_H = 67;
+    localparam PKT_ADDR_L = 36;
+    localparam PKT_DEST_ID_H = 96;
+    localparam PKT_DEST_ID_L = 93;
+    localparam PKT_PROTECTION_H = 100;
+    localparam PKT_PROTECTION_L = 98;
+    localparam ST_DATA_W = 110;
+    localparam ST_CHANNEL_W = 15;
     localparam DECODER_TYPE = 1;
 
-    localparam PKT_TRANS_WRITE = 52;
-    localparam PKT_TRANS_READ  = 53;
+    localparam PKT_TRANS_WRITE = 70;
+    localparam PKT_TRANS_READ  = 71;
 
     localparam PKT_ADDR_W = PKT_ADDR_H-PKT_ADDR_L + 1;
     localparam PKT_DEST_ID_W = PKT_DEST_ID_H-PKT_DEST_ID_L + 1;
@@ -158,16 +158,11 @@ module nios_system_mm_interconnect_0_router_012
     assign src_valid         = sink_valid;
     assign src_startofpacket = sink_startofpacket;
     assign src_endofpacket   = sink_endofpacket;
-    wire [14-1 : 0] default_src_channel;
+    wire [15-1 : 0] default_src_channel;
 
 
 
 
-    // -------------------------------------------------------
-    // Write and read transaction signals
-    // -------------------------------------------------------
-    wire read_transaction;
-    assign read_transaction  = sink_data[PKT_TRANS_READ];
 
 
     nios_system_mm_interconnect_0_router_012_default_decode the_default_decode(
@@ -190,15 +185,7 @@ module nios_system_mm_interconnect_0_router_012
 
 
         if (destid == 1 ) begin
-            src_channel = 14'b001;
-        end
-
-        if (destid == 0 ) begin
-            src_channel = 14'b010;
-        end
-
-        if (destid == 2  && read_transaction) begin
-            src_channel = 14'b100;
+            src_channel = 15'b1;
         end
 
 

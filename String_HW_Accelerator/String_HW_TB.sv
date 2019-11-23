@@ -33,8 +33,7 @@ module String_HW_TB;
 		.index(index),
 		.A(A), 
 		.B(B),
-		.lengthA(lengthA),
-		.lengthB(lengthB),
+		.length(length),
 		.done(done),
 		.result(R)
 		);
@@ -193,6 +192,8 @@ module String_HW_TB;
 					$display("Case String_To_Upper(%s) == %s failed", A, R);
 
 				go = 0;	#20;
+			
+			$stop;
 				
 	end
 	always  begin

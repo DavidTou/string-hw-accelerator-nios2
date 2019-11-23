@@ -1,14 +1,14 @@
-Fitter Status : Successful - Mon May 09 14:58:55 2016
-Quartus Prime Version : 16.0.0 Build 211 04/27/2016 SJ Standard Edition
+Fitter Status : Successful - Sat Nov 23 15:25:43 2019
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : DE2_115_Basic_Computer
 Top-level Entity Name : DE2_115_Basic_Computer
 Family : Cyclone IV E
 Device : EP4CE115F29C8
 Timing Models : Final
-Total logic elements : 11,201 / 114,480 ( 10 % )
-    Total combinational functions : 10,031 / 114,480 ( 9 % )
-    Dedicated logic registers : 6,553 / 114,480 ( 6 % )
-Total registers : 6914
+Total logic elements : 11,397 / 114,480 ( 10 % )
+    Total combinational functions : 10,220 / 114,480 ( 9 % )
+    Dedicated logic registers : 6,770 / 114,480 ( 6 % )
+Total registers : 7131
 Total pins : 242 / 529 ( 46 % )
 Total virtual pins : 0
 Total memory bits : 15,161 / 3,981,312 ( < 1 % )

@@ -384,6 +384,8 @@ module String_HW_Avalon_TB;
 		
 		write = 0;read = 0; #20;
 		
+	$stop;
+		
 	end
 
 	always
