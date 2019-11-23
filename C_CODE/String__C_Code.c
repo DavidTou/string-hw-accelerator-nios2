@@ -40,7 +40,7 @@ unsigned int snapshot_timer();
 
 // POINTERS
 volatile int * TIMER_ptr = (int *)TIMER_BASE;
-volatile int * GCD_HW_ptr = (int *)GCD_HW_32_BASE;
+volatile int * String_HW_ptr = (int *)String_HW_BASE;
 
 void main() {
 	

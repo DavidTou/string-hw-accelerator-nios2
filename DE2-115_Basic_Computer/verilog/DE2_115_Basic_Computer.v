@@ -9,8 +9,6 @@ module DE2_115_Basic_Computer (
 	UART_RXD,
 	
 /*****************************************************************************/
-	// Bidirectionals
-	GPIO,
 
 	// Memory (SRAM)
 	SRAM_DQ,
@@ -19,19 +17,6 @@ module DE2_115_Basic_Computer (
 	DRAM_DQ,
 
 /*****************************************************************************/
-	// Outputs
-	// 	Simple
-	LEDG,
-	LEDR,
-
-	HEX0,
-	HEX1,
-	HEX2,
-	HEX3,
-	HEX4,
-	HEX5,
-	HEX6,
-	HEX7,
 	
 	// 	Memory (SRAM)
 	SRAM_ADDR,
@@ -75,8 +60,6 @@ input		[17: 0]	SW;
 //  Communication
 input				UART_RXD;
 
-// Bidirectionals
-inout		[35: 0]	GPIO;
 
 // 	Memory (SRAM)
 inout		[15: 0]	SRAM_DQ;
@@ -84,19 +67,6 @@ inout		[15: 0]	SRAM_DQ;
 //  Memory (SDRAM)
 inout		[31: 0]	DRAM_DQ;
 
-// Outputs
-// 	Simple
-output		[ 8: 0]	LEDG;
-output		[17: 0]	LEDR;
-
-output		[ 6: 0]	HEX0;
-output		[ 6: 0]	HEX1;
-output		[ 6: 0]	HEX2;
-output		[ 6: 0]	HEX3;
-output		[ 6: 0]	HEX4;
-output		[ 6: 0]	HEX5;
-output		[ 6: 0]	HEX6;
-output		[ 6: 0]	HEX7;
 
 // 	Memory (SRAM)
 output		[19: 0]	SRAM_ADDR;
@@ -145,11 +115,6 @@ output		[ 3: 0]	DRAM_DQM;
  *                            Combinational Logic                            *
  *****************************************************************************/
 
-// Output Assignments
-assign GPIO[ 0]		= 1'bZ;
-assign GPIO[ 2]		= 1'bZ;
-assign GPIO[16]		= 1'bZ;
-assign GPIO[18]		= 1'bZ;
 
 /*****************************************************************************
  *                              Internal Modules                             *
@@ -180,36 +145,6 @@ nios_system NiosII (
 	.sram_OE_N							(SRAM_OE_N),
 	.sram_WE_N							(SRAM_WE_N),
 
-	// Red LEDs
-	.red_leds_export					(LEDR),
-	
-	// Green LEDs
-	.green_leds_export				(LEDG),
-
-	// HEX3 HEX0
-	.hex3_hex0_HEX0					(HEX0),
-	.hex3_hex0_HEX1					(HEX1),
-	.hex3_hex0_HEX2					(HEX2),
-	.hex3_hex0_HEX3					(HEX3),
-	
-	// HEX7 HEX4
-	.hex7_hex4_HEX4					(HEX4),
-	.hex7_hex4_HEX5					(HEX5),
-	.hex7_hex4_HEX6					(HEX6),
-	.hex7_hex4_HEX7					(HEX7),
-
-	// Slider switches
-	.slider_switches_export			(SW),
-
-	// Pushbuttons
-	.pushbuttons_export				({KEY[3:1], 1'b1}),
-
-	// Expansion JP5
-	.expansion_jp5_export			({GPIO[35:19], GPIO[17], GPIO[15:3], GPIO[1]}),
-
-	// Serial port
-	.serial_port_RXD					(UART_RXD),
-	.serial_port_TXD					(UART_TXD)
 );
 
 endmodule
