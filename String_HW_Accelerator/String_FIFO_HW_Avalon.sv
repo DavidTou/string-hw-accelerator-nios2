@@ -94,9 +94,9 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 			indexIn <= 0;
 		else
 			indexIn <= indexIn+1;
-	*/
+*/	
 	// read last 2 cc so needs to be separate
-	always_ff@(negedge read or  posedge reset)
+	always_ff@(posedge read or  posedge reset)
 		if(reset)
 			indexOut <= 0;
 		else if(SizeA > 0) begin
@@ -121,6 +121,7 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 					readdata <= 0;
 					indexIn <= 0;
 					SizeA <= 0;
+					//indexOut <= 0;
 					//ReadTGA <= 0;
 					// clear 2d fifo
 					queueA <= '{default:32'hbeeffeed};
@@ -138,8 +139,11 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 			else if (read_reg_A) begin
 					if(indexOut <= indexIn) begin
 						if(SizeA > 0) begin
+							//indexOut
 							readdata <= queueA[indexOut];
 						end
+						// EMPTY FIFO
+						else readdata <= 32'hdeaddead;
 					end
 					// no more reads allowed
 					else readdata <= 32'hdeadface;
@@ -148,6 +152,7 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 			else if (write_reg_StatusA) begin
 					indexIn <= 0;
 					SizeA <= 0;
+					//indexOut <= 0;
 					//ReadTGA <= 0;
 				end
 			else if (read_reg_StatusA)	readdata <= statusA;//control;		// Read control register 			

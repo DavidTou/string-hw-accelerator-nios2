@@ -55,40 +55,57 @@ void main() {
 		char str2[128]; 		// double quotes add null terminator
 		char out [4];
 		
-		// dummy write
-		*(String_HW_ptr+2) = 0xFFFF;
+		// DUMMY WRITE TO RESET
+		//*(String_HW_ptr+2) = 0;
 		printf("AVALON: %x\n",*(String_HW_ptr+2));
 
-		printf("FIFO Size: %x\n",READ_STATUS_A);
-		printf("String 1: ");
+		printf("FIFO Size: %x\n",READ_STATUS_A >> 28);
+		*(String_HW_ptr) = 0xfafa0000;
+		*(String_HW_ptr) = 0xdada0000;
+		
+		printf("FIFO Size: %x\n",READ_STATUS_A>> 28);
+
+		printf("AVALON read: %x\n",*(String_HW_ptr));
+		inputParamTerminal(str1);
+
+		
+		printf("AVALON: %x\n",*(String_HW_ptr));
+		printf("AVALON: %x\n",*(String_HW_ptr));
+		printf("AVALON: %x\n",*(String_HW_ptr));
+		printf("AVALON: %x\n",*(String_HW_ptr));
+		//printf("0^ 4 chars: %s\n",out);
+		/*printf("String 1: ");
 		inputParamTerminal(str1);
 		get4Chars(str1,out, 0);
 		*(String_HW_ptr) = (uint32_t) out;
-		printf("FIFO Size: %x\n",READ_STATUS_A);
+		printf("FIFO Size: %x\n",READ_STATUS_A>> 28);
 		printf("0^ 4 chars: %s\n",out);
 		
 		printf("AVALON read: %x\n",*(String_HW_ptr));
 
 		get4Chars(str1,out, 1);
 		*(String_HW_ptr) = (uint32_t) out;
-		printf("FIFO Size: %x\n",READ_STATUS_A);
+		printf("FIFO Size: %x\n",READ_STATUS_A>> 28);
 		printf("1^ 4 chars: %s\n",out);
+
+		printf("AVALON read: %x\n",*(String_HW_ptr));
 
 		get4Chars(str1,out, 2);
 		*(String_HW_ptr) = (uint32_t) out;
-		printf("FIFO Size: %x\n",READ_STATUS_A);
+		printf("FIFO Size: %x\n",READ_STATUS_A>> 28);
 		printf("2^ 4 chars: %s\n",out);
 
+		printf("AVALON read: %x\n",*(String_HW_ptr));
 		//printf("String 2: ");
 		//inputParamTerminal(str2);
 		//*(String_HW_ptr)
-		printf("AVALON: %x\n",*((char* )String_HW_ptr));
+		printf("AVALON: %x\n",*(String_HW_ptr));
 		printf("AVALON: %x\n",*(String_HW_ptr));
 		printf("AVALON: %x\n",*(String_HW_ptr));
 		printf("AVALON: %x\n",*(String_HW_ptr));
 		//strcpy(str1, "abcdef");
    		//strcpy(str2, "ABCDEF");
-
+		*/
 		start_timer();
 		int ret = strcmp(str1,str2);
 		ticksHW = snapshot_timer();
