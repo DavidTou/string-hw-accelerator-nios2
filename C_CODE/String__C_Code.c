@@ -25,7 +25,7 @@
 #include <stdint.h>
 
 #define CLOCK_RATE 50000000.0
-#define READ_CTR_REG *(String_HW_ptr+2)
+#define READ_STATUS_A *(String_HW_ptr+2)
 
 /* function prototypes */
 char get_char( void );
@@ -54,24 +54,29 @@ void main() {
 		char str1[128]; 		// double quotes add null terminator
 		char str2[128]; 		// double quotes add null terminator
 		char out [4];
-		printf("Control REG(1): %d\n",READ_CTR_REG);
+		
+		// dummy write
+		*(String_HW_ptr+2) = 0xFFFF;
+		printf("AVALON: %x\n",*(String_HW_ptr+2));
+
+		printf("FIFO Size: %x\n",READ_STATUS_A);
 		printf("String 1: ");
 		inputParamTerminal(str1);
 		get4Chars(str1,out, 0);
 		*(String_HW_ptr) = (uint32_t) out;
-		printf("Control REG (2): %d\n",READ_CTR_REG);
+		printf("FIFO Size: %x\n",READ_STATUS_A);
 		printf("0^ 4 chars: %s\n",out);
 		
 		printf("AVALON read: %x\n",*(String_HW_ptr));
 
 		get4Chars(str1,out, 1);
 		*(String_HW_ptr) = (uint32_t) out;
-		printf("Control REG(3): %d\n",READ_CTR_REG);
+		printf("FIFO Size: %x\n",READ_STATUS_A);
 		printf("1^ 4 chars: %s\n",out);
 
 		get4Chars(str1,out, 2);
 		*(String_HW_ptr) = (uint32_t) out;
-		printf("Control REG(4): %d\n",READ_CTR_REG);
+		printf("FIFO Size: %x\n",READ_STATUS_A);
 		printf("2^ 4 chars: %s\n",out);
 
 		//printf("String 2: ");

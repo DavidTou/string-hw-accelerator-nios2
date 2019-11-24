@@ -28,7 +28,17 @@
  * ###############################################################################
  */
 
-module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, chipselect);
+module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, chipselect
+// TESTBENCH
+//queueA,indexIn,indexOut,statusA);
+/*output logic [31:0] statusA;
+   	
+	output logic [31:0]  queueA [0:MAX_WORDS-1];    // A bounded queue of 32-bits with maximum size of 16 slots 16*32 = 512 bits
+	output logic [3:0]   indexIn;			// indexIn for writes
+	output logic [3:0]   indexOut;			// indexOut for reads
+	*/
+);
+	parameter MAX_WORDS = 4 ;
    // signals for connecting to the Avalon fabric
 	input logic clk, reset, read, write, chipselect;
 	input logic [2:0] address;
@@ -38,25 +48,27 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 	logic go, done;
 	logic [2:0] index;
 	logic [0:3] [7:0] A, B, result;
-	logic [2:0] length;
-	logic [31:0] control;
+
+	/* ------ FIFO A --------- */
+	logic [3:0] SizeA,ReadTGA;
+	logic [31:0] statusA;
    	
-	logic [31:0]  queueA [15:0];    // A bounded queue of 32-bits with maximum size of 16 slots 16*32 = 512 bits
+	logic [31:0]  queueA [0:MAX_WORDS-1];    // A bounded queue of 32-bits with maximum size of 16 slots 16*32 = 512 bits
 	logic [3:0]   indexIn;			// indexIn for writes
 	logic [3:0]   indexOut;			// indexOut for reads
-	
+	/* ------ END FIFO A --------- */
 	logic write_reg_A, write_reg_B, write_reg_Control;
 	logic  read_reg_A,  read_reg_B,  read_reg_Control, read_reg_Result;
 
 	// Write Register Flags
 	assign write_reg_A 		= (address == 0) && write && chipselect;
 	assign write_reg_B		= (address == 1) && write && chipselect;
-	assign write_reg_Control = (address == 2) && write && chipselect;
+	assign write_reg_StatusA = (address == 2) && write && chipselect;
 
 	// Read Register Flags
 	assign read_reg_A 		= (address == 0) && read  && chipselect;
 	assign read_reg_B 		= (address == 1) && read  && chipselect;
-	assign read_reg_Control  = (address == 2) && read  && chipselect;
+	assign read_reg_StatusA  = (address == 2) && read  && chipselect;
 	assign read_reg_Result 	= (address == 3) && read  && chipselect;
    
 	// Control Register bits
@@ -77,33 +89,68 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 				.result(result)
 			   ); */
 			   
-	always_ff@(negedge write or  posedge reset)
+	/*always_ff@(negedge write or  posedge reset)
 		if(reset)
 			indexIn <= 0;
 		else
 			indexIn <= indexIn+1;
-	
+	*/
 	// read last 2 cc so needs to be separate
 	always_ff@(negedge read or  posedge reset)
 		if(reset)
 			indexOut <= 0;
-		else
-			indexOut <= indexOut+1;
-			
-	// Process Read & Write Commands
+		else if(ReadTGA > 0) begin
+				indexOut <= indexOut+1;
+				ReadTGA <= ReadTGA - 1;
+			end
+			// reset when done reading
+			else
+				indexOut <= 0;
+
+	// FIFO A Status Register
+	always_ff@(posedge clk or posedge reset)
+	if (reset)
+		statusA <= 0;
+	else
+		statusA <= {SizeA,ReadTGA,24'b0};
+
+	// Process Read & Write Commands FIFO A
 	always_ff@(posedge clk or posedge reset)
 		begin
 			if (reset) begin										// Synchronous Reset
-				readdata <= 0;
-				control[31:1] <= 0;
-				// clear 2d fifo
-				queueA <= '{default:32'hbeeffeed};
+					readdata <= 0;
+					indexIn <= 0;
+					SizeA <= 0;
+					ReadTGA <= 0;
+					// clear 2d fifo
+					queueA <= '{default:32'hbeeffeed};
+					//queueA[0] <= 32'hbeeffeed;
 				end
-			else if (write_reg_A)		queueA[indexIn] <= writedata;//A <= writedata;				// Write to register A
-			else if (read_reg_A)		begin readdata<= queueA[indexOut];end//readdata <= A;		// Read register A
-		// Read register B
-			//else if (write_reg_Control) control[31:1] <= writedata;	// Write control register (ignore bit 0: done)
-			else if (read_reg_Control)	readdata <= indexIn;//control;		// Read control register 			
+			else if (write_reg_A) begin
+					if(indexIn != MAX_WORDS-1) begin
+						queueA[indexIn++] <= writedata;
+						// increment control values
+						SizeA <= SizeA + 1;
+						ReadTGA <= ReadTGA + 1;
+					end
+					//else FIFO IS FULL
+				end
+			else if (read_reg_A) begin
+					if(indexOut <= indexIn) begin
+						if(ReadTGA > 0) begin
+							readdata <= queueA[indexOut];
+						end
+					end
+					// no more reads allowed
+					else readdata <= 32'hdeadface;
+				end//readdata <= A;		// Read register A
+			// WRITE TO STATUS A => Reset Module
+			else if (write_reg_StatusA) begin
+					indexIn <= 0;
+					SizeA <= 0;
+					ReadTGA <= 0;
+				end
+			else if (read_reg_StatusA)	readdata <= statusA;//control;		// Read control register 			
 			//else if (read_reg_Result)	readdata <= result;			// Read result from register 3	
 			
 			/* if (done)

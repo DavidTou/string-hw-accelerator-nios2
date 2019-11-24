@@ -30,13 +30,13 @@ module String_HW_TB;
 	logic [31:0]  queueA [0:3];
 	logic [3:0]   indexIn;			// indexIn for writes
 	logic [3:0]   indexOut;			// indexOut for reads
-	
-	String_HW_Avalon av (clk, reset, writedata, address, readdata, write, read, chipselect,queueA,indexIn,indexOut);
+	logic [31:0]  controlA;
+	String_HW_Avalon av (clk, reset, writedata, address, readdata, write, read, chipselect,queueA,indexIn,indexOut, controlA);
 	
 	initial
 	begin
 		// Reset inputs
-		reset = 1;	#20;
+		reset = 1;	#10;
 		reset = 0;
 		
 /************** Test index 0 (string compare), inputs (abcd, abca)******************/
@@ -44,7 +44,33 @@ module String_HW_TB;
 		address=0;
 		writedata = "abcd";
 		write = 1;
-		#40;
+		#10
+		write = 0;
+
+		#10;
+		chipselect = 1;
+		address=0;
+		writedata = "1234";
+		write = 1;
+		#10;
+
+		write = 0;
+		#10;
+		chipselect = 1;
+		address=0;
+		writedata = "5678";
+		write = 1;
+		#10;
+
+		write = 0;
+		read=1;
+		#20;
+		chipselect = 1;
+		address=0;
+		//writedata = "5678";
+		//write = 1;
+		#10;
+		read=0;
 		$stop;
 				
 	end

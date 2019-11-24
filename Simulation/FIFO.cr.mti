@@ -1,4 +1,11 @@
-C:/Users/David/Documents/GitHub/string-hw-accelerator-nios2/Simulation/String_FIFO_HW_Avalon_TB.sv {1 {vlog -work work -sv -stats=none {C:\Users\David\Documents\GitHub\string-hw-accelerator-nios2\Simulation\String_FIFO_HW_Avalon_TB.sv}
+C:/Users/David/Documents/GitHub/string-hw-accelerator-nios2/Simulation/String_FIFO_HW_Avalon.sv {1 {vlog -work work -sv -stats=none C:/Users/David/Documents/GitHub/string-hw-accelerator-nios2/Simulation/String_FIFO_HW_Avalon.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module String_HW_Avalon
+
+Top level modules:
+	String_HW_Avalon
+
+} {} {}} C:/Users/David/Documents/GitHub/string-hw-accelerator-nios2/Simulation/String_FIFO_HW_Avalon_TB.sv {1 {vlog -work work -sv -stats=none C:/Users/David/Documents/GitHub/string-hw-accelerator-nios2/Simulation/String_FIFO_HW_Avalon_TB.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module String_HW_TB
 
