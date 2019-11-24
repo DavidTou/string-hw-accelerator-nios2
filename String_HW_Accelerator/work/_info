@@ -10,6 +10,10 @@ cModel Technology
 dC:/intelFPGA_lite/18.1
 vString_HW
 Z0 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+<<<<<<< HEAD
+Z1 !s110 1574550647
+=======
+>>>>>>> b95b728ef8b84b3e6f3be0191d3e18c5c5a58807
 !i10b 1
 Z1 VDg1SIo80bB@j0V0VzS_@n1
 r1
@@ -19,6 +23,18 @@ r1
 INnj;6l[cIYh_nbVkWLX6I2
 !s105 String_HW_sv_unit
 S1
+<<<<<<< HEAD
+Z3 dC:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator
+w1574547500
+8C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW.sv
+FC:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW.sv
+L0 27
+Z4 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z5 !s108 1574550647.000000
+=======
 Z2 dC:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator
 w1574483807
 8C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW.sv
@@ -26,6 +42,7 @@ FC:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Acceler
 L0 27
 Z3 OV;L;10.5b;63
 Z4 !s108 1574543183.000000
+>>>>>>> b95b728ef8b84b3e6f3be0191d3e18c5c5a58807
 !s107 C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW.sv|
 !i113 1
@@ -59,6 +76,15 @@ n@string_@h@w_@avalon
 vString_HW_Avalon_TB
 R0
 !i10b 1
+<<<<<<< HEAD
+!s100 6:`bEa;<DQ_B=7Q`fN4S52
+I6=`COzQ;l<d9BJOa6OgB_0
+R2
+!s105 String_HW_Avalon_TB_sv_unit
+S1
+R3
+w1574547800
+=======
 R1
 r1
 !s85 0
@@ -69,6 +95,7 @@ I3;T=e;lgfaPjl@LGhFa:T1
 S1
 R2
 w1574543175
+>>>>>>> b95b728ef8b84b3e6f3be0191d3e18c5c5a58807
 8C:\Users\Matthew\Documents\GitHub\string-hw-accelerator-nios2\String_HW_Accelerator\String_HW_Avalon_TB.sv
 FC:\Users\Matthew\Documents\GitHub\string-hw-accelerator-nios2\String_HW_Accelerator\String_HW_Avalon_TB.sv
 L0 33
@@ -83,7 +110,21 @@ n@string_@h@w_@avalon_@t@b
 vString_HW_TB
 R0
 !i10b 1
+<<<<<<< HEAD
+!s100 ?WCl12F1X:fEDVgO`U;Vz2
+I<EQ;fdKN<9Im@^T@NNO>P2
+R2
+!s105 String_HW_TB_sv_unit
+S1
+R3
+w1574547754
+8C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_TB.sv
+FC:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_TB.sv
+L0 24
+R4
+=======
 R1
+>>>>>>> b95b728ef8b84b3e6f3be0191d3e18c5c5a58807
 r1
 !s85 0
 31
