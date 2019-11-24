@@ -30,63 +30,77 @@
 
 module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, chipselect);
    // signals for connecting to the Avalon fabric
-   input logic clk, reset, read, write, chipselect;
-   input logic [2:0] address;
-   input logic [31:0] writedata;
-   output logic [31:0] readdata;
-	
-   logic go, done;
-   logic [2:0] index;
-   logic [0:3] [7:0] A, B, result;
-   logic [2:0] length;
-   logic [31:0] control;
-   
-   logic write_reg_A, write_reg_B, write_reg_Control;
-   logic  read_reg_A,  read_reg_B,  read_reg_Control, read_reg_Result;
-   
-   // Write Register Flags
-   assign write_reg_A 		= (address == 0) && write && chipselect;
-   assign write_reg_B		= (address == 1) && write && chipselect;
-   assign write_reg_Control = (address == 2) && write && chipselect;
-   
-   // Read Register Flags
-   assign read_reg_A 		= (address == 0) && read  && chipselect;
-   assign read_reg_B 		= (address == 1) && read  && chipselect;
-   assign read_reg_Control  = (address == 2) && read  && chipselect;
-   assign read_reg_Result 	= (address == 3) && read  && chipselect;
-   
-   // Control Register bits
-   /* assign control[0] = done;		 // Output
-   assign go 		 = control[1];   // Input
-   assign index  	 = control[4:2]; // Input
-   assign length 	 = control[7:5]; // Input */
-   
-   // Instantiate String_HW module
-   /* String_HW U0(.clk(clk), 
-				.reset(reset),
-				.go(go),
-			    .index(index),
-			    .A(A), 
-			    .B(B),
-			    .length(length),
-			    .done(done),
-			    .result(result)
-			   ); */
+	input logic clk, reset, read, write, chipselect;
+	input logic [2:0] address;
+	input logic [31:0] writedata;
+	output logic [31:0] readdata;
+
+	logic go, done;
+	logic [2:0] index;
+	logic [0:3] [7:0] A, B, result;
+	logic [2:0] length;
+	logic [31:0] control;
+   	
 	logic [31:0]  queueA [15:0];    // A bounded queue of 32-bits with maximum size of 16 slots 16*32 = 512 bits
 	logic [3:0]   indexIn;			// indexIn for writes
 	logic [3:0]   indexOut;			// indexOut for reads
+	
+	logic write_reg_A, write_reg_B, write_reg_Control;
+	logic  read_reg_A,  read_reg_B,  read_reg_Control, read_reg_Result;
+
+	// Write Register Flags
+	assign write_reg_A 		= (address == 0) && write && chipselect;
+	assign write_reg_B		= (address == 1) && write && chipselect;
+	assign write_reg_Control = (address == 2) && write && chipselect;
+
+	// Read Register Flags
+	assign read_reg_A 		= (address == 0) && read  && chipselect;
+	assign read_reg_B 		= (address == 1) && read  && chipselect;
+	assign read_reg_Control  = (address == 2) && read  && chipselect;
+	assign read_reg_Result 	= (address == 3) && read  && chipselect;
+   
+	// Control Register bits
+	/* assign control[0] = done;		 // Output
+	assign go 		 = control[1];   // Input
+	assign index  	 = control[4:2]; // Input
+	assign length 	 = control[7:5]; // Input */
+
+	// Instantiate String_HW module
+	/* String_HW U0(.clk(clk), 
+				.reset(reset),
+				.go(go),
+				.index(index),
+				.A(A), 
+				.B(B),
+				.length(length),
+				.done(done),
+				.result(result)
+			   ); */
+			   
+	always_ff@(posedge write or  posedge reset)
+		if(reset)
+			indexIn <= 0;
+		else
+			indexIn <= indexIn+1;
+	
+	// read last 2 cc so needs to be separate
+	always_ff@(posedge read or  posedge reset)
+		if(reset)
+			indexOut <= 0;
+		else
+			indexOut <= indexOut+1;
+			
 	// Process Read & Write Commands
 	always_ff@(posedge clk or posedge reset)
 		begin
 			if (reset) begin										// Synchronous Reset
 				readdata <= 0;
 				control[31:1] <= 0;
-				indexIn <= 0;
 				// clear 2d fifo
 				queueA <= '{default:32'b00};
 				end
-			else if (write_reg_A)		queueA[0] <= writedata;//A <= writedata;				// Write to register A
-			else if (read_reg_A)		begin readdata<= queueA[0];end//readdata <= A;				// Read register A
+			else if (write_reg_A)		queueA[indexIn] <= writedata;//A <= writedata;				// Write to register A
+			else if (read_reg_A)		begin readdata<= queueA[indexOut];end//readdata <= A;		// Read register A
 		// Read register B
 			//else if (write_reg_Control) control[31:1] <= writedata;	// Write control register (ignore bit 0: done)
 			else if (read_reg_Control)	readdata <= indexIn;//control;		// Read control register 			
