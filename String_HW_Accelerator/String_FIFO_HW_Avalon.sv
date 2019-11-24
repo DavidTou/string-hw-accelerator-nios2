@@ -96,8 +96,8 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 				// clear 2d fifo
 				queueA <= '{default:32'b00};
 				end
-			else if (write_reg_A)		queueA[indexIn++] <= writedata;//A <= writedata;				// Write to register A
-			else if (read_reg_A)		begin readdata<= queueA[indexOut];end//readdata <= A;				// Read register A
+			else if (write_reg_A)		queueA[0] <= writedata;//A <= writedata;				// Write to register A
+			else if (read_reg_A)		begin readdata<= queueA[0];end//readdata <= A;				// Read register A
 			else if (write_reg_B)		B <= writedata;				// Write to register B
 			else if (read_reg_B)   		readdata <= B;				// Read register B
 			//else if (write_reg_Control) control[31:1] <= writedata;	// Write control register (ignore bit 0: done)
