@@ -62,7 +62,7 @@ void main() {
 		printf("Control REG (2): %d\n",READ_CTR_REG);
 		printf("0^ 4 chars: %s\n",out);
 		
-		printf("0^ chars read: %s\n",*(String_HW_ptr));
+		printf("AVALON read: %x\n",*(String_HW_ptr));
 
 		get4Chars(str1,out, 1);
 		*(String_HW_ptr) = (uint32_t) out;
@@ -76,10 +76,11 @@ void main() {
 
 		//printf("String 2: ");
 		//inputParamTerminal(str2);
-		printf("4 chars read: %s\n",*((char* )String_HW_ptr));
-		printf("4 chars read: %s\n",*(String_HW_ptr));
-		printf("4 chars read: %s\n",*(String_HW_ptr));
-		printf("4 chars read: %s\n",*(String_HW_ptr));
+		//*(String_HW_ptr)
+		printf("AVALON: %x\n",*((char* )String_HW_ptr));
+		printf("AVALON: %x\n",*(String_HW_ptr));
+		printf("AVALON: %x\n",*(String_HW_ptr));
+		printf("AVALON: %x\n",*(String_HW_ptr));
 		//strcpy(str1, "abcdef");
    		//strcpy(str2, "ABCDEF");
 

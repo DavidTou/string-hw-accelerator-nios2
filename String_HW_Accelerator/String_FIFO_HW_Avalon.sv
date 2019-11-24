@@ -77,14 +77,14 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 				.result(result)
 			   ); */
 			   
-	always_ff@(posedge write or  posedge reset)
+	always_ff@(negedge write or  posedge reset)
 		if(reset)
 			indexIn <= 0;
 		else
 			indexIn <= indexIn+1;
 	
 	// read last 2 cc so needs to be separate
-	always_ff@(posedge read or  posedge reset)
+	always_ff@(negedge read or  posedge reset)
 		if(reset)
 			indexOut <= 0;
 		else
@@ -103,7 +103,7 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 			else if (read_reg_A)		begin readdata<= queueA[indexOut];end//readdata <= A;		// Read register A
 		// Read register B
 			//else if (write_reg_Control) control[31:1] <= writedata;	// Write control register (ignore bit 0: done)
-			else if (read_reg_Control)	readdata <= indexIn+1;//control;		// Read control register 			
+			else if (read_reg_Control)	readdata <= indexIn;//control;		// Read control register 			
 			//else if (read_reg_Result)	readdata <= result;			// Read result from register 3	
 			
 			/* if (done)
