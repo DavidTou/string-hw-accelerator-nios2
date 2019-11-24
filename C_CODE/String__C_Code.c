@@ -18,7 +18,6 @@
  */
 // include files
 #include "address_map_nios2.h"
-#include "nios2_ctrl_reg_macros.h"
 
 // needed for printf
 #include <stdio.h>
