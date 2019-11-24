@@ -59,17 +59,21 @@ void main() {
 		get4Chars(str1,out, 0);
 		*(String_HW_ptr) = (uint32_t) out;
 		printf("0^ 4 chars: %s\n",out);
+		
+		printf("0^ chars read: %s\n",*(String_HW_ptr));
+
 		get4Chars(str1,out, 1);
 		*(String_HW_ptr) = (uint32_t) out;
 		printf("1^ 4 chars: %s\n",out);
 
 		get4Chars(str1,out, 2);
 		*(String_HW_ptr) = (uint32_t) out;
-		printf("1^ 4 chars: %s\n",out);
+		printf("2^ 4 chars: %s\n",out);
 
 		//printf("String 2: ");
 		//inputParamTerminal(str2);
-		printf("4 chars read: %s\n",(char)*(String_HW_ptr));
+		printf("4 chars read: %s\n",*((char* )String_HW_ptr));
+		printf("4 chars read: %s\n",*(String_HW_ptr));
 		printf("4 chars read: %s\n",*(String_HW_ptr));
 		//strcpy(str1, "abcdef");
    		//strcpy(str2, "ABCDEF");
