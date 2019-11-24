@@ -25,6 +25,7 @@
 #include <stdint.h>
 
 #define CLOCK_RATE 50000000.0
+#define READ_CTR_REG *(String_HW_ptr+2)
 
 /* function prototypes */
 char get_char( void );
@@ -44,7 +45,7 @@ volatile int * String_HW_ptr = (int *)String_HW_BASE;
 void main() {
 	
 	uint32_t ticksHW,ticksSW;
-	//while(1){
+	while(1){
 		// reset for next round
 		ticksSW=0;
 		ticksHW=0;
@@ -53,25 +54,30 @@ void main() {
 		char str1[128]; 		// double quotes add null terminator
 		char str2[128]; 		// double quotes add null terminator
 		char out [4];
+		printf("Control REG(1): %d\n",READ_CTR_REG);
 		printf("String 1: ");
 		inputParamTerminal(str1);
 		get4Chars(str1,out, 0);
 		*(String_HW_ptr) = (uint32_t) out;
+		printf("Control REG (2): %d\n",READ_CTR_REG);
 		printf("0^ 4 chars: %s\n",out);
 		
 		printf("0^ chars read: %s\n",*(String_HW_ptr));
 
 		get4Chars(str1,out, 1);
 		*(String_HW_ptr) = (uint32_t) out;
+		printf("Control REG(3): %d\n",READ_CTR_REG);
 		printf("1^ 4 chars: %s\n",out);
 
 		get4Chars(str1,out, 2);
 		*(String_HW_ptr) = (uint32_t) out;
+		printf("Control REG(4): %d\n",READ_CTR_REG);
 		printf("2^ 4 chars: %s\n",out);
 
 		//printf("String 2: ");
 		//inputParamTerminal(str2);
 		printf("4 chars read: %s\n",*((char* )String_HW_ptr));
+		printf("4 chars read: %s\n",*(String_HW_ptr));
 		printf("4 chars read: %s\n",*(String_HW_ptr));
 		printf("4 chars read: %s\n",*(String_HW_ptr));
 		//strcpy(str1, "abcdef");
@@ -86,7 +92,7 @@ void main() {
 		printf("CC     = %-10d\n",ticksHW);
 		printf("ET (s) = %-10f\n",ticksHW/CLOCK_RATE);
 		printf("=========================================\n");
-		
+	}
 }
 /********************************************************************************
  * get4Chars(char index) 
