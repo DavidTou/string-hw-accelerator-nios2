@@ -36,68 +36,57 @@ module String_HW_TB;
 		reset = 0;
 		chipselect = 1; #10;
 		
-/************** Test index 0 (string compare), inputs (abcd, abca)******************/
+/************** Writing / Reading *****************/
 		address=0;
 		writedata = "abcd";
-		write = 1;
-		#10
+		write = 1;	#10;
 		
-		read = 0; write = 0;
+		read = 0; write = 0;	#10;
 
-		#10;
 		address=0;
 		writedata = "1234";
-		write = 1;
-		#10;
+		write = 1;		#10;
 
-		read = 0; write = 0;
+		read = 0; write = 0; 	#10;
 		
-		#10;
 		address=0;
 		writedata = "5678";
-		write = 1;
-		#10;
+		write = 1; #10;
 
-		read = 0; write = 0;
+		read = 0; write = 0;	#10;
 		
-		#10;
-		read=1;
-		address=0; #10;
-		R = readdata; 
-		#10;
+		address=0; 
+		read=1;					#5;
+		R = readdata; 			#5;
 		
 		assert (R == "abcd") 
 			$display("FIFO(%s) == %s PASSED", "abcd", R);
 		else 
 			$display("Case FIFO(%s) == %s failed", "abcd", R);
 		
-		read = 0; write = 0;
+		read = 0; write = 0; 	#10;
 		
-		#10;
-		read=1;
-		address=0;  #10;
-		R = readdata; 
-		#10;
+		address=0; 
+		read=1;					#5;
+		R = readdata; 			#5;
 		
 		assert (R == "1234") 
-			$display("FIFO(%s) == %s PASSED", "abcd", R);
+			$display("FIFO(%s) == %s PASSED", "1234", R);
 		else 
 			$display("Case FIFO(%s) == %s failed", "1234", R);
 			
-		read = 0; write = 0;
+		read = 0; write = 0; 	#10;
 				
-		#10;
-		read=1;
-		address=0;	#10;
-		R = readdata; 
-		#10;
+		address=0; 
+		read=1;					#5;
+		R = readdata; 			#5;
 		
 		assert (R == "5678") 
-			$display("FIFO(%s) == %s PASSED", "abcd", R);
+			$display("FIFO(%s) == %s PASSED", "5678", R);
 		else 
 			$display("Case FIFO(%s) == %s failed", "5678", R);
 			
-		read = 0; write = 0;
+		read = 0; write = 0; 	#10;
 	end
 	always  begin
 		clk <= 1; #5;

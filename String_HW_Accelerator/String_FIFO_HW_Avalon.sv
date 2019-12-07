@@ -36,11 +36,6 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 	input logic [2:0] address;
 	input logic [31:0] writedata;
 	output logic [31:0] readdata;
-
-	logic go, done;
-	logic [2:0] index;
-	logic [0:3] [7:0] A, B, result;
-
 	
 	logic write_reg_A, write_reg_B, write_reg_Control;
 	logic  read_reg_A,  read_reg_B,  read_reg_Control, read_reg_Result;
@@ -63,7 +58,6 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 	logic EMPTY, FULL;
 	
 	assign EMPTY = (Count==0);
-
 	assign FULL = (Count==MAX_WORDS);
 
 	/* ------ END FIFO A --------- */
@@ -72,45 +66,45 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 	always_ff@(posedge clk)
 	begin
 		if (reset) begin										// Synchronous Reset
-			readCounter = 0;
-			writeCounter = 0;
-			Count = 0; 
-			FIFOA = '{default:32'hdeadfeed};
+			readCounter <= 0;
+			writeCounter <= 0;
+			Count <= 0; 
+			FIFOA <= '{default:32'hdeadfeed};
 			end
 		// FIFO STUFF
 		else begin
 			// reset FIFO writing to Status register
 			if (write_reg_StatusA) begin
-				readCounter = 0;
-				writeCounter = 0;
-				Count = 0;
+				readCounter <= 0;
+				writeCounter <= 0;
+				Count <= 0;
 				end
 			// WRITE TO FIFOA
 			else if (write_reg_A && Count < MAX_WORDS) begin
-				FIFOA[writeCounter] = writedata;
-				writeCounter = writeCounter + 1;
+				FIFOA[writeCounter] <= writedata;
+				writeCounter <= writeCounter + 1;
 				end
 			// READ FROM FIFOA
 			else if (read_reg_A && Count != 0) begin
-				readdata = FIFOA[readCounter];
-				readCounter = readCounter + 1;
+				readdata <= FIFOA[readCounter];
+			    readCounter <= readCounter + 1;
 				end
 			// READ STATUS REGISTER
 			else if (read_reg_StatusA)	
-				readdata = {29'b0,Count};//control;		// Read control register 			
+				readdata <= {29'b0,Count};//control;		// Read control register 			
 			else;
 			
 			if(readCounter == MAX_WORDS)
-				readCounter = 0;
+				readCounter <= 0;
 			else if (writeCounter == MAX_WORDS) 
-				writeCounter = 0;
+				writeCounter <= 0;
 			else;
 			
 			// HANDLE COUNT calculation
 			if(readCounter > writeCounter)
-				Count = readCounter - writeCounter;
+				Count <= readCounter - writeCounter;
 			else if (writeCounter > readCounter) 
-				Count = writeCounter - readCounter; 
+				Count <= writeCounter - readCounter; 
 			else;
 		end
 	end
