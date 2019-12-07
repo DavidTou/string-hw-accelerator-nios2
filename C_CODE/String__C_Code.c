@@ -38,7 +38,7 @@ void start_timer();
 uint32_t snapshot_timer();
 void get4Chars(char* string,char *out, int index);
 void get4CharsInt(uint32_t value, char *out);
-void print4CharsInt(uint32_t value);
+void pointer4CharsInt(uint32_t value, char * out);
 
 // POINTERS
 volatile uint32_t * TIMER_ptr = (uint32_t *)TIMER_BASE;
@@ -53,40 +53,44 @@ void main() {
 		ticksSW=0;
 		ticksHW=0;
 		printf("#### string.h vs String HW peripheral ####\n");
-		
-		char str1[128]; 		// double quotes add null terminator
-		char str2[128]; 		// double quotes add null terminator
-		
+		// test string
 		char lorem [128] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis felis eget nisl finibus vulputate. Nam nec maximus volutpat.";
-		char length = 16;
-		char out [4];
+		char length = 32;			// 8*4 chars
+		char out [4];				// temp var
 		
 		// DUMMY WRITE TO RESET
 		*(String_HW_ptr+2) = 0;
-		//printf("Size: %d\n",*(String_HW_ptr+2));
-		//printf("String 1: ");
-		//char length = inputParamTerminal(str1);
 		
+		// WRITE 4 char blocks to HW module
 		char k;
 		for(k=0; k < length/4; k++)
 		{
 			get4Chars(lorem,out, k);
+			
+			printf("Write: %s\n",out);
 			printf("Write: %x\n",*((uint32_t *)(out)));
 			*(String_HW_ptr) = *((uint32_t *)(out));
 		}
+		
 		// DUMMY READ
 		*(String_HW_ptr);
 		
-		printf("FIFO Size: %x\n",*(String_HW_ptr+2));
+		// read size of FIFO, messes things up
+		//printf("FIFO Size: %x\n",*(String_HW_ptr+2));
+		
+		// PRINT TO CONSOLE INT TO CHAR
 		for(k=0; k < length/4; k++)
 		{
 			uint32_t val = *(String_HW_ptr);
 			printf("Read: %x\n",val);
-			//printf("Read:");print4CharsInt(val);printf("\n");
+			//get4CharsInt(val,out);
 			
+			printf("Read: %c",(val & 0xFF));
+			put_char((val & 0x0000FF00) >> 8);
+			put_char((val & 0x00FF0000) >> 16);
+			putchar((val & 0xFF000000) >> 24);
+			put_char('\n'); 
 		}
-		
-
 		
 		printf("Any char to continue..");
 		inputParamTerminal(str1);
@@ -165,16 +169,15 @@ void get4CharsInt(uint32_t value, char *out)
 /********************************************************************************
  * print4CharsInt(char index) 
 ********************************************************************************/
-void print4CharsInt(uint32_t value)
+void pointer4CharsInt(uint32_t value, char * out)
 {
-	char out [5];
+	//char out [5];
 	out[0]=(char)(value & 0xFF000000) >> 24;
 	out[1]=(char)(value & 0x00FF0000) >> 16;
 	out[2]=(char)(value & 0x0000FF00) >> 8;
 	out[3]=(char)(value & 0x000000FF);
-	out[4]= (char) 0x0A; // NULL CHAR
-	printf("%s",out);
-	//return (uint32_t)out;
+	out[4]=(char) 0x0A; // NULL CHAR
+	//return out;
 }
 
 
