@@ -1,26 +1,26 @@
 /* 
  * ###############################################################################
  * CPE423
- * Greatest Common Divisor
- * David Tougaw 
- * 10/15/2019
+ * String_HW 
+ * David Tougaw and Matthew Bowen
+ * 11/24/2019
  * --------------------------------------
- * Greatest Common Calculator
- * 32 bit integer inputs A and B
+ * String.h Hardware Accelerator
  * --------------------------------------
  * Dev BOARD => Altera DE2-115
  * ------------------------------------------------------------------------------
  * -----------AVALON INTERFACE--------------------
- * ============== 32 bit GCD HW ==================
+ * ============== 32 bit String HW ==================
  *   	   32 bit registers
  *	|----Register 0 (A)---------|
  *	|----Register 1 (B)---------|
  *	|----Register 2 (Control)---|
- *	|----Register 3 (GCD)-------|
+ *	|----Register 3 (Result)----|
  * ------------------------------------------------------------------------------
- * 0) LoadA => load 32 bit A
- * 1) LoadB => load 32 bit B and start calculation
- * 2) Output result and done signal
+ * 0) Wait for go
+ * 1) Go to string function depending on index value
+ * 2) Perform 1 clock cycle computation
+ * 3) Wait in Done state until go bit reset
  * ###############################################################################
  */
 

@@ -86,29 +86,9 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 			else if (read_reg_B)   		readdata <= B;						// Read register B
 			else if (write_reg_Control) control[31:1] <= writedata[31:1];	// Write control register (ignore bit 0: done)
 			else if (read_reg_Control)	readdata <= control;				// Read control register 			
-			else if (read_reg_Result)	readdata <= result;					// Read result from register 3		
+			else if (read_reg_Result) begin 
+										readdata <= result;					// Read result from register 3		
+										control[1] <= 0;					// Reset go bit
+									  end 
 		 end
-		
-/* 
-	// Read data into FIFO and wait for go signal
-				S1: 	begin 
-							// Wait for go or FIFO_read flag
-							if (go) nextstate <= S2; 
-							else if (FIFO_write) begin
-								// Write to FIFO_1
-								if (FIFO_select) begin	
-									FIFO_1_in[memory_index_1] <= data_in; // Read 32 bits of data from FIFO
-									memory_index_1 <= memory_index_1 + 1;		// increment memory index for FIFO 1
-									nextstate <= S1;
-									end
-								// Write to FIFO_0
-								else 		
-									FIFO_0_in[memory_index_0] <= data_in; // Read 32 bits of data from FIFO
-									memory_index_0 <= memory_index_0 + 1;		// increment memory index for FIFO 0
-									nextstate <= S1;
-									end
-							else 
-								nextstate <= S1;				 // Do nothing, wait for go or read flag
-*/
-	
 endmodule
