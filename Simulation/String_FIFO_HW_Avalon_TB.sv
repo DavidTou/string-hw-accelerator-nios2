@@ -25,13 +25,8 @@ module String_HW_TB;
 	logic clk, reset, write, read,chipselect;
 	logic [2:0] address;
 	logic [31:0] writedata,readdata;
-	logic [2:0] length;
+	logic [31:0]  R;
 	
-	logic [31:0]  queueA [0:7];
-	logic [2:0]   readCounter;			// indexIn for writes
-	logic [2:0]   writeCounter;			// indexOut for reads
-	//logic [31:0]  controlA;
-	logic [2:0] Count =0;
 	String_HW_Avalon av (clk, reset, writedata, address, readdata, write, read, chipselect);
 	
 	initial
@@ -39,52 +34,70 @@ module String_HW_TB;
 		// Reset inputs
 		reset = 1;	#10;
 		reset = 0;
+		chipselect = 1; #10;
 		
 /************** Test index 0 (string compare), inputs (abcd, abca)******************/
-		chipselect = 1;
 		address=0;
 		writedata = "abcd";
 		write = 1;
 		#10
-		write = 0;
+		
+		read = 0; write = 0;
 
 		#10;
-		chipselect = 1;
 		address=0;
 		writedata = "1234";
 		write = 1;
 		#10;
 
-		write = 0;
+		read = 0; write = 0;
+		
 		#10;
-		chipselect = 1;
 		address=0;
 		writedata = "5678";
 		write = 1;
 		#10;
 
-		write = 0;
-		read=1;
-		#20;
-		chipselect = 1;
-		address=0;
-		//writedata = "5678";
-		//write = 1;
+		read = 0; write = 0;
+		
 		#10;
-		read=0;
-		#10;
-		write = 0;
 		read=1;
-		#20;
-		chipselect = 1;
-		address=0;
-		//writedata = "5678";
-		//write = 1;
+		address=0; #10;
+		R = readdata; 
 		#10;
 		
-		read=0;
-		$stop;
+		assert (R == "abcd") 
+			$display("FIFO(%s) == %s PASSED", "abcd", R);
+		else 
+			$display("Case FIFO(%s) == %s failed", "abcd", R);
+		
+		read = 0; write = 0;
+		
+		#10;
+		read=1;
+		address=0;  #10;
+		R = readdata; 
+		#10;
+		
+		assert (R == "1234") 
+			$display("FIFO(%s) == %s PASSED", "abcd", R);
+		else 
+			$display("Case FIFO(%s) == %s failed", "1234", R);
+			
+		read = 0; write = 0;
 				
+		#10;
+		read=1;
+		address=0;	#10;
+		R = readdata; 
+		#10;
+		
+		assert (R == "5678") 
+			$display("FIFO(%s) == %s PASSED", "abcd", R);
+		else 
+			$display("Case FIFO(%s) == %s failed", "5678", R);
+			
+		read = 0; write = 0;
 	end
 	always  begin
 		clk <= 1; #5;
