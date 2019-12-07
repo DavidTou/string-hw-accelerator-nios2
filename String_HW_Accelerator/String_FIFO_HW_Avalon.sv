@@ -29,13 +29,7 @@
  */
 
 module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, chipselect);
-// TESTBENCH
-/*output logic [31:0] statusA;
-   	
-	output logic [31:0]  queueA [0:MAX_WORDS-1];    // A bounded queue of 32-bits with maximum size of 16 slots 16*32 = 512 bits
-	output logic [3:0]   indexIn;			// indexIn for writes
-	output logic [3:0]   indexOut;			// indexOut for reads
-	*/
+
 	parameter MAX_WORDS = 8;
    // signals for connecting to the Avalon fabric
 	input logic clk, reset, read, write, chipselect;
@@ -61,24 +55,6 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 	//assign read_reg_B 		= (address == 1) && read  && chipselect;
 	assign read_reg_StatusA  = (address == 2) && read  && chipselect;
 	//assign read_reg_Result 	= (address == 3) && read  && chipselect;
-   
-	// Control Register bits
-	/* assign control[0] = done;		 // Output
-	assign go 		 = control[1];   // Input
-	assign index  	 = control[4:2]; // Input
-	assign length 	 = control[7:5]; // Input */
-
-	// Instantiate String_HW module
-	/* String_HW U0(.clk(clk), 
-				.reset(reset),
-				.go(go),
-				.index(index),
-				.A(A), 
-				.B(B),
-				.length(length),
-				.done(done),
-				.result(result)
-			   ); */
 			   
 	/* ------ FIFO A --------- */
 	logic [31:0] FIFOA [0:MAX_WORDS-1];
@@ -86,24 +62,21 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 	logic [2:0]  readCounter = 0, writeCounter = 0; 
 	logic EMPTY, FULL;
 	
-	assign EMPTY = (Count==0)? 1'b1:1'b0; 
+	assign EMPTY = (Count==0);
 
-	assign FULL = (Count==MAX_WORDS)? 1'b1:1'b0; 
+	assign FULL = (Count==MAX_WORDS);
 
 	/* ------ END FIFO A --------- */
 
 	// Process Read & Write Commands FIFO A
 	always_ff@(posedge clk)
 	begin
-		// do nothing
-		if (chipselect == 0);
-		
-		else if (reset) begin										// Synchronous Reset
+		if (reset) begin										// Synchronous Reset
 			readCounter = 0;
 			writeCounter = 0;
 			Count = 0; 
 			FIFOA = '{default:32'hdeadfeed};
-		end
+			end
 		// FIFO STUFF
 		else begin
 			// reset FIFO writing to Status register
@@ -111,17 +84,17 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 				readCounter = 0;
 				writeCounter = 0;
 				Count = 0;
-			end
+				end
 			// WRITE TO FIFOA
 			else if (write_reg_A && Count < MAX_WORDS) begin
 				FIFOA[writeCounter] = writedata;
 				writeCounter = writeCounter + 1;
-			end
+				end
 			// READ FROM FIFOA
 			else if (read_reg_A && Count != 0) begin
 				readdata = FIFOA[readCounter];
 				readCounter = readCounter + 1;
-			end
+				end
 			// READ STATUS REGISTER
 			else if (read_reg_StatusA)	
 				readdata = {29'b0,Count};//control;		// Read control register 			
