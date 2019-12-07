@@ -63,7 +63,7 @@ void main() {
 		
 		// DUMMY WRITE TO RESET
 		*(String_HW_ptr+2) = 0;
-		//printf("AVALON: %x\n",*(String_HW_ptr+2));
+		//printf("Size: %d\n",*(String_HW_ptr+2));
 		//printf("String 1: ");
 		//char length = inputParamTerminal(str1);
 		
@@ -77,6 +77,7 @@ void main() {
 		// DUMMY READ
 		*(String_HW_ptr);
 		
+		printf("FIFO Size: %x\n",*(String_HW_ptr+2));
 		for(k=0; k < length/4; k++)
 		{
 			uint32_t val = *(String_HW_ptr);
@@ -84,7 +85,6 @@ void main() {
 			//printf("Read:");print4CharsInt(val);printf("\n");
 			
 		}
-		
 		
 
 		

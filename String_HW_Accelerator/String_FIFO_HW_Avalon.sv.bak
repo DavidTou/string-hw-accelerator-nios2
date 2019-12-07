@@ -28,14 +28,16 @@
  * ###############################################################################
  */
 
-module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, chipselect);
+module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, chipselect
 // TESTBENCH
+//,FIFOA,readCounter,writeCounter, Count);
 /*output logic [31:0] statusA;
    	
 	output logic [31:0]  queueA [0:MAX_WORDS-1];    // A bounded queue of 32-bits with maximum size of 16 slots 16*32 = 512 bits
 	output logic [3:0]   indexIn;			// indexIn for writes
 	output logic [3:0]   indexOut;			// indexOut for reads
 	*/
+);
 	parameter MAX_WORDS = 8;
    // signals for connecting to the Avalon fabric
 	input logic clk, reset, read, write, chipselect;
