@@ -33,18 +33,21 @@ uint32_t get_uint( void );
 void put_char( char c );
 uint32_t pow(uint32_t n, char p);
 uint32_t stringToInt32bit(char buffer[],unsigned lastIndex);
-void inputParamTerminal( char buffer []) ;
+char inputParamTerminal( char buffer []) ;
 void start_timer();
 uint32_t snapshot_timer();
 void get4Chars(char* string,char *out, int index);
+void get4CharsInt(uint32_t value, char *out);
+void print4CharsInt(uint32_t value);
 
 // POINTERS
-volatile int * TIMER_ptr = (int *)TIMER_BASE;
-volatile int * String_HW_ptr = (int *)String_HW_BASE;
+volatile uint32_t * TIMER_ptr = (uint32_t *)TIMER_BASE;
+volatile uint32_t * String_HW_ptr = (uint32_t *)String_HW_BASE;
 
 void main() {
 	
 	uint32_t ticksHW,ticksSW;
+	uint32_t test = 0xfa000000;
 	while(1){
 		// reset for next round
 		ticksSW=0;
@@ -53,26 +56,41 @@ void main() {
 		
 		char str1[128]; 		// double quotes add null terminator
 		char str2[128]; 		// double quotes add null terminator
+		
+		char lorem [128] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis felis eget nisl finibus vulputate. Nam nec maximus volutpat.";
+		char length = 16;
 		char out [4];
 		
 		// DUMMY WRITE TO RESET
-		//*(String_HW_ptr+2) = 0;
-		printf("AVALON: %x\n",*(String_HW_ptr+2));
-
-		printf("FIFO Size: %x\n",READ_STATUS_A >> 28);
-		*(String_HW_ptr) = 0xfafa0000;
-		*(String_HW_ptr) = 0xdada0000;
+		*(String_HW_ptr+2) = 0;
+		//printf("AVALON: %x\n",*(String_HW_ptr+2));
+		//printf("String 1: ");
+		//char length = inputParamTerminal(str1);
 		
-		printf("FIFO Size: %x\n",READ_STATUS_A>> 28);
+		char k;
+		for(k=0; k < length/4; k++)
+		{
+			get4Chars(lorem,out, k);
+			printf("Write: %x\n",*((uint32_t *)(out)));
+			*(String_HW_ptr) = *((uint32_t *)(out));
+		}
+		// DUMMY READ
+		*(String_HW_ptr);
+		
+		for(k=0; k < length/4; k++)
+		{
+			uint32_t val = *(String_HW_ptr);
+			printf("Read: %x\n",val);
+			//printf("Read:");print4CharsInt(val);printf("\n");
+			
+		}
+		
+		
 
-		printf("AVALON read: %x\n",*(String_HW_ptr));
+		
+		printf("Any char to continue..");
 		inputParamTerminal(str1);
-
 		
-		printf("AVALON: %x\n",*(String_HW_ptr));
-		printf("AVALON: %x\n",*(String_HW_ptr));
-		printf("AVALON: %x\n",*(String_HW_ptr));
-		printf("AVALON: %x\n",*(String_HW_ptr));
 		//printf("0^ 4 chars: %s\n",out);
 		/*printf("String 1: ");
 		inputParamTerminal(str1);
@@ -121,7 +139,7 @@ void main() {
  * get4Chars(char index) 
  * index specifies 4 char blocks
 ********************************************************************************/
-void get4Chars(char* string,char *out, int index)
+void get4Chars(char* string, char *out, int index)
 {
 	//char out [4];
 	out[0]=string[0+4*index];
@@ -131,11 +149,39 @@ void get4Chars(char* string,char *out, int index)
 	//return (uint32_t)out;
 }
 
+/********************************************************************************
+ * get4CharsInt(char index) 
+********************************************************************************/
+void get4CharsInt(uint32_t value, char *out)
+{
+	//char out [4];
+	out[0]=(char)(value & 0xFF000000) >> 24;
+	out[1]=(char)(value & 0x00FF0000) >> 16;
+	out[2]=(char)(value & 0x0000FF00) >> 8;
+	out[3]=(char)(value & 0x000000FF);
+	//return (uint32_t)out;
+}
+
+/********************************************************************************
+ * print4CharsInt(char index) 
+********************************************************************************/
+void print4CharsInt(uint32_t value)
+{
+	char out [5];
+	out[0]=(char)(value & 0xFF000000) >> 24;
+	out[1]=(char)(value & 0x00FF0000) >> 16;
+	out[2]=(char)(value & 0x0000FF00) >> 8;
+	out[3]=(char)(value & 0x000000FF);
+	out[4]= (char) 0x0A; // NULL CHAR
+	printf("%s",out);
+	//return (uint32_t)out;
+}
+
 
 /********************************************************************************
  * inputParamTerminal Function 
 ********************************************************************************/
-void inputParamTerminal( char buffer []) 
+char inputParamTerminal( char buffer []) 
 {
 	unsigned char pos=0;
 	char a;
@@ -158,7 +204,7 @@ void inputParamTerminal( char buffer [])
 	put_char(a);
 	// add null char
 	buffer[pos] = '\0';
-	return;
+	return pos+1;
 }
 
 /********************************************************************************

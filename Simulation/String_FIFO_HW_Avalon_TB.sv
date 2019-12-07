@@ -27,11 +27,12 @@ module String_HW_TB;
 	logic [31:0] writedata,readdata;
 	logic [2:0] length;
 	
-	logic [31:0]  queueA [0:3];
-	logic [3:0]   indexIn;			// indexIn for writes
-	logic [3:0]   indexOut;			// indexOut for reads
-	logic [31:0]  controlA;
-	String_HW_Avalon av (clk, reset, writedata, address, readdata, write, read, chipselect,queueA,indexIn,indexOut, controlA);
+	logic [31:0]  queueA [0:7];
+	logic [2:0]   readCounter;			// indexIn for writes
+	logic [2:0]   writeCounter;			// indexOut for reads
+	//logic [31:0]  controlA;
+	logic [2:0] Count =0;
+	String_HW_Avalon av (clk, reset, writedata, address, readdata, write, read, chipselect,queueA,readCounter,writeCounter, Count);
 	
 	initial
 	begin
@@ -70,6 +71,17 @@ module String_HW_TB;
 		//writedata = "5678";
 		//write = 1;
 		#10;
+		read=0;
+		#10;
+		write = 0;
+		read=1;
+		#20;
+		chipselect = 1;
+		address=0;
+		//writedata = "5678";
+		//write = 1;
+		#10;
+		
 		read=0;
 		$stop;
 				

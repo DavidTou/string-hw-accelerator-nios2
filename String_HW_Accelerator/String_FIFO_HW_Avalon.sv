@@ -30,7 +30,7 @@
 
 module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, chipselect
 // TESTBENCH
-//queueA,indexIn,indexOut,statusA);
+//,FIFOA,readCounter,writeCounter, Count);
 /*output logic [31:0] statusA;
    	
 	output logic [31:0]  queueA [0:MAX_WORDS-1];    // A bounded queue of 32-bits with maximum size of 16 slots 16*32 = 512 bits
@@ -38,7 +38,7 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 	output logic [3:0]   indexOut;			// indexOut for reads
 	*/
 );
-	parameter MAX_WORDS = 4 ;
+	parameter MAX_WORDS = 8 ;
    // signals for connecting to the Avalon fabric
 	input logic clk, reset, read, write, chipselect;
 	input logic [2:0] address;
@@ -49,14 +49,7 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 	logic [2:0] index;
 	logic [0:3] [7:0] A, B, result;
 
-	/* ------ FIFO A --------- */
-	logic [3:0] SizeA,ReadTGA;
-	logic [31:0] statusA;
-   	
-	logic [31:0]  queueA [0:MAX_WORDS-1];    // A bounded queue of 32-bits with maximum size of 16 slots 16*32 = 512 bits
-	logic [3:0]   indexIn;			// indexIn for writes
-	logic [3:0]   indexOut;			// indexOut for reads
-	/* ------ END FIFO A --------- */
+	
 	logic write_reg_A, write_reg_B, write_reg_Control;
 	logic  read_reg_A,  read_reg_B,  read_reg_Control, read_reg_Result;
 
@@ -89,80 +82,63 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 				.result(result)
 			   ); */
 			   
-	/*always_ff@(negedge write or  posedge reset)
-		if(reset)
-			indexIn <= 0;
-		else
-			indexIn <= indexIn+1;
-*/	
-	// read last 2 cc so needs to be separate
-	always_ff@(posedge read or  posedge reset)
-		if(reset)
-			indexOut <= 0;
-		else if(SizeA > 0) begin
-				indexOut <= indexOut+1;
-				//ReadTGA <= ReadTGA - 1;
-			end
-			// reset when done reading
-			else
-				indexOut <= 0;
+	/* ------ FIFO A --------- */
+	logic [31:0] FIFOA [0:MAX_WORDS-1];
+	logic [2:0]  Count = 0; 
+	logic [2:0]  readCounter = 0, writeCounter = 0; 
+	logic EMPTY, FULL, HOLD;
+	
+	assign EMPTY = (Count==0)? 1'b1:1'b0; 
 
-	// FIFO A Status Register
-	always_ff@(posedge clk or posedge reset)
-	if (reset)
-		statusA <= 0;
-	else
-		statusA <= {SizeA,28'b0};
+	assign FULL = (Count==MAX_WORDS)? 1'b1:1'b0; 
+
+	/* ------ END FIFO A --------- */
 
 	// Process Read & Write Commands FIFO A
-	always_ff@(posedge clk or posedge reset)
-		begin
-			if (reset) begin										// Synchronous Reset
-					readdata <= 0;
-					indexIn <= 0;
-					SizeA <= 0;
-					//indexOut <= 0;
-					//ReadTGA <= 0;
-					// clear 2d fifo
-					queueA <= '{default:32'hbeeffeed};
-					//queueA[0] <= 32'hbeeffeed;
-				end
-			else if (write_reg_A) begin
-					if(indexIn != MAX_WORDS-1) begin
-						queueA[indexIn++] <= writedata;
-						// increment control values
-						SizeA <= SizeA + 1;
-						//ReadTGA <= ReadTGA + 1;
-					end
-					//else FIFO IS FULL
-				end
-			else if (read_reg_A) begin
-					if(indexOut <= indexIn) begin
-						if(SizeA > 0) begin
-							//indexOut
-							readdata <= queueA[indexOut];
-						end
-						// EMPTY FIFO
-						else readdata <= 32'hdeaddead;
-					end
-					// no more reads allowed
-					else readdata <= 32'hdeadface;
-				end//readdata <= A;		// Read register A
-			// WRITE TO STATUS A => Reset Module
-			else if (write_reg_StatusA) begin
-					indexIn <= 0;
-					SizeA <= 0;
-					//indexOut <= 0;
-					//ReadTGA <= 0;
-				end
-			else if (read_reg_StatusA)	readdata <= statusA;//control;		// Read control register 			
-			//else if (read_reg_Result)	readdata <= result;			// Read result from register 3	
-			
-			/* if (done)
-				control[1] <= 1;
-			else
-				control[1] <= 0; */
+	always_ff@(posedge clk)
+	begin
+		// do nothing
+		if (chipselect == 0);
+		
+		else if (reset) begin										// Synchronous Reset
+			readCounter = 0;
+			writeCounter = 0;
+			Count = 0; 
 		end
+		// FIFO STUFF
+		else begin
+			// reset FIFO writing to Status register
+			if (write_reg_StatusA == 1) begin
+				readCounter = 0;
+				writeCounter = 0;
+				Count = 0;
+			end
+			else if (write_reg_A == 1 && Count < MAX_WORDS) begin
+				FIFOA[writeCounter] = writedata;
+				writeCounter = writeCounter + 1;
+			end
+			else if (read_reg_A == 1 && Count != 0) begin
+				readdata = FIFOA[readCounter];
+				readCounter = readCounter + 1;
+			end
+			//else if (read_reg_StatusA == 1)	
+			//	readdata = Count;//control;		// Read control register 			
+			else;
+			
+			if(readCounter == MAX_WORDS)
+				readCounter = 0;
+			else if (writeCounter == MAX_WORDS) 
+				writeCounter = 0;
+			else;
+			
+			// HANDLE COUNT calculation
+			if(readCounter > writeCounter)
+				Count = readCounter - writeCounter;
+			else if (writeCounter > readCounter) 
+				Count = writeCounter - readCounter; 
+			else;
+		end
+	end
 		
 /* 
 	// Read data into FIFO and wait for go signal
