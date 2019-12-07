@@ -38,7 +38,7 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 	output logic [3:0]   indexOut;			// indexOut for reads
 	*/
 );
-	parameter MAX_WORDS = 8 ;
+	parameter MAX_WORDS = 8;
    // signals for connecting to the Avalon fabric
 	input logic clk, reset, read, write, chipselect;
 	input logic [2:0] address;
@@ -86,7 +86,7 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 	logic [31:0] FIFOA [0:MAX_WORDS-1];
 	logic [2:0]  Count = 0; 
 	logic [2:0]  readCounter = 0, writeCounter = 0; 
-	logic EMPTY, FULL, HOLD;
+	logic EMPTY, FULL;
 	
 	assign EMPTY = (Count==0)? 1'b1:1'b0; 
 
@@ -104,6 +104,7 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 			readCounter = 0;
 			writeCounter = 0;
 			Count = 0; 
+			FIFOA = '{default:32'hdeadfeed};
 		end
 		// FIFO STUFF
 		else begin
@@ -113,16 +114,19 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 				writeCounter = 0;
 				Count = 0;
 			end
+			// WRITE TO FIFOA
 			else if (write_reg_A == 1 && Count < MAX_WORDS) begin
 				FIFOA[writeCounter] = writedata;
 				writeCounter = writeCounter + 1;
 			end
+			// READ FROM FIFOA
 			else if (read_reg_A == 1 && Count != 0) begin
 				readdata = FIFOA[readCounter];
 				readCounter = readCounter + 1;
 			end
-			//else if (read_reg_StatusA == 1)	
-			//	readdata = Count;//control;		// Read control register 			
+			// READ STATUS REGISTER
+			else if (read_reg_StatusA == 1)	
+				readdata = {29'b0,Count};//control;		// Read control register 			
 			else;
 			
 			if(readCounter == MAX_WORDS)
@@ -139,27 +143,5 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 			else;
 		end
 	end
-		
-/* 
-	// Read data into FIFO and wait for go signal
-				S1: 	begin 
-							// Wait for go or FIFO_read flag
-							if (go) nextstate <= S2; 
-							else if (FIFO_write) begin
-								// Write to FIFO_1
-								if (FIFO_select) begin	
-									FIFO_1_in[memory_index_1] <= data_in; // Read 32 bits of data from FIFO
-									memory_index_1 <= memory_index_1 + 1;		// increment memory index for FIFO 1
-									nextstate <= S1;
-									end
-								// Write to FIFO_0
-								else 		
-									FIFO_0_in[memory_index_0] <= data_in; // Read 32 bits of data from FIFO
-									memory_index_0 <= memory_index_0 + 1;		// increment memory index for FIFO 0
-									nextstate <= S1;
-									end
-							else 
-								nextstate <= S1;				 // Do nothing, wait for go or read flag
-*/
 	
 endmodule
