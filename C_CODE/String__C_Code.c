@@ -43,6 +43,15 @@ void get4Chars(char* string,char *out, int index);
 void get4CharsInt(uint32_t value, char *out);
 void pointer4CharsInt(uint32_t value, char * out);
 
+/* String HW prototypes */
+uint32_t stringHW_ToUpper(uint32_t A);
+uint32_t stringHW_ToLower(uint32_t A);
+uint32_t stringHW_compare(uint32_t A, uint32_t B);
+
+/* String SW prototypes */
+void strToUpper(char* string, int length);
+void strToLower(char* string, int length);
+
 // POINTERS
 volatile uint32_t * TIMER_ptr = (uint32_t *)TIMER_BASE;
 volatile uint32_t * String_HW_ptr = (uint32_t *)String_HW_BASE;
@@ -99,7 +108,43 @@ void main() {
 			putchar((val & 0xFF000000) >> 24);
 			putchar('\n');
 		}
-
+		
+		
+		/************* String to Upper Display Code ***************/
+		/*
+			printf("=========== StringToUpper(str) ===========\n");
+			printf("Software strToUpper(%s) = %s \n",str1, str2);
+			printf("Hardware strToUpper(%s) = %s \n",str1, result_str);
+			printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
+			printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
+			printf("=================================================\n");
+		*/
+		
+		/************ String to Lower Display Code *************/
+		/*
+			printf("=========== StringToLower(str) ===========\n");
+			printf("Software strToLower(%s) = %s \n",str1, str2);
+			printf("Hardware strToLower(%s) = %s \n",str1, result_str);
+			printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
+			printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
+			printf("=================================================\n");
+		*/
+		
+		/********* String to Lower Display Code **********/
+		/*
+			printf("=========== StringCompare(str1, str2) ===========\n");
+			printf("Software strcmp(%s, %s) = ",str1, str2);
+			if (!resultSW)	printf("EQUAL \n");
+			else		printf("NOT EQUAL \n");
+			printf("Hardware strcmp(%s, %s) = ",str1, str2);
+			if (resultHW)	printf("EQUAL \n");
+			else		printf("NOT EQUAL \n");
+			printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
+			printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
+			printf("=================================================\n");
+		*/
+			
+			
 		printf("Any char to continue..");
 		inputParamTerminal(str1);
 		//printf("0^ 4 chars: %s\n",out);
@@ -137,6 +182,82 @@ void main() {
 		*/
 	}
 }
+/********************************************************************************
+ * StringCompare Function converts inputted string to uint32_teger 32 bit
+********************************************************************************/
+uint32_t stringHW_compare(uint32_t A, uint32_t B)
+{
+	uint32_t result;
+	*(String_HW_ptr) = A;
+	*(String_HW_ptr+1) = B;
+	
+	*(String_HW_ptr+2) = 0b00010;	// index = 0, go = 1
+	
+	while((*(String_HW_ptr+2) & 0b01) != 0b01);	// wait for done
+	result = *(String_HW_ptr+3);				// store result
+	
+	*(String_HW_ptr+2) = 0;		// reset go bit
+	
+	return result;
+}
+
+/********************************************************************************
+ * StringToUpper Function converts inputted string to uint32_teger 32 bit
+********************************************************************************/
+uint32_t stringHW_ToUpper(uint32_t A)
+{
+	
+	uint32_t result;
+	*(String_HW_ptr) = A;
+	*(String_HW_ptr+2) = 0b00110;	// index = 1, go = 1
+	
+	while((*(String_HW_ptr+2) & 0b01) != 0b01);	// wait for done
+	result = *(String_HW_ptr+3);				// store result
+	
+	*(String_HW_ptr+2) = 0;		// reset go bit
+	
+	return result;
+}
+
+/********************************************************************************
+ * StringToLower Function converts inputted string to uint32_teger 32 bit
+********************************************************************************/
+uint32_t stringHW_ToLower(uint32_t A)
+{
+	uint32_t result;
+	*(String_HW_ptr) = A;
+	
+	*(String_HW_ptr+2) = 0b01010;	// index = 2, go = 1
+	
+	while((*(String_HW_ptr+2) & 0b01) != 0b01);	// wait for done
+	result = *(String_HW_ptr+3);				// store result
+	
+	*(String_HW_ptr+2) = 0;		// reset go bit
+	
+	return result;
+}
+
+/********************************************************************************
+ * StringToUpper Function converts inputted string to uint32_teger 32 bit
+********************************************************************************/
+void strToUpper(char* string, int length)
+{
+	for (int i = 0; i < length; i++)
+		if (string[i] >= 'a' && string[i] <= 'z')
+			string[i] -= 32;
+}
+
+/********************************************************************************
+ * StringToLower Function converts inputted string to uint32_teger 32 bit
+********************************************************************************/
+void strToLower(char* string, int length)
+{
+	char result[4];
+	for (int i = 0; i < length; i++)
+		if (string[i] >= 'A' && string[i] <= 'Z')
+			string[i] += 32;
+}
+
 /********************************************************************************
  * get4Chars(char index) 
  * index specifies 4 char blocks
