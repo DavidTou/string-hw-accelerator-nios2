@@ -25,7 +25,8 @@
 #include <stdint.h>
 
 #define CLOCK_RATE 50000000.0
-#define READ_STATUS_A *(String_HW_ptr)
+#define READ_CONTROL_STATUS *(String_HW_ptr)
+#define WRITE_CONTROL_STATUS *(String_HW_ptr)
 
 #define BUFFER_SIZE 128
 
@@ -56,41 +57,47 @@ void main() {
 		ticksHW=0;
 		printf("#### string.h vs String HW peripheral ####\n");
 		
-		char length = 12;		
+		char length = 64;		
 		char out [4];				// temp var
 		
-		char str1[128] = "ABCD1234EFGH"; 	// double quotes add null terminator
-		char str2[128]; 						// double quotes add null terminator
-		char result_str[128];
+		char str1[BUFFER_SIZE] = "lylatagssongdamptynecapebarnflowonceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
+		char str2[BUFFER_SIZE]; 						// double quotes add null terminator
+		//char result_str[128];
 		
 		// WRITE 4 char blocks to HW module
 		char k;
-		//*(String_HW_ptr+2) = 0; 	// Dummy write to reset signals
-		
-		printf("Control/Status: %x\n",READ_STATUS_A);
+		printf("Control/Status: %x\n",READ_CONTROL_STATUS);
 		
 		for(k=0; k < length/4; k++)
 		{
 			get4Chars(str1,out, k);
 			*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
-			 printf("Write: %s \n",out);
+			if((k+1) <= 8)
+				printf("Write A: %s \n",out);
+			else
+				printf("Write B: %s \n",out);
 			 //printf("Read: %s \tFIFO Size: %u \n",out, *(String_HW_ptr+2));
 		}
 		
-		//*(String_HW_ptr);
+		WRITE_CONTROL_STATUS = 0xFEEDBEEF;
+		printf("WRITE Control/Status: %x\n",0xFEEDBEEF);
+		
 		// PRINT TO CONSOLE INT TO CHAR
-		printf("Control/Status: %x\n",READ_STATUS_A);
+		printf("Control/Status: %x\n",READ_CONTROL_STATUS);
 		for(k=0; k < length/4; k++)
 		{
 			uint32_t val;
 			val = *(String_HW_ptr + k + 1);
 			//printf("Read HEX: %x \n",val);
-		    printf("Read: ");
+			if((k+1) <= 8)
+				printf("Read A: ");
+			else
+				printf("Read B: ");
 			putchar(val & 0x000000FF);
 			putchar((val & 0x0000FF00) >> 8);
 			putchar((val & 0x00FF0000) >> 16);
 			putchar((val & 0xFF000000) >> 24);
-			printf("\n");
+			putchar('\n');
 		}
 
 		printf("Any char to continue..");

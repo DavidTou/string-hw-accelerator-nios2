@@ -93,12 +93,12 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 				
 			// WRITE TO StringB
 			if (write_reg_B) begin
-				StringB[address - 1] <= writedata;
+				StringB[address - MAX_WORDS - 1] <= writedata;
 				//writeCounter <= writeCounter + 1;
 				end
 			// READ FROM StringB
 			else if (read_reg_B) begin
-				readdata <= StringB[address - 1];
+				readdata <= StringB[address - MAX_WORDS - 1];
 			    //readCounter <= readCounter + 1;
 				end
 				
