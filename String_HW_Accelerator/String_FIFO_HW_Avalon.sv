@@ -37,48 +37,49 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 	input logic [31:0] writedata;
 	output logic [31:0] readdata;
 	
-	logic write_reg_A, write_reg_B, write_reg_Control;
-	logic  read_reg_A,  read_reg_B,  read_reg_Control, read_reg_Result;
+	logic write_reg_A, write_reg_B, write_reg_Control_Status;
+	logic read_reg_A, read_reg_B, read_reg_Control_Status;
 	
-	/* ------ StringA --------- */
+	logic [31:0] Control_Status;
+	
+	/* ------ Control/Status Flags --------- */
+	assign read_reg_Control_Status  = (address == 0) && read  && chipselect;
+	assign write_reg_Control_Status = (address == 0) && write && chipselect;
+	/* ------ END Control/Status Flags --------- */
+	
+	/* ------ StringA Flags --------- 
+	* ADDRESS 1 - MAX_WORDS
+	*/
 	logic [31:0] StringA [0:MAX_WORDS-1];
-	logic [31:0] A_Status;
-	//logic [2:0]  Count; 
-	//logic [2:0]  readCounter, writeCounter; 
-	//logic EMPTY, FULL;
-
 	// Write Register Flags
-	assign write_reg_A		 = (address > 1) && (address < MAX_WORDS) && write && chipselect;
-	//assign write_reg_B		= (address == 1) && write && chipselect;
-	assign write_reg_StatusA = (address == 0) && write && chipselect;
-
+	assign write_reg_A		 		= (address >= 1) && (address <= MAX_WORDS) && write && chipselect;
 	// Read Register Flags
-	assign read_reg_A 		 = (address > 1) && (address < MAX_WORDS) && read  && chipselect;
-	//assign read_reg_B 		= (address == 1) && read  && chipselect;
-	assign read_reg_StatusA  = (address == 0) && read  && chipselect;
-	//assign read_reg_Result 	= (address == 3) && read  && chipselect;
+	assign read_reg_A 		 		= (address >= 1) && (address <= MAX_WORDS) && read  && chipselect;
+	/* ------ END StringA Flags --------- */
 	
-	//assign EMPTY = (Count==0);
-	//assign FULL = (Count==MAX_WORDS);
-
-	/* ------ END FIFO A --------- */
-
-	// Process Read & Write Commands FIFO A
+	/* ------ StringB Flags ---------
+	* ADDRESS 9 - 2*MAX_WORDS
+	*/
+	logic [31:0] StringB [0:MAX_WORDS-1];
+	// Write Register Flags
+	assign write_reg_B		 = (address > MAX_WORDS) && (address <= (MAX_WORDS+MAX_WORDS)) && write && chipselect;
+	// Read Register Flags
+	assign read_reg_B 		 = (address > MAX_WORDS) && (address <= (MAX_WORDS+MAX_WORDS)) && read  && chipselect;
+	// Process Read & Write Commands StringA and StringB
 	always_ff@(posedge clk)
 	begin
-		if (reset) begin										// Synchronous Reset
-			/* readCounter <= 0;
-			writeCounter <= 0;
-			Count <= 0;  */
-			StringA <= '{default:32'hdeadfeed};
-			A_Status <= 0;
+		if (reset) begin
+			StringA		<= '{default:32'h0};		//initialize StringA to NULL Chars
+			StringB		<= '{default:32'h0};		//initialize StringB to NULL Chars
+			Control_Status 	<= 0;
 			end
-		// String STUFF
+		// StringA & StringB Read/Write
 		else begin
-			// Set Status A bits
- 			if (write_reg_StatusA) begin
-				A_Status <= writedata;
+			// WRITE CONTROL/STATUS REGISTER
+ 			if (write_reg_Control_Status) begin
+				Control_Status <= writedata;
 				end
+				
 			// WRITE TO StringA
 			if (write_reg_A) begin
 				StringA[address - 1] <= writedata;
@@ -90,23 +91,22 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 			    //readCounter <= readCounter + 1;
 				end
 				
-			// READ STATUS REGISTER
-			else if (read_reg_StatusA)	
-				readdata <= A_Status;//control;		// Read control register 			
+			// WRITE TO StringB
+			if (write_reg_B) begin
+				StringB[address - 1] <= writedata;
+				//writeCounter <= writeCounter + 1;
+				end
+			// READ FROM StringB
+			else if (read_reg_B) begin
+				readdata <= StringB[address - 1];
+			    //readCounter <= readCounter + 1;
+				end
+				
+			// READ CONTROL/STATUS REGISTER
+			else if (read_reg_Control_Status)	
+				readdata <= Control_Status; 			
 			else;
 			
-			/* if(readCounter == MAX_WORDS)
-				readCounter <= 0;
-			else if (writeCounter == MAX_WORDS) 
-				writeCounter <= 0;
-			else;
-			
-			// HANDLE COUNT calculation
-			if(readCounter >= writeCounter)
-				Count <= readCounter - writeCounter;
-			else if (writeCounter > readCounter) 
-				Count <= writeCounter - readCounter; 
-			else; */
 		end
 	end
 	

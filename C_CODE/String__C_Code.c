@@ -25,7 +25,7 @@
 #include <stdint.h>
 
 #define CLOCK_RATE 50000000.0
-#define READ_STATUS_A *(String_HW_ptr+2)
+#define READ_STATUS_A *(String_HW_ptr)
 
 #define BUFFER_SIZE 128
 
@@ -67,25 +67,24 @@ void main() {
 		char k;
 		//*(String_HW_ptr+2) = 0; 	// Dummy write to reset signals
 		
-		printf("FIFO Size: %u\n",*(String_HW_ptr+2));
-	
+		printf("Control/Status: %x\n",READ_STATUS_A);
 		
 		for(k=0; k < length/4; k++)
 		{
 			get4Chars(str1,out, k);
-			*(String_HW_ptr) = *((uint32_t *)(out));
+			*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
 			 printf("Write: %s \n",out);
 			 //printf("Read: %s \tFIFO Size: %u \n",out, *(String_HW_ptr+2));
 		}
 		
 		//*(String_HW_ptr);
 		// PRINT TO CONSOLE INT TO CHAR
-		printf("FIFO Size: %u\n",*(String_HW_ptr+2));
+		printf("Control/Status: %x\n",READ_STATUS_A);
 		for(k=0; k < length/4; k++)
 		{
 			uint32_t val;
-			val = *(String_HW_ptr);
-			//printf("Read: %x \n",val);
+			val = *(String_HW_ptr + k + 1);
+			//printf("Read HEX: %x \n",val);
 		    printf("Read: ");
 			putchar(val & 0x000000FF);
 			putchar((val & 0x0000FF00) >> 8);
