@@ -58,7 +58,7 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 	assign read_reg_StatusA  = (address == 0) && read  && chipselect;
 	//assign read_reg_Result 	= (address == 3) && read  && chipselect;
 	
-	assign EMPTY = (Count==0);
+	//assign EMPTY = (Count==0);
 	//assign FULL = (Count==MAX_WORDS);
 
 	/* ------ END FIFO A --------- */
@@ -71,7 +71,7 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 			writeCounter <= 0;
 			Count <= 0;  */
 			StringA <= '{default:32'hdeadfeed};
-			A_Status < = 0;
+			A_Status <= 0;
 			end
 		// String STUFF
 		else begin
