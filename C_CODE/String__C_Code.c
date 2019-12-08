@@ -42,6 +42,7 @@ uint32_t snapshot_timer();
 void get4Chars(char* string,char *out, int index);
 void get4CharsInt(uint32_t value, char *out);
 void pointer4CharsInt(uint32_t value, char * out);
+void clearTerminal();
 
 /* String HW prototypes */
 uint32_t stringHW_ToUpper(uint32_t A);
@@ -59,94 +60,114 @@ volatile uint32_t * String_HW_ptr = (uint32_t *)String_HW_BASE;
 void main() {
 	
 	uint32_t ticksHW,ticksSW;
-
+	char length = 64;
+	char str1[BUFFER_SIZE] = "lylatagssongdamptynecapebarnflowonceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
+	char str2[BUFFER_SIZE]; 	// double quotes add null terminator
+	char out [4];				// temp var
+	
 	while(1){
 		// reset for next round
 		ticksSW=0;
 		ticksHW=0;
-		printf("#### string.h vs String HW peripheral ####\n");
+		printf("\n#### string.h vs String HW peripheral ####\n");
+		printf(" # => TEST READ/WRITE AVALON\n");	
+		printf(" 0 => Compare\n 1 => ToUpper\n 2 => ToLower\n");
+		printf(" 3 => Reverse\n");
 		
-		char length = 64;		
-		char out [4];				// temp var
-		
-		char str1[BUFFER_SIZE] = "lylatagssongdamptynecapebarnflowonceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
-		char str2[BUFFER_SIZE]; 						// double quotes add null terminator
-		//char result_str[128];
-		
-		// WRITE 4 char blocks to HW module
-		char k;
-		printf("Control/Status: %x\n",READ_CONTROL_STATUS);
-		
-		for(k=0; k < length/4; k++)
-		{
-			get4Chars(str1,out, k);
-			*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
-			if((k+1) <= 8)
-				printf("Write A: %s \n",out);
-			else
-				printf("Write B: %s \n",out);
-			 //printf("Read: %s \tFIFO Size: %u \n",out, *(String_HW_ptr+2));
+		printf("Select function: ");
+		inputParamTerminal(out);
+		putchar('\n');
+		switch(out[0]) {
+			case '#': {
+				printf("\n#### TEST READ/WRITE AVALON ####\n");
+				// WRITE 4 char blocks to HW module
+				char k;
+				printf("Control/Status: %x\n",READ_CONTROL_STATUS);
+				
+				for(k=0; k < length/4; k++)
+				{
+					get4Chars(str1,out, k);
+					*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
+					if((k+1) <= 8)
+						printf("Write A: %s \n",out);
+					else
+						printf("Write B: %s \n",out);
+					 //printf("Read: %s \tFIFO Size: %u \n",out, *(String_HW_ptr+2));
+				}
+				
+				WRITE_CONTROL_STATUS = 0xFEEDBEEF;
+				printf("WRITE Control/Status: %x\n",0xFEEDBEEF);
+				
+				// PRINT TO CONSOLE INT TO CHAR
+				printf("Control/Status: %x\n",READ_CONTROL_STATUS);
+				for(k=0; k < length/4; k++)
+				{
+					uint32_t val;
+					val = *(String_HW_ptr + k + 1);
+					//printf("Read HEX: %x \n",val);
+					if((k+1) <= 8)
+						printf("Read A: ");
+					else
+						printf("Read B: ");
+					putchar(val & 0x000000FF);
+					putchar((val & 0x0000FF00) >> 8);
+					putchar((val & 0x00FF0000) >> 16);
+					putchar((val & 0xFF000000) >> 24);
+					putchar('\n');
+				}
+			}break;
+			case '0': {
+				/********* StringCompare Display Code **********/
+				
+					printf("=========== StringCompare(str1, str2) ===========\n");
+				/*	printf("Software strcmp(%s, %s) = ",str1, str2);
+					if (!resultSW)	printf("EQUAL \n");
+					else		printf("NOT EQUAL \n");
+					printf("Hardware strcmp(%s, %s) = ",str1, str2);
+					if (resultHW)	printf("EQUAL \n");
+					else		printf("NOT EQUAL \n");
+					printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
+					printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
+					printf("=================================================\n");
+				*/
+			}break;
+			case '1': {
+				/************* String to Upper Display Code ***************/
+				
+					printf("=========== StringToUpper(str) ===========\n");
+				/*	printf("Software strToUpper(%s) = %s \n",str1, str2);
+					printf("Hardware strToUpper(%s) = %s \n",str1, result_str);
+					printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
+					printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
+					printf("=================================================\n");
+				*/
+			}break;
+			case '2': {
+				/************ String to Lower Display Code *************/
+				
+					printf("=========== StringToLower(str) ===========\n");
+				/*	printf("Software strToLower(%s) = %s \n",str1, str2);
+					printf("Hardware strToLower(%s) = %s \n",str1, result_str);
+					printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
+					printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
+					printf("=================================================\n");
+				*/
+			}break;
+			case '3': {
+				printf("=========== Reverse(str) ===========\n");
+			}break;
+			default: {
+				printf("\nOption not handled.\n");
+			}break;
+			
 		}
 		
-		WRITE_CONTROL_STATUS = 0xFEEDBEEF;
-		printf("WRITE Control/Status: %x\n",0xFEEDBEEF);
-		
-		// PRINT TO CONSOLE INT TO CHAR
-		printf("Control/Status: %x\n",READ_CONTROL_STATUS);
-		for(k=0; k < length/4; k++)
-		{
-			uint32_t val;
-			val = *(String_HW_ptr + k + 1);
-			//printf("Read HEX: %x \n",val);
-			if((k+1) <= 8)
-				printf("Read A: ");
-			else
-				printf("Read B: ");
-			putchar(val & 0x000000FF);
-			putchar((val & 0x0000FF00) >> 8);
-			putchar((val & 0x00FF0000) >> 16);
-			putchar((val & 0xFF000000) >> 24);
-			putchar('\n');
-		}
-		
-		
-		/************* String to Upper Display Code ***************/
-		/*
-			printf("=========== StringToUpper(str) ===========\n");
-			printf("Software strToUpper(%s) = %s \n",str1, str2);
-			printf("Hardware strToUpper(%s) = %s \n",str1, result_str);
-			printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
-			printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
-			printf("=================================================\n");
-		*/
-		
-		/************ String to Lower Display Code *************/
-		/*
-			printf("=========== StringToLower(str) ===========\n");
-			printf("Software strToLower(%s) = %s \n",str1, str2);
-			printf("Hardware strToLower(%s) = %s \n",str1, result_str);
-			printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
-			printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
-			printf("=================================================\n");
-		*/
-		
-		/********* String to Lower Display Code **********/
-		/*
-			printf("=========== StringCompare(str1, str2) ===========\n");
-			printf("Software strcmp(%s, %s) = ",str1, str2);
-			if (!resultSW)	printf("EQUAL \n");
-			else		printf("NOT EQUAL \n");
-			printf("Hardware strcmp(%s, %s) = ",str1, str2);
-			if (resultHW)	printf("EQUAL \n");
-			else		printf("NOT EQUAL \n");
-			printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
-			printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
-			printf("=================================================\n");
-		*/
+	
 			
 			
 		printf("Any char to continue..");
 		inputParamTerminal(str1);
+		clearTerminal();
 		//printf("0^ 4 chars: %s\n",out);
 		/*printf("String 1: ");
 		inputParamTerminal(str1);
@@ -182,6 +203,17 @@ void main() {
 		*/
 	}
 }
+/********************************************************************************
+ * clearTerminal()
+********************************************************************************/
+void clearTerminal()
+{
+	putchar(0x1B);
+	putchar('[');
+	putchar('2');
+	putchar('J');
+}
+
 /********************************************************************************
  * StringCompare Function converts inputted string to uint32_teger 32 bit
 ********************************************************************************/
