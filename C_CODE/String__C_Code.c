@@ -71,11 +71,13 @@ void main() {
 		ticksHW=0;
 		printf("\n#### string.h vs String HW + peripheral ####\n");
 		printf("####    BY D. Tougaw & Matthew Bowen    ####\n");
-		printf(" # => TEST READ/WRITE AVALON\n");	
-		printf(" 0 => Compare\n 1 => ToUpper\n 2 => ToLower\n");
-		printf(" 3 => Reverse\n");
-		
-		printf("Select function: ");
+		printf("%-7s%-25s\n", "Index", "Function"); 
+		printf("%-7s%-25s\n", "#", "TEST READ/WRITE AVALON"); 
+		printf("%-7s%-25s\n", "0", "Compare"); 
+		printf("%-7s%-25s\n", "1", "ToUpper");
+		printf("%-7s%-25s\n", "2", "ToLower"); 
+		printf("%-7s%-25s\n", "3", "Reverse"); 
+		printf("Select function [Index]: ");
 		inputParamTerminal(out);
 		putchar('\n');
 		// input ASCII to number
