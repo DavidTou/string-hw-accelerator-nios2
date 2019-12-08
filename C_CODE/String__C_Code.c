@@ -65,7 +65,7 @@ void main() {
 		
 		// WRITE 4 char blocks to HW module
 		char k;
-		// *(String_HW_ptr+2) = 0; 	// Dummy write to reset signals
+		//*(String_HW_ptr+2) = 0; 	// Dummy write to reset signals
 		
 		printf("FIFO Size: %u\n",*(String_HW_ptr+2));
 	
@@ -74,18 +74,24 @@ void main() {
 		{
 			get4Chars(str1,out, k);
 			*(String_HW_ptr) = *((uint32_t *)(out));
-			 printf("Write: %s \tFIFO Size: %u\n",out, *(String_HW_ptr+2));
-			 printf("Read: %s \tFIFO Size: %u \n",out, *(String_HW_ptr+2));
+			 printf("Write: %s \n",out);
+			 //printf("Read: %s \tFIFO Size: %u \n",out, *(String_HW_ptr+2));
 		}
 		
+		//*(String_HW_ptr);
 		// PRINT TO CONSOLE INT TO CHAR
-
+		printf("FIFO Size: %u\n",*(String_HW_ptr+2));
 		for(k=0; k < length/4; k++)
 		{
 			uint32_t val;
 			val = *(String_HW_ptr);
-			get4CharsInt(val,out);
-		    printf("Read: %s \tFIFO Size: %u \n",out, *(String_HW_ptr+2));
+			//printf("Read: %x \n",val);
+		    printf("Read: ");
+			putchar(val & 0x000000FF);
+			putchar((val & 0x0000FF00) >> 8);
+			putchar((val & 0x00FF0000) >> 16);
+			putchar((val & 0xFF000000) >> 24);
+			printf("\n");
 		}
 
 		printf("Any char to continue..");
