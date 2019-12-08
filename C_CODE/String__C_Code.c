@@ -81,7 +81,7 @@ void main() {
 		//*(String_HW_ptr);
 		// PRINT TO CONSOLE INT TO CHAR
 		printf("Control/Status: %x\n",READ_STATUS_A);
-		for(k=1; k < length/4 = 1; k++)
+		for(k=1; k < length/4 + 1; k++)
 		{
 			uint32_t val;
 			val = *(String_HW_ptr + k);
