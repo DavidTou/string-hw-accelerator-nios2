@@ -69,7 +69,8 @@ void main() {
 		// reset for next round
 		ticksSW=0;
 		ticksHW=0;
-		printf("\n#### string.h vs String HW peripheral ####\n");
+		printf("\n#### string.h vs String HW + peripheral ####\n");
+		printf("####    BY D. Tougaw & Matthew Bowen    ####\n");
 		printf(" # => TEST READ/WRITE AVALON\n");	
 		printf(" 0 => Compare\n 1 => ToUpper\n 2 => ToLower\n");
 		printf(" 3 => Reverse\n");
@@ -77,8 +78,10 @@ void main() {
 		printf("Select function: ");
 		inputParamTerminal(out);
 		putchar('\n');
-		switch(out[0]) {
-			case '#': {
+		// input ASCII to number
+		char index = out[0] - 48;
+		switch(index) {
+			case -13: {
 				printf("\n#### TEST READ/WRITE AVALON ####\n");
 				// WRITE 4 char blocks to HW module
 				char k;
@@ -116,7 +119,7 @@ void main() {
 					putchar('\n');
 				}
 			}break;
-			case '0': {
+			case 0: {
 				/********* StringCompare Display Code **********/
 				
 					printf("=========== StringCompare(str1, str2) ===========\n");
@@ -131,7 +134,7 @@ void main() {
 					printf("=================================================\n");
 				*/
 			}break;
-			case '1': {
+			case 1: {
 				/************* String to Upper Display Code ***************/
 				
 					printf("=========== StringToUpper(str) ===========\n");
@@ -142,7 +145,7 @@ void main() {
 					printf("=================================================\n");
 				*/
 			}break;
-			case '2': {
+			case 2: {
 				/************ String to Lower Display Code *************/
 				
 					printf("=========== StringToLower(str) ===========\n");
@@ -153,7 +156,7 @@ void main() {
 					printf("=================================================\n");
 				*/
 			}break;
-			case '3': {
+			case 3: {
 				printf("=========== Reverse(str) ===========\n");
 			}break;
 			default: {
