@@ -84,7 +84,7 @@ void main() {
 		{
 			uint32_t val;
 			val = *(String_HW_ptr + k + 1);
-			printf("Read HEX: %x \n",val);
+			//printf("Read HEX: %x \n",val);
 		    printf("Read: ");
 			putchar(val & 0x000000FF);
 			putchar((val & 0x0000FF00) >> 8);
