@@ -37,7 +37,7 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 	
    logic go, done;
    logic [2:0] index;
-   logic [0:3] [7:0] A, B, result;
+   logic [0:SIZE-1] [7:0] A, B, result;
    logic [2:0] length;
    logic [31:0] control;
    

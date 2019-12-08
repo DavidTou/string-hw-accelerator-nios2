@@ -23,20 +23,22 @@
  * 3) Wait in Done state until go bit reset
  * ###############################################################################
  */
-
+parameter SIZE=8;	// Max number of characters
 module String_HW (input logic clk, reset, go,
 			   input logic [2:0]  index,
-			   input logic [0:3] [7:0] A, B,
-			   input logic [2:0] length,
+			   input logic [0:SIZE-1] [7:0] A, B,
+			   input logic [7:0] length,				// Max 256 characters
 			   output logic done,
-			   output logic [0:3][7:0] result
+			   output logic [0:SIZE-1][7:0] result
 			  );
+	
 
-	parameter RESET=3'b000, S1=3'b001, S2=3'b010,
-				 S3=3'b011, S4=3'b100, S5=3'b101,
-				 S6=3'b110, DONE =3'b111;
+	parameter RESET=4'd0, S1=4'd1, S2=4'd2,
+				 S3=4'd3, S4=4'd4, S5=4'd5,
+				 S6=4'd6, S7=4'd7, S8=4'd8,
+				 S9=4'd9, DONE =4'd10;
 
-	logic [2:0] state, nextstate;
+	logic [3:0] state, nextstate;
 	integer i, count;
 	
 	always_ff @(posedge clk)
@@ -86,7 +88,7 @@ module String_HW (input logic clk, reset, go,
 						
 				// String To Upper [index = 1]
 				S4: begin
-						for (i = 0; i < 4; i = i+1) 
+						for (i = 0; i < SIZE; i = i+1) 
 							if (A[i] >= "a" && A[i] <= "z") // if character is lowercase
 								result[i] <= A[i] - 32;		// Convert to uppercase
 							else
@@ -96,6 +98,16 @@ module String_HW (input logic clk, reset, go,
 					end
 				// String to Lower [index = 2]
 				S5: begin
+						for (i = 0; i < SIZE; i = i+1) 
+							if (A[i] >= "A" && A[i] <= "Z") // if character is uppercase
+								result[i] <= A[i] + 32;		// Convert to lowercase
+							else
+								result[i] <= A[i];			// Unchanged
+				
+						nextstate <= DONE;
+					end
+				/* String Reverse [index = 3]
+				S6: begin
 						for (i = 0; i < 4; i = i+1) 
 							if (A[i] >= "A" && A[i] <= "Z") // if character is uppercase
 								result[i] <= A[i] + 32;		// Convert to lowercase
@@ -104,6 +116,7 @@ module String_HW (input logic clk, reset, go,
 				
 						nextstate <= DONE;
 					end
+				*/
 				// DONE State. 
 			  DONE: begin
 						done <= 1;
