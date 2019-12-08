@@ -31,8 +31,6 @@ module String_HW (input logic clk, reset, go,
 			   output logic done,
 			   output logic [0:SIZE-1][7:0] result
 			  );
-	
-
 	parameter RESET=4'd0, S1=4'd1, S2=4'd2,
 				 S3=4'd3, S4=4'd4, S5=4'd5,
 				 S6=4'd6, S7=4'd7, S8=4'd8,
