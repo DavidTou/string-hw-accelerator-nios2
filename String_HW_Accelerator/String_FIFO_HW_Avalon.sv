@@ -30,7 +30,7 @@
 
 module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, chipselect);
 
-	parameter MAX_WORDS = 8;
+	parameter MAX_WORDS = 4;
    // signals for connecting to the Avalon fabric
 	input logic clk, reset, read, write, chipselect;
 	input logic [2:0] address;
@@ -101,7 +101,7 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 			else;
 			
 			// HANDLE COUNT calculation
-			if(readCounter > writeCounter)
+			if(readCounter >= writeCounter)
 				Count <= readCounter - writeCounter;
 			else if (writeCounter > readCounter) 
 				Count <= writeCounter - readCounter; 

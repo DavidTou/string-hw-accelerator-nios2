@@ -36,7 +36,7 @@ module String_HW_TB;
 		reset = 0;
 		chipselect = 1; #10;
 		
-/************** Writing / Reading *****************/
+/************** Writing *****************/
 		address=0;
 		writedata = "abcd";
 		write = 1;	#10;
@@ -54,15 +54,40 @@ module String_HW_TB;
 		write = 1; #10;
 
 		read = 0; write = 0;	#10;
+/************** Read Status Register *****************/
+		read = 0; write = 0;	#10;
 		
+		address=2; 
+		read=1;					#5;
+		R = readdata; 			#5;
+
+		assert (R == 3) 
+			$display("FIFO Size(%0d) == %0d PASSED", 3, R);
+		else 
+			$display("FIFO Size(%0d) == %0d failed", 3, R);
+			
+		read = 0; write = 0;	#10;
+		
+/************** Read FIFO Register *****************/
 		address=0; 
 		read=1;					#5;
 		R = readdata; 			#5;
 		
 		assert (R == "abcd") 
-			$display("FIFO(%s) == %s PASSED", "abcd", R);
+			$display("FIFO(%0s) == %0s PASSED", "abcd", R);
 		else 
-			$display("Case FIFO(%s) == %s failed", "abcd", R);
+			$display("Case FIFO(%0s) == %0s failed", "abcd", R);
+			
+			
+		read = 0; write = 0;	#10;
+		address=2; 
+		read=1;					#5;
+		R = readdata; 			#5;
+
+		assert (R == 2) 
+			$display("FIFO Size(%0d) == %0d PASSED", 2, R);
+		else 
+			$display("FIFO Size(%0d) == %0d failed", 2, R);
 		
 		read = 0; write = 0; 	#10;
 		
@@ -71,10 +96,20 @@ module String_HW_TB;
 		R = readdata; 			#5;
 		
 		assert (R == "1234") 
-			$display("FIFO(%s) == %s PASSED", "1234", R);
+			$display("FIFO(%0s) == %0s PASSED", "1234", R);
 		else 
-			$display("Case FIFO(%s) == %s failed", "1234", R);
+			$display("Case FIFO(%0s) == %0s failed", "1234", R);
 			
+		read = 0; write = 0;	#10;
+		address=2; 
+		read=1;					#5;
+		R = readdata; 			#5;
+
+		assert (R == 1) 
+			$display("FIFO Size(%0d) == %0d PASSED", 1, R);
+		else 
+			$display("FIFO Size(%0d) == %0d failed", 1, R);
+		
 		read = 0; write = 0; 	#10;
 				
 		address=0; 
@@ -82,10 +117,20 @@ module String_HW_TB;
 		R = readdata; 			#5;
 		
 		assert (R == "5678") 
-			$display("FIFO(%s) == %s PASSED", "5678", R);
+			$display("FIFO(%0s) == %0s PASSED", "5678", R);
 		else 
-			$display("Case FIFO(%s) == %s failed", "5678", R);
-			
+			$display("Case FIFO(%0s) == %0s failed", "5678", R);
+		
+		read = 0; write = 0;	#10;
+		address=2; 
+		read=1;					#5;
+		R = readdata; 			#5;
+
+		assert (R == 0) 
+			$display("FIFO Size(%0d) == %0d PASSED", 0, R);
+		else 
+			$display("FIFO Size(%0d) == %0d failed", 0, R);
+		
 		read = 0; write = 0; 	#10;
 	end
 	always  begin
