@@ -48,12 +48,12 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 	//logic EMPTY, FULL;
 
 	// Write Register Flags
-	assign write_reg_A		 = (address > 1) && (address < MAX_WORDS) && write && chipselect;
+	assign write_reg_A		 = (address >= 1) && (address < MAX_WORDS) && write && chipselect;
 	//assign write_reg_B		= (address == 1) && write && chipselect;
 	assign write_reg_StatusA = (address == 0) && write && chipselect;
 
 	// Read Register Flags
-	assign read_reg_A 		 = (address > 1) && (address < MAX_WORDS) && read  && chipselect;
+	assign read_reg_A 		 = (address >= 1) && (address < MAX_WORDS) && read  && chipselect;
 	//assign read_reg_B 		= (address == 1) && read  && chipselect;
 	assign read_reg_StatusA  = (address == 0) && read  && chipselect;
 	//assign read_reg_Result 	= (address == 3) && read  && chipselect;
