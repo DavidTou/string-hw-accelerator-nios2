@@ -37,37 +37,87 @@ module String_HW_TB;
 		chipselect = 1; #10;
 		
 /************** Writing *****************/
+					read = 0; write = 0;	#10;
+					address=2; 
+					read=1;					#5;
+					R = readdata; 			#5;
+					
+					read = 0; write = 0;	#10;
+					
+					assert (R == 0) 
+						$display("FIFO Size(%0d) == %0d PASSED", 0, R);
+					else 
+						$display("FIFO Size(%0d) == %0d failed", 0, R);
+			
 		address=0;
 		writedata = "abcd";
 		write = 1;	#10;
 		
-		read = 0; write = 0;	#10;
+					read = 0; write = 0;	#10;
+					address=2; 
+					read=1;					#5;
+					R = readdata; 			#5;
+					
+					read = 0; write = 0;	#10;
+					
+					assert (R == 1) 
+						$display("FIFO Size(%0d) == %0d PASSED", 1, R);
+					else 
+						$display("FIFO Size(%0d) == %0d failed", 1, R);
 
+			
 		address=0;
 		writedata = "1234";
 		write = 1;		#10;
 
-		read = 0; write = 0; 	#10;
-		
+					read = 0; write = 0;	#10;
+					address=2; 
+					read=1;					#5;
+					R = readdata; 			#5;
+					
+					read = 0; write = 0;	#10;
+					
+					assert (R == 2) 
+						$display("FIFO Size(%0d) == %0d PASSED", 2, R);
+					else 
+						$display("FIFO Size(%0d) == %0d failed", 2, R);
+			
 		address=0;
 		writedata = "5678";
 		write = 1; #10;
 
 		read = 0; write = 0;	#10;
-/************** Read Status Register *****************/
-		read = 0; write = 0;	#10;
 		
-		address=2; 
-		read=1;					#5;
-		R = readdata; 			#5;
+					read = 0; write = 0;	#10;
+					address=2; 
+					read=1;					#5;
+					R = readdata; 			#5;
+					
+					read = 0; write = 0;	#10;
+					
+					assert (R == 3) 
+						$display("FIFO Size(%0d) == %0d PASSED", 3, R);
+					else 
+						$display("FIFO Size(%0d) == %0d failed", 3, R);
+						
+		address=0;
+		writedata = "BEEF";
+		write = 1; #10;
 
-		assert (R == 3) 
-			$display("FIFO Size(%0d) == %0d PASSED", 3, R);
-		else 
-			$display("FIFO Size(%0d) == %0d failed", 3, R);
-			
 		read = 0; write = 0;	#10;
 		
+					read = 0; write = 0;	#10;
+					address=2; 
+					read=1;					#5;
+					R = readdata; 			#5;
+					
+					read = 0; write = 0;	#10;
+					
+					assert (R == 4) 
+						$display("FIFO Size(%0d) == %0d PASSED", 4, R);
+					else 
+						$display("FIFO Size(%0d) == %0d failed", 4, R);
+			
 /************** Read FIFO Register *****************/
 		address=0; 
 		read=1;					#5;

@@ -39,6 +39,12 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 	
 	logic write_reg_A, write_reg_B, write_reg_Control;
 	logic  read_reg_A,  read_reg_B,  read_reg_Control, read_reg_Result;
+	
+	/* ------ FIFO A --------- */
+	logic [31:0] FIFOA [0:MAX_WORDS-1];
+	logic [2:0]  Count; 
+	logic [2:0]  readCounter, writeCounter; 
+	logic EMPTY, FULL;
 
 	// Write Register Flags
 	assign write_reg_A 		= (address == 0) && write && chipselect;
@@ -50,12 +56,6 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 	//assign read_reg_B 		= (address == 1) && read  && chipselect;
 	assign read_reg_StatusA  = (address == 2) && read  && chipselect;
 	//assign read_reg_Result 	= (address == 3) && read  && chipselect;
-			   
-	/* ------ FIFO A --------- */
-	logic [31:0] FIFOA [0:MAX_WORDS-1];
-	logic [2:0]  Count = 0; 
-	logic [2:0]  readCounter = 0, writeCounter = 0; 
-	logic EMPTY, FULL;
 	
 	assign EMPTY = (Count==0);
 	assign FULL = (Count==MAX_WORDS);

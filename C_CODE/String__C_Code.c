@@ -27,13 +27,15 @@
 #define CLOCK_RATE 50000000.0
 #define READ_STATUS_A *(String_HW_ptr+2)
 
+#define BUFFER_SIZE 128
+
 /* function prototypes */
 char get_char( void );
 uint32_t get_uint( void );
 void put_char( char c );
 uint32_t pow(uint32_t n, char p);
 uint32_t stringToInt32bit(char buffer[],unsigned lastIndex);
-char inputParamTerminal( char buffer []) ;
+unsigned int inputParamTerminal(char buffer[]);	              // Retrieves string input from terminal
 void start_timer();
 uint32_t snapshot_timer();
 void get4Chars(char* string,char *out, int index);
@@ -47,54 +49,47 @@ volatile uint32_t * String_HW_ptr = (uint32_t *)String_HW_BASE;
 void main() {
 	
 	uint32_t ticksHW,ticksSW;
-	uint32_t test = 0xfa000000;
+
 	while(1){
 		// reset for next round
 		ticksSW=0;
 		ticksHW=0;
 		printf("#### string.h vs String HW peripheral ####\n");
-		// test string
-		char lorem [128] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis felis eget nisl finibus vulputate. Nam nec maximus volutpat.";
-		char length = 32;			// 8*4 chars
+		
+		char length = 12;		
 		char out [4];				// temp var
 		
-		// DUMMY WRITE TO RESET
-		*(String_HW_ptr+2) = 0;
+		char str1[128] = "ABCD1234EFGH"; 	// double quotes add null terminator
+		char str2[128]; 						// double quotes add null terminator
+		char result_str[128];
 		
 		// WRITE 4 char blocks to HW module
 		char k;
+		// *(String_HW_ptr+2) = 0; 	// Dummy write to reset signals
+		
+		printf("FIFO Size: %u\n",*(String_HW_ptr+2));
+	
+		
 		for(k=0; k < length/4; k++)
 		{
-			get4Chars(lorem,out, k);
-			
-			printf("Write: %s\n",out);
-			printf("Write: %x\n",*((uint32_t *)(out)));
+			get4Chars(str1,out, k);
 			*(String_HW_ptr) = *((uint32_t *)(out));
+			 printf("Write: %s \tFIFO Size: %u\n",out, *(String_HW_ptr+2));
+			 printf("Read: %s \tFIFO Size: %u \n",out, *(String_HW_ptr+2));
 		}
-		
-		// DUMMY READ
-		*(String_HW_ptr);
-		
-		// read size of FIFO, messes things up
-		//printf("FIFO Size: %x\n",*(String_HW_ptr+2));
 		
 		// PRINT TO CONSOLE INT TO CHAR
+
 		for(k=0; k < length/4; k++)
 		{
-			uint32_t val = *(String_HW_ptr);
-			printf("Read: %x\n",val);
-			//get4CharsInt(val,out);
-			
-			printf("Read: %c",(val & 0xFF));
-			put_char((val & 0x0000FF00) >> 8);
-			put_char((val & 0x00FF0000) >> 16);
-			putchar((val & 0xFF000000) >> 24);
-			put_char('\n'); 
+			uint32_t val;
+			val = *(String_HW_ptr);
+			get4CharsInt(val,out);
+		    printf("Read: %s \tFIFO Size: %u \n",out, *(String_HW_ptr+2));
 		}
-		
+
 		printf("Any char to continue..");
 		inputParamTerminal(str1);
-		
 		//printf("0^ 4 chars: %s\n",out);
 		/*printf("String 1: ");
 		inputParamTerminal(str1);
@@ -128,15 +123,6 @@ void main() {
 		//strcpy(str1, "abcdef");
    		//strcpy(str2, "ABCDEF");
 		*/
-		start_timer();
-		int ret = strcmp(str1,str2);
-		ticksHW = snapshot_timer();
-		
-		printf("=========== strcmp(str1,str2) ===========\n");
-		if(ret == 0) printf("Result = EQUAL\n"); else printf("Result = NOT EQUAL\n");
-		printf("CC     = %-10d\n",ticksHW);
-		printf("ET (s) = %-10f\n",ticksHW/CLOCK_RATE);
-		printf("=========================================\n");
 	}
 }
 /********************************************************************************
@@ -145,12 +131,10 @@ void main() {
 ********************************************************************************/
 void get4Chars(char* string, char *out, int index)
 {
-	//char out [4];
 	out[0]=string[0+4*index];
 	out[1]=string[1+4*index];
 	out[2]=string[2+4*index];
 	out[3]=string[3+4*index];
-	//return (uint32_t)out;
 }
 
 /********************************************************************************
@@ -184,31 +168,41 @@ void pointer4CharsInt(uint32_t value, char * out)
 /********************************************************************************
  * inputParamTerminal Function 
 ********************************************************************************/
-char inputParamTerminal( char buffer []) 
-{
-	unsigned char pos=0;
-	char a;
-	a=get_char();
-	while(a != '\r' && a != '\n' & pos<128) // carriage return, new line
+unsigned int inputParamTerminal(char buffer[])		// Retrieves string input from terminal
 	{
-		// if something inserted
-		if(a!='\0'&& a!='\r' && a!='\n') {
-			buffer[pos]=a;
-			pos++;
-			put_char(a);			// print ASCII number
-		}
-		else if(a == '\r')
-			pos--;
+		char in_char;
+		unsigned int num, i;
+		num = 0; i = 0;
 		
-		a=get_char();
+		in_char = get_char();
+		while(in_char != '\r' && in_char != '\n')	// Wait until character entered thats not ENTER
+		{
+			
+			if (in_char != '\0')  	 // If not NULL,
+			{
+				if (in_char == 0x08) // backspace
+				{
+					if (i > 0)	// Only backspace if there are characters in buffer
+					{
+						i--;
+						printf("%c",in_char);
+						buffer[i] = 0x00; // Delete previous char from buffer (NUL character)
+					}
+				}
+				else
+				{
+					if (i < BUFFER_SIZE)
+					{
+						printf("%c",in_char);
+						buffer[i] = in_char; // Add char to buffer
+						i++;				 // Increment counter
+					}
+				}
+			}
+			in_char = get_char();
+		}
+		return i; // return length of string
 	}
-	if(pos==128)
-		put_char('\n');
-	put_char(a);
-	// add null char
-	buffer[pos] = '\0';
-	return pos+1;
-}
 
 /********************************************************************************
  * start_timer Function 

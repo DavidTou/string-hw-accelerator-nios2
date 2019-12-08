@@ -122,15 +122,15 @@ Z14 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
 R0
 vString_HW_Avalon
 R14
-Z15 !s110 1575762319
+Z15 !s110 1575770209
 !i10b 1
-!s100 ^VJAF`o?c?kCG;ASlQPJ^0
-IfK[Q5gGNcoi0JjkjJJOUR2
+!s100 XPV5Jhec>M7<gHz:Iad0a3
+I1b=DV?nI9D``TUXFU86T22
 R6
 !s105 String_FIFO_HW_Avalon_sv_unit
 S1
 R1
-w1575762112
+w1575768859
 8C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_FIFO_HW_Avalon.sv
 FC:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_FIFO_HW_Avalon.sv
 L0 31
@@ -138,7 +138,7 @@ R2
 r1
 !s85 0
 31
-Z16 !s108 1575762319.000000
+Z16 !s108 1575770209.000000
 !s107 C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_FIFO_HW_Avalon.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_FIFO_HW_Avalon.sv|
 !i113 1
@@ -153,13 +153,13 @@ vString_HW_TB
 R14
 R15
 !i10b 1
-!s100 e^FFZUPnHIo8n<G4?^FRH1
-IVXQZ?WMLKG2Oce:C`=e1K3
+!s100 dkC785ciTGNMlck05VYCA0
+IknD3hk@G8CVXkRkkmT;Ll3
 R6
 R11
 S1
 R1
-w1575761495
+w1575770154
 8C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/Simulation/String_FIFO_HW_Avalon_TB.sv
 FC:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/Simulation/String_FIFO_HW_Avalon_TB.sv
 R3
