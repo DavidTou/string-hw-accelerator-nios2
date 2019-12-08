@@ -26,7 +26,7 @@
 parameter SIZE=8;	// Max number of characters
 module String_HW (input logic clk, reset, go,
 			   input logic [2:0]  index,
-			   input logic [0:SIZE-1] [7:0] A, B,
+			   input logic [0:SIZE-1][7:0] A, B,
 			   input logic [7:0] length,				// Max 256 characters
 			   output logic done,
 			   output logic [0:SIZE-1][7:0] result

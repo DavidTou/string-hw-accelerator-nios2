@@ -50,7 +50,7 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 	/* ------ StringA Flags --------- 
 	* ADDRESS 1 - MAX_WORDS
 	*/
-	logic [31:0] StringA [0:MAX_WORDS-1];
+	logic [0:MAX_WORDS-1] [31:0] StringA;
 	// Write Register Flags
 	assign write_reg_A		 		= (address >= 1) && (address <= MAX_WORDS) && write && chipselect;
 	// Read Register Flags
@@ -60,7 +60,7 @@ module String_HW_Avalon (clk, reset, writedata, address, readdata, write, read, 
 	/* ------ StringB Flags ---------
 	* ADDRESS 9 - 2*MAX_WORDS
 	*/
-	logic [31:0] StringB [0:MAX_WORDS-1];
+	logic [0:MAX_WORDS-1] [31:0] StringB;
 	// Write Register Flags
 	assign write_reg_B		 = (address > MAX_WORDS) && (address <= (MAX_WORDS+MAX_WORDS)) && write && chipselect;
 	// Read Register Flags
