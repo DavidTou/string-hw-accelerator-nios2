@@ -63,17 +63,37 @@ module String_HW_Avalon_TB;
 /************** Test index 0 (string compare), inputs (abcd, abca)******************/
 	
 		// Write string A to register 0
-		address = 0;	    	
+		address = 1;	    	
 		writedata = "abcd";  #20;	
 		write = 1;			 #20;
 		
 		write = 0;read = 0;  #20;
 		
+		// Write string A to register 0
+		address = 2;	    	
+		writedata = "efgh";  #20;	
+		write = 1;			 #20;
+		
+		write = 0;read = 0;  #20;
+		
 		// Read A from register 0
-		address = 0;	
+		address = 1;	
 		read = 1;			#20;
 		A = readdata; 		#20;	
 		
+		write = 0;read = 0; #20;	
+		
+		// Read A from register 0
+		address = 2;	
+		read = 1;			#20;
+		A = readdata; 		#20;	
+		
+		write = 0;read = 0; #20;	
+		
+		// Read A from register 0
+		address = 1;	
+		read = 1;			#20;
+		A = readdata; 		#20;	
 		
 		write = 0;read = 0; #20;	
 		
