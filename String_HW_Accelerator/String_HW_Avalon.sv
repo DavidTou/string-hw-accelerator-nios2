@@ -28,14 +28,14 @@
  * ###############################################################################
  */
 
-parameter MAX_WORDS = 8;
+
 
 module String_HW_Avalon (input logic clk, reset, read, write, chipselect,
-						 input logic [MAX_WORDS/2:0] address,
+						 input logic [ADDRESS_BITS:0] address,
 						 input logic [31:0] writedata, 
 						 output logic [31:0] readdata
 						);
-	
+	parameter MAX_WORDS = 8, ADDRESS_BITS = 4;
 	logic write_reg_A, write_reg_B, write_reg_Control;
 	logic read_reg_A, read_reg_B, read_reg_Control;
 	
