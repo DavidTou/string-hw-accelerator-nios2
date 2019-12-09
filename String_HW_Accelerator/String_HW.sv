@@ -15,7 +15,7 @@
  * 3) Wait in Done state until go bit reset
  * ###############################################################################
  */
-parameter MAX_BLOCKS=2;	// Max number of characters
+parameter MAX_BLOCKS=8;	// Max number of characters
 module String_HW (input logic clk, reset, go,
 			   input logic [3:0]  index,
 			   input logic [0:MAX_BLOCKS*4-1][7:0] A, B,
@@ -41,12 +41,12 @@ module String_HW (input logic clk, reset, go,
 							done <= 0;
 							nextstate <= S1;
 							count <= 0;
-							Result <= 0;
+							Result <= '{default:8'h0};
 						end	
 				// Wait for go signal
 				S1: begin 
 						done <= 0;
-						Result <= 0;
+						Result <= '{default:8'h0};
 						if (go)
 							nextstate <= S2;
 						else
@@ -66,9 +66,9 @@ module String_HW (input logic clk, reset, go,
 				// String Compare [index = 0]
 				S3:	begin
 						if (A == B)
-							Result <= 1;
+							Result[0] <= 1;
 						else
-							Result <= 0;
+							Result[0] <= 0;
 								
 						nextstate <= DONE;
 				
