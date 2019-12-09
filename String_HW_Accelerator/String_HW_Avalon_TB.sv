@@ -741,7 +741,7 @@ module String_HW_Avalon_TB;
 		
 		write = 0;read = 0; #20;	
 		
-/************** Test index 4 (string Search), inputs (It was I)******************/ 
+/************** Test index 4 (string Search), inputs (It was I), find(It)******************/ 
 	
 		A = 0;
 		B = 0;
@@ -778,13 +778,20 @@ module String_HW_Avalon_TB;
 			write = 1;			 #20;
 			
 			write = 0;read = 0;  #20;
+			
+		// Read string B from Register B
+			address = 3;	
+			read = 1;			#20;
+			B[0] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
 		
 		// Write 2 to length, 4 to index, and set go bit to Control Register
 		address = 0;		
 		writedata = 32'b10_0100_10; #20;		
 		write = 1;			    #20;
 		
-		write = 0;read = 0; #20;	
+		write = 0;read = 0; #200;	
 		
 		// Read register 2 (control)
 		address = 0;		
@@ -820,6 +827,7 @@ module String_HW_Avalon_TB;
 
 		/************** Test index 4 (string Search), inputs (It was I) Find (was) ******************/ 
 	
+		// Write string A to Register A
 		A = 0;
 		B = 0;
 			
@@ -856,12 +864,6 @@ module String_HW_Avalon_TB;
 			
 			write = 0;read = 0;  #20;
 			
-			address = 3;	    	
-			writedata = "was ";  #20;	
-			write = 1;			 #20;
-			
-			write = 0;read = 0;  #20;
-			
 		// Read string B from Register B
 			address = 3;	
 			read = 1;			#20;
@@ -869,12 +871,12 @@ module String_HW_Avalon_TB;
 			
 			write = 0;read = 0; #20;	
 		
-		// Write 4 to length, 4 to index, and set go bit to Control Register
+		// Write 3 to length, 4 to index, and set go bit to Control Register
 		address = 0;		
-		writedata = 32'b100_0100_10; #20;		
-		write = 1;			   		 #20;
+		writedata = 32'b011_0100_10; #20;		
+		write = 1;			    #20;
 		
-		write = 0;read = 0; #20;	
+		write = 0;read = 0; #200;	
 		
 		// Read register 2 (control)
 		address = 0;		
@@ -910,6 +912,7 @@ module String_HW_Avalon_TB;
 		
 	/************** Test index 4 (string Search), inputs (It was I) Find ("I") ******************/ 
 	
+		// Write string A to Register A
 		A = 0;
 		B = 0;
 			
@@ -941,17 +944,24 @@ module String_HW_Avalon_TB;
 
 		// Write string B to Register B
 			address = 3;	    	
-			writedata = " I";  #20;	
+			writedata = " I  ";  #20;	
 			write = 1;			 #20;
 			
 			write = 0;read = 0;  #20;
+			
+		// Read string B from Register B
+			address = 3;	
+			read = 1;			#20;
+			B[0] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
 		
 		// Write 2 to length, 4 to index, and set go bit to Control Register
 		address = 0;		
-		writedata = 32'b10_0100_10; #20;		
-		write = 1;			   		 #20;
+		writedata = 32'b010_0100_10; #20;		
+		write = 1;			    #20;
 		
-		write = 0;read = 0; #20;	
+		write = 0;read = 0; #200;	
 		
 		// Read register 2 (control)
 		address = 0;		
