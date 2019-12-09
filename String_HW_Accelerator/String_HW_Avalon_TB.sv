@@ -740,6 +740,251 @@ module String_HW_Avalon_TB;
 		write = 1;			#20;
 		
 		write = 0;read = 0; #20;	
+		
+/************** Test index 4 (string Search), inputs (It was I)******************/ 
+	
+		A = 0;
+		B = 0;
+			
+		// Write string A to Register A
+			address = 1;	    	
+			writedata = "It w";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+			
+			address = 2;	    	
+			writedata = "as I";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+		
+		// Read string A from Register A
+			address = 1;	
+			read = 1;			#20;
+			A[0] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
+			
+			address = 2;	
+			read = 1;			#20;
+			A[1] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;
+
+		// Write string B to Register B
+			address = 3;	    	
+			writedata = "It  ";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+		
+		// Write 2 to length, 4 to index, and set go bit to Control Register
+		address = 0;		
+		writedata = 32'b10_0100_10; #20;		
+		write = 1;			    #20;
+		
+		write = 0;read = 0; #20;	
+		
+		// Read register 2 (control)
+		address = 0;		
+		read = 1;			#20;
+		control = readdata; #20;	
+		
+		write = 0;read = 0; #20;
+		
+		// Read register A (Result)
+			address = 1;  
+			read = 1;	  #20;
+			R[0] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
+
+			address = 2;  
+			read = 1;	  #20;
+			R[1] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
+		
+		assert (R == 0) 
+			$display("StringSearch(%s, %s) == %0d PASSED", A, B, R);
+		else 
+			$display("Case StringSearch(%s, %s) == %0d failed", A, B, R);
+	
+		// reset go bit to register 2 (Control)
+		address = 0; 
+		writedata[1] = 0;   #20;	// reset go bit
+		write = 1;			#20;
+		
+		write = 0;read = 0; #20;	
+
+		/************** Test index 4 (string Search), inputs (It was I) Find (was) ******************/ 
+	
+		A = 0;
+		B = 0;
+			
+		// Write string A to Register A
+			address = 1;	    	
+			writedata = "It w";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+			
+			address = 2;	    	
+			writedata = "as I";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+		
+		// Read string A from Register A
+			address = 1;	
+			read = 1;			#20;
+			A[0] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
+			
+			address = 2;	
+			read = 1;			#20;
+			A[1] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;
+
+		// Write string B to Register B
+			address = 3;	    	
+			writedata = "was ";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+			
+			address = 3;	    	
+			writedata = "was ";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+			
+		// Read string B from Register B
+			address = 3;	
+			read = 1;			#20;
+			B[0] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
+		
+		// Write 4 to length, 4 to index, and set go bit to Control Register
+		address = 0;		
+		writedata = 32'b100_0100_10; #20;		
+		write = 1;			   		 #20;
+		
+		write = 0;read = 0; #20;	
+		
+		// Read register 2 (control)
+		address = 0;		
+		read = 1;			#20;
+		control = readdata; #20;	
+		
+		write = 0;read = 0; #20;
+		
+		// Read register A (Result)
+			address = 1;  
+			read = 1;	  #20;
+			R[0] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
+
+			address = 2;  
+			read = 1;	  #20;
+			R[1] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
+		
+		assert (R == 3) 
+			$display("StringSearch(%s, %s) == %0d PASSED", A, B, R);
+		else 
+			$display("Case StringSearch(%s, %s) == %0d failed", A, B, R);
+	
+		// reset go bit to register 2 (Control)
+		address = 0; 
+		writedata[1] = 0;   #20;	// reset go bit
+		write = 1;			#20;
+		
+		write = 0;read = 0; #20;		
+		
+	/************** Test index 4 (string Search), inputs (It was I) Find ("I") ******************/ 
+	
+		A = 0;
+		B = 0;
+			
+		// Write string A to Register A
+			address = 1;	    	
+			writedata = "It w";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+			
+			address = 2;	    	
+			writedata = "as I";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+		
+		// Read string A from Register A
+			address = 1;	
+			read = 1;			#20;
+			A[0] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
+			
+			address = 2;	
+			read = 1;			#20;
+			A[1] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;
+
+		// Write string B to Register B
+			address = 3;	    	
+			writedata = " I";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+		
+		// Write 2 to length, 4 to index, and set go bit to Control Register
+		address = 0;		
+		writedata = 32'b10_0100_10; #20;		
+		write = 1;			   		 #20;
+		
+		write = 0;read = 0; #20;	
+		
+		// Read register 2 (control)
+		address = 0;		
+		read = 1;			#20;
+		control = readdata; #20;	
+		
+		write = 0;read = 0; #20;
+		
+		// Read register A (Result)
+			address = 1;  
+			read = 1;	  #20;
+			R[0] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
+
+			address = 2;  
+			read = 1;	  #20;
+			R[1] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
+		
+		assert (R == 6) 
+			$display("StringSearch(%s, %s) == %0d PASSED", A, B, R);
+		else 
+			$display("Case StringSearch(%s, %s) == %0d failed", A, B, R);
+	
+		// reset go bit to register 2 (Control)
+		address = 0; 
+		writedata[1] = 0;   #20;	// reset go bit
+		write = 1;			#20;
+		
+		write = 0;read = 0; #20;		
+
 	$stop;
 	end
 

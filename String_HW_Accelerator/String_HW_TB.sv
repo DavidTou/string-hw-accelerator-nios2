@@ -206,7 +206,7 @@ module String_HW_TB;
 
 				go = 0;	#20;
 				
-/************** Test index 3 (string Reverse), inputs (!olleH)******************/ 
+			/************** Test index 3 (string Reverse), inputs (!olleH)******************/ 
 				A = "  !olleH";   
 				index = 3;  #20;
 				go = 1;     #200;
@@ -218,7 +218,7 @@ module String_HW_TB;
 
 				go = 0;	#20;
 				
-/************** Test index 4 (string Search), inputs (It was I)******************/ 
+/************** Test index 4 (string Search), inputs (It was I) Find (It) ******************/ 
 				A = "It was I";
 				B = "It      ";
 				length = 2;
@@ -232,7 +232,7 @@ module String_HW_TB;
 
 				go = 0;	#20;
 
-/************** Test index 4 (string Search), inputs (It was I)******************/ 
+			/************** Test index 4 (string Search), inputs (It was I) Find (was) ******************/ 
 				A = "It was I";
 				B = "was     ";
 				length = 3;
@@ -246,7 +246,7 @@ module String_HW_TB;
 
 				go = 0;	#20;
 
-/************** Test index 4 (string Search), inputs (It was I)******************/ 
+			/************** Test index 4 (string Search), inputs (It was I) Find ("I") ******************/ 
 				A = "It was I";
 				B = " I      ";
 				length = 2;

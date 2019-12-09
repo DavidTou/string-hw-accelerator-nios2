@@ -116,7 +116,7 @@ module String_HW (input logic clk, reset, go,
 							nextstate <= DONE;
 							end
 						else
-							Result <= 32'hFF;			// Default "Not Found" value
+							Result <= 256;			// Default "Not Found" value
 						
 						if (i < MAX_BLOCKS*4 && ~found) begin
 							if (B[j] == A[i]) begin

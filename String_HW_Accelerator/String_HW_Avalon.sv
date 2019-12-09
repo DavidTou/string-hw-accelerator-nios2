@@ -44,6 +44,7 @@ module String_HW_Avalon //#(MAX_BLOCKS = 2, ADDRESS_BITS = 4)
 	
 	logic start, done;
     logic [3:0] index;
+	logic [7:0] length;
 	
 	/* ------ Control/Status Flags --------- */
 	assign read_reg_Control  = (address == 0) && read  && chipselect;
@@ -79,6 +80,7 @@ module String_HW_Avalon //#(MAX_BLOCKS = 2, ADDRESS_BITS = 4)
 				.reset(reset),
 				.go(start),
 			    .index(index),
+				.length(length),
 			    .A(StringA), 
 			    .B(StringB),
 			    .done(done),
