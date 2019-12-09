@@ -25,9 +25,12 @@
 #include <stdint.h>
 
 #define CLOCK_RATE 50000000.0
+#define BUFFER_SIZE 64
+
 #define READ_CONTROL_STATUS *(String_HW_ptr)
 #define WRITE_CONTROL_STATUS *(String_HW_ptr)
-#define BUFFER_SIZE 64
+#define CLEAR_CONTROL_STATUS *(String_HW_ptr) = 0;
+
 // INDEXES
 #define TEST -13
 #define COMPARE 0
@@ -111,8 +114,8 @@ void main() {
 					 //printf("Read: %s \tFIFO Size: %u \n",out, *(String_HW_ptr+2));
 				}
 				
-				WRITE_CONTROL_STATUS = 0xFEEDBEEF;
-				printf("WRITE Control/Status: %x\n",0xFEEDBEEF);
+				WRITE_CONTROL_STATUS = 0xFEED0000;
+				printf("WRITE Control/Status: %x\n",0xFEED0000);
 				
 				// PRINT TO CONSOLE INT TO CHAR
 				printf("Control/Status: %x\n",READ_CONTROL_STATUS);
@@ -131,8 +134,34 @@ void main() {
 					putchar((val & 0xFF000000) >> 24);
 					putchar('\n');
 				}
+				CLEAR_CONTROL_STATUS;
 			}break;
 			case COMPARE: {
+				
+					char k;
+					for(k=0; k < 8; k++)
+					{
+						get4Chars(str1,out, k);
+						*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
+						printf("Write A: %s \n",out);
+					}
+					for(k=8; k < 16; k++)
+					{
+						get4Chars(str1,out, k);
+						*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
+						printf("Write B: %s \n",out);
+					}
+					// WRITE INDEX and GO BIT
+					//WRITE_CONTROL_STATUS = ((uint32_t) index << 2) | 2;
+					WRITE_CONTROL_STATUS = 0b00010;	// index = 0, go = 1
+					
+					while(!(READ_CONTROL_STATUS & 1));
+					
+					uint32_t val = *(String_HW_ptr + 1);
+					printf("Read HEX: %x \n",val);
+					
+					CLEAR_CONTROL_STATUS;
+				
 				/********* StringCompare Display Code **********/
 					//stringHWCall(COMPARE,str1,str2);
 					printf("=========== StringCompare(str1, str2) ===========\n");
@@ -158,7 +187,7 @@ void main() {
 					printf("Write A: %s \n",out);
 				}
 				// WRITE INDEX and GO BIT
-				WRITE_CONTROL_STATUS = ((uint32_t) index << 28) | 2;
+				WRITE_CONTROL_STATUS = ((uint32_t) index << 2) | 2;
 				
 				while(!(READ_CONTROL_STATUS & 1));
 				
@@ -175,6 +204,7 @@ void main() {
 					putchar((val & 0xFF000000) >> 24);
 					putchar('\n');
 				}
+				CLEAR_CONTROL_STATUS;
 				/************* String to Upper Display Code ***************/
 				
 				/*	printf("=========== StringToUpper(str) ===========\n");
