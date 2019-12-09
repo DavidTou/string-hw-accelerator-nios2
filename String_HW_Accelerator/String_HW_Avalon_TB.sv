@@ -30,13 +30,13 @@
 
 `timescale 1ps / 1ps
 
-parameter MAX_WORDS = 2, ADDRESS_BITS = 4;
+parameter MAX_BLOCKS = 2, ADDRESS_BITS = 4;
 
 module String_HW_Avalon_TB;			
 	logic clk, reset, read, write, chipselect;
 	logic [ADDRESS_BITS:0] address;
 	logic [31:0] writedata, readdata, control;
-	logic [0:MAX_WORDS-1] [31:0] A, B, R;
+	logic [0:MAX_BLOCKS-1] [31:0] A, B, R;
 
 	String_HW_Avalon dut(.clk(clk),
 						 .reset(reset),
@@ -320,47 +320,66 @@ module String_HW_Avalon_TB;
 		write = 1;			#20;
 		
 		write = 0;read = 0; #20;
+		
+/************** Test index 1 (string To Upper), inputs (abcdefgh)******************/
 	
-		$stop;
+			A = 0;
+			B = 0;
+			
+		// Write string A to Register A
+			address = 1;	    	
+			writedata = "abcd";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+			
+			address = 2;	    	
+			writedata = "efgh";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
 		
-/************** Test index 1 (string To Upper), inputs (abcd)******************/
-	
-		// Write string A to register 0
-		address = 0;	    	
-		writedata = "abcd";  #20;	
-		write = 1;			 #20;
+		// Read string A from Register A
+			address = 1;	
+			read = 1;			#20;
+			A[0] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
+			
+			address = 2;	
+			read = 1;			#20;
+			A[1] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
 		
-		write = 0;read = 0;  #20;
-		
-		// Read A from register 0
-		address = 0;	
-		read = 1;			#20;
-		A = readdata; 		#20;	
-		
-		write = 0;read = 0; #20;	
-		
-		// Write 1 to index and set go bit to register 2 (Control)
-		address = 2;		
+		// Write 1 to index and set go bit to Control Register
+		address = 0;		
 		writedata = 32'b001_10; #20;		
 		write = 1;			    #20;
 		
-		write = 0;read = 0; #200;	
+		write = 0;read = 0; #20;	
 		
 		// Read register 2 (control)
-		address = 2;		
+		address = 0;		
 		read = 1;			#20;
-		control = readdata; #200;	
+		control = readdata; #20;	
 		
 		write = 0;read = 0; #20;
 		
-		// Read register 3 (Result)
-		address = 3;  
-		read = 1;	  #20;
-		R = readdata; #20;			
+		// Read register A (Result)
+			address = 1;  
+			read = 1;	  #20;
+			R[0] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
+
+			address = 2;  
+			read = 1;	  #20;
+			R[1] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
 		
-		write = 0;read = 0; #20; 
-		
-		assert (R == "ABCD") 
+		assert (R == "ABCDEFGH") 
 			$display("String_To_Upper(%s) == %s PASSED", A, R);
 		else 
 			$display("Case String_To_Upper(%s) == %s failed", A, R);
@@ -372,155 +391,217 @@ module String_HW_Avalon_TB;
 		
 		write = 0;read = 0; #20;
 		
-/************** Test index 1 (string To Upper), inputs (Ab)******************/
+/************** Test index 1 (string To Upper), inputs (AbCdEf)******************/
 	
-		// Write string A to register 0
-		address = 0;	    	
-		writedata = "Ab";  #20;	
-		write = 1;			 #20;
+		A = 0;
+		B = 0;
+			
+		// Write string A to Register A
+			address = 1;	    	
+			writedata = "AbCd";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+			
+			address = 2;	    	
+			writedata = "Ef  ";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
 		
-		write = 0;read = 0;  #20;
+		// Read string A from Register A
+			address = 1;	
+			read = 1;			#20;
+			A[0] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
+			
+			address = 2;	
+			read = 1;			#20;
+			A[1] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
 		
-		// Read A from register 0
-		address = 0;	
-		read = 1;			#20;
-		A = readdata; 		#20;	
-		
-		write = 0;read = 0; #20;	
-		
-		// Write 1 to index and set go bit to register 2 (Control)
-		address = 2;		
+		// Write 1 to index and set go bit to Control Register
+		address = 0;		
 		writedata = 32'b001_10; #20;		
 		write = 1;			    #20;
 		
-		write = 0;read = 0; #200;	
+		write = 0;read = 0; #20;	
 		
 		// Read register 2 (control)
-		address = 2;		
+		address = 0;		
 		read = 1;			#20;
-		control = readdata; #200;	
+		control = readdata; #20;	
 		
 		write = 0;read = 0; #20;
 		
-		// Read register 3 (Result)
-		address = 3;  
-		read = 1;	  #20;
-		R = readdata; #20;			
+		// Read register A (Result)
+			address = 1;  
+			read = 1;	  #20;
+			R[0] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
+
+			address = 2;  
+			read = 1;	  #20;
+			R[1] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
 		
-		write = 0;read = 0; #20; 
-		
-		assert (R == "AB") 
+		assert (R == "ABCDEF  ") 
 			$display("String_To_Upper(%s) == %s PASSED", A, R);
 		else 
 			$display("Case String_To_Upper(%s) == %s failed", A, R);
 	
 		// reset go bit to register 2 (Control)
-		address = 2; 
+		address = 0; 
 		writedata[1] = 0;   #20;	// reset go bit
 		write = 1;			#20;
 		
 		write = 0;read = 0; #20;
 		
-/************** Test index 2 (string To Lower), inputs (ABCD)******************/
+/************** Test index 2 (string To Lower), inputs (ABCDEFGH)******************/
 	
-		// Write string A to register 0
-		address = 0;	    	
-		writedata = "ABCD";  #20;	
-		write = 1;			 #20;
+			A = 0;
+			B = 0;
+			
+		// Write string A to Register A
+			address = 1;	    	
+			writedata = "ABCD";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+			
+			address = 2;	    	
+			writedata = "EFGH";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
 		
-		write = 0;read = 0;  #20;
+		// Read string A from Register A
+			address = 1;	
+			read = 1;			#20;
+			A[0] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
+			
+			address = 2;	
+			read = 1;			#20;
+			A[1] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
 		
-		// Read A from register 0
-		address = 0;	
-		read = 1;			#20;
-		A = readdata; 		#20;	
-		
-		write = 0;read = 0; #20;	
-		
-		// Write 2 to index and set go bit to register 2 (Control)
-		address = 2;		
+		// Write 2 to index and set go bit to Control Register
+		address = 0;		
 		writedata = 32'b010_10; #20;		
 		write = 1;			    #20;
 		
-		write = 0;read = 0; #200;	
-		
-		// Read register 2 (control)
-		address = 2;		
-		read = 1;			#20;
-		control = readdata; #200;	
-		
-		write = 0;read = 0; #20;
-		
-		// Read register 3 (Result)
-		address = 3;  
-		read = 1;	  #20;
-		R = readdata; #20;			
-		
-		write = 0;read = 0; #20; 
-		
-		assert (R == "abcd") 
-			$display("String_To_Lower(%s) == %s PASSED", A, R);
-		else 
-			$display("Case String_To_Lower(%s) == %s failed", A, R);
-	
-		// reset go bit to register 2 (Control)
-		address = 2; 
-		writedata[1] = 0;   #20;	// reset go bit
-		write = 1;			#20;
-		
-		write = 0;read = 0; #20;
-		
-/************** Test index 2 (string To Upper), inputs (Ab)******************/
-	
-		// Write string A to register 0
-		address = 0;	    	
-		writedata = "Ab";  #20;	
-		write = 1;			 #20;
-		
-		write = 0;read = 0;  #20;
-		
-		// Read A from register 0
-		address = 0;	
-		read = 1;			#20;
-		A = readdata; 		#20;	
-		
 		write = 0;read = 0; #20;	
 		
-		// Write 2 to index and set go bit to register 2 (Control)
-		address = 2;		
-		writedata = 32'b010_10; #20;		
-		write = 1;			    #20;
-		
-		write = 0;read = 0; #200;	
-		
 		// Read register 2 (control)
-		address = 2;		
+		address = 0;		
 		read = 1;			#20;
-		control = readdata; #200;	
+		control = readdata; #20;	
 		
 		write = 0;read = 0; #20;
 		
-		// Read register 3 (Result)
-		address = 3;  
-		read = 1;	  #20;
-		R = readdata; #20;			
-		
-		write = 0;read = 0; #20; 
-		
-		assert (R == "ab") 
-			$display("String_To_Lower(%s) == %s PASSED", A, R);
-		else 
-			$display("Case String_To_Lower(%s) == %s failed", A, R);
-	
-		// reset go bit to register 2 (Control)
-		address = 2; 
-		writedata[1] = 0;   #20;	// reset go bit
-		write = 1;			#20;
-		
-		write = 0;read = 0; #20;
-		
+		// Read register A (Result)
+			address = 1;  
+			read = 1;	  #20;
+			R[0] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
 
+			address = 2;  
+			read = 1;	  #20;
+			R[1] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
 		
+		assert (R == "abcdefgh") 
+			$display("String_To_Lower(%s) == %s PASSED", A, R);
+		else 
+			$display("Case String_To_Lower(%s) == %s failed", A, R);
+	
+		// reset go bit to register 2 (Control)
+		address = 0; 
+		writedata[1] = 0;   #20;	// reset go bit
+		write = 1;			#20;
+		
+		write = 0;read = 0; #20;
+		
+/************** Test index 2 (string To Lower), inputs (AbCdE)******************/
+	
+		A = 0;
+		B = 0;
+			
+		// Write string A to Register A
+			address = 1;	    	
+			writedata = "AbCd";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+			
+			address = 2;	    	
+			writedata = "E   ";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+		
+		// Read string A from Register A
+			address = 1;	
+			read = 1;			#20;
+			A[0] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
+			
+			address = 2;	
+			read = 1;			#20;
+			A[1] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
+		
+		// Write 2 to index and set go bit to Control Register
+		address = 0;		
+		writedata = 32'b010_10; #20;		
+		write = 1;			    #20;
+		
+		write = 0;read = 0; #20;	
+		
+		// Read register 2 (control)
+		address = 0;		
+		read = 1;			#20;
+		control = readdata; #20;	
+		
+		write = 0;read = 0; #20;
+		
+		// Read register A (Result)
+			address = 1;  
+			read = 1;	  #20;
+			R[0] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
+
+			address = 2;  
+			read = 1;	  #20;
+			R[1] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
+		
+		assert (R == "abcde   ") 
+			$display("String_To_Lower(%s) == %s PASSED", A, R);
+		else 
+			$display("Case String_To_Lower(%s) == %s failed", A, R);
+	
+		// reset go bit to register 2 (Control)
+		address = 0; 
+		writedata[1] = 0;   #20;	// reset go bit
+		write = 1;			#20;
+		
+		write = 0;read = 0; #20;
+		
+	$stop;
 	end
 
 	always
