@@ -149,13 +149,15 @@ void main() {
 					{
 						get4Chars(str1,out, k);
 						*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
+						//printf("WRITE A: %s \n",out);
 					}
 					printf("String A: %s \n",str1);
 					printf("String B: %s \n",str1);
 					for(k=0; k < 8; k++)
 					{
-						get4Chars(str1,out, k);
-						*(String_HW_ptr + k + 8) = *((uint32_t *)(out));
+						get4Chars(str2,out, k);
+						*(String_HW_ptr + k + 9) = *((uint32_t *)(out));
+						//printf("WRITE B: %s \n",out);
 					}
 					// WRITE INDEX and GO BIT
 					start_timer();
@@ -329,17 +331,19 @@ void main() {
 					*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
 				}
 				printf("String A: %s \n",str1_UPPER);
-				//char find [4]= {'S','O','N','G'};
-				char find [4]= {'G','N','O','S'};
+				char find [4]= {'S','O','N','G'};
+				//char find [4]= {'G','N','O','S'};
 				//char find [4] = "SONG";
 				
 				get4Chars(find,out, 0);
 				printf("String B: %s \n",out);
-				*(String_HW_ptr + 8) = *((uint32_t *)(out));
+				*(String_HW_ptr + 9) = *((uint32_t *)(out));
 				
 				// WRITE INDEX and GO BIT
+				uint32_t len = 32;
 				start_timer();
-				WRITE_CONTROL_STATUS = ((uint32_t) index << 2) | 2;
+				
+				WRITE_CONTROL_STATUS = (len << 6) |((uint32_t) index << 2) | 2;
 				
 				while(!(READ_CONTROL_STATUS & 1));
 				
@@ -349,22 +353,23 @@ void main() {
 				char res;
 				if(strstr(str1, find) != NULL)
 					// get offset in bytes
-					res = strstr(str1, find) - str1;
+					res = strstr(str1, find);
 				else
 					res = 0;
 				ticksSW = snapshot_timer();
 				
 				
+				printf("SW: %d\n",res);
 				uint32_t resHW;
-				resHW = *(String_HW_ptr + 8);
-				printf("Read B: %d\n",resHW);
+				resHW = *(String_HW_ptr + 1);
+				printf("HW: %d\n",resHW);
 				
 				CLEAR_CONTROL_STATUS;
 				/************ String to Lower Display Code *************/
 				
 					printf("=========== Search(strA,strB) ===========\n");
 					if (res>0)	printf("SW FOUND at pos: %d \n",res);
-					else		printf("SW NOT EQUAL \n");
+					else		printf("SW NOT FOUND \n");
 					//printf("Hardware strcmp(%s, %s) = ",str1, str1);
 					if (resHW != 0xFF)	printf("HW FOUND at pos: %d \n",resHW);
 					else		printf("HW NOT FOUND \n");
