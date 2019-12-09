@@ -62,7 +62,7 @@ module String_HW_Avalon (input logic clk, reset, read, write, chipselect,
 	logic [0:MAX_WORDS-1] [31:0] StringB;
 	assign write_reg_B		 = (address > MAX_WORDS) && (address <= (MAX_WORDS+MAX_WORDS)) && write && chipselect; 	// Write Register Flags
 	assign read_reg_B 		 = (address > MAX_WORDS) && (address <= (MAX_WORDS+MAX_WORDS)) && read  && chipselect;  // Read Register Flags
-
+	
 	
 	// Instantiate String_HW module
     String_HW U0(.clk(clk), 

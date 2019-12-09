@@ -30,6 +30,8 @@
 
 `timescale 1ps / 1ps
 
+parameter MAX_WORDS = 8;
+
 module String_HW_Avalon_TB;			
 	logic clk, reset, read, write, chipselect;
 	logic [2:0] address;
@@ -37,7 +39,7 @@ module String_HW_Avalon_TB;
 	
 	logic go, done;
 	logic [2:0] index;
-	logic [0:3] [7:0] A, B, R;
+	logic [0:MAX_WORDS-1] [7:0] A, B, R;
 	logic [2:0] length;
 
 	String_HW_Avalon dut(.clk(clk),
@@ -60,59 +62,62 @@ module String_HW_Avalon_TB;
 		write = 0;read = 0; #20;
 		
 		
-/************** Test index 0 (string compare), inputs (abcd, abca)******************/
+/************** Test index 0 (string compare), inputs (abcdefgh, abcdefgh)******************/
 	
-		// Write string A to register 0
-		address = 1;	    	
-		writedata = "abcd";  #20;	
-		write = 1;			 #20;
+		// Write string A to Register A
+			address = 1;	    	
+			writedata = "abcd";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+			
+			address = 2;	    	
+			writedata = "efgh";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
 		
-		write = 0;read = 0;  #20;
+		// Read string A from Register A
+			address = 1;	
+			read = 1;			#20;
+			A = readdata; 		#20;	
+			
+			write = 0;read = 0; #20;	
+			
+			address = 2;	
+			read = 1;			#20;
+			A = readdata; 		#20;	
+			
+			write = 0;read = 0; #20;	
 		
-		// Write string A to register 0
-		address = 2;	    	
-		writedata = "efgh";  #20;	
-		write = 1;			 #20;
+		// Write string B to Register B
+			address = 9;	    	
+			writedata = "abcd";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+			
+			address = 10;	    	
+			writedata = "efgh";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
 		
-		write = 0;read = 0;  #20;
+		// Read string B from Register B
+			address = 9;	
+			read = 1;			#20;
+			B = readdata; 		#20;	
+			
+			write = 0;read = 0; #20;	
+			
+			address = 10;	
+			read = 1;			#20;
+			B = readdata; 		#20;	
+			
+			write = 0;read = 0; #20;	
 		
-		// Read A from register 0
-		address = 1;	
-		read = 1;			#20;
-		A = readdata; 		#20;	
-		
-		write = 0;read = 0; #20;	
-		
-		// Read A from register 0
-		address = 2;	
-		read = 1;			#20;
-		A = readdata; 		#20;	
-		
-		write = 0;read = 0; #20;	
-		
-		// Read A from register 0
-		address = 1;	
-		read = 1;			#20;
-		A = readdata; 		#20;	
-		
-		write = 0;read = 0; #20;	
-		
-		// write string B to register 1
-		address = 1;		
-		writedata = "abca";	#20;
-		write = 1;			#20;		
-		
-		write = 0;read = 0; #20;	
-		
-		// Read B from register 1
-		address = 1;		
-		read = 1;			#20;
-		B = readdata;       #20;		
-		
-		write = 0;read = 0; #20;	
-		
-		// Write 0 to index and set go bit to register 2 (Control)
-		address = 2;		
+		// Write 0 to index and set go bit to Control Register
+		address = 0;		
 		writedata = 32'b000_10; #20;		
 		write = 1;			    #20;
 		
