@@ -15,8 +15,8 @@
  * 3) Wait in Done state until go bit reset
  * ###############################################################################
  */
-parameter MAX_BLOCKS=2;	// Max number of characters
-module String_HW (input logic clk, reset, go,
+module String_HW #(MAX_BLOCKS = 2)
+			  (input logic clk, reset, go,
 			   input logic [3:0]  index,
 			   input logic [7:0] length,
 			   input logic [0:MAX_BLOCKS*4-1][7:0] A, B,
