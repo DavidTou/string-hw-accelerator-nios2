@@ -37,6 +37,7 @@
 #define TOUPPER 1
 #define TOLOWER 2
 #define REVERSE 3
+#define SEARCH  4
 
 /* function prototypes */
 char get_char( void );
@@ -51,6 +52,7 @@ void get4Chars(char* string,char *out, int index);
 void get4CharsInt(uint32_t value, char *out);
 void pointer4CharsInt(uint32_t value, char * out);
 void clearTerminal();
+void SwapValue(char *a, char *b);
 
 void stringHWCall(uint32_t index,char* stringA,char* stringB, char length);
 
@@ -62,6 +64,7 @@ uint32_t stringHW_compare(uint32_t A, uint32_t B);
 /* String SW prototypes */
 void strToUpper(char* string, int length);
 void strToLower(char* string, int length);
+void strReverse(char* string, char length);
 
 // POINTERS
 volatile uint32_t * TIMER_ptr = (uint32_t *)TIMER_BASE;
@@ -72,7 +75,7 @@ char length = 64;
 char test[128] = "lylatagssongdamptynecapebarnflowonceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
 
 
-char str1_UPPER[128] = "LYLAtagsSONGdamptyneCAPEeBARNflow";
+char str1_UPPER[128] = "LYLAtagsSONGdamptyneCAPEBARNflow";
 
 void main() {
 	
@@ -93,6 +96,7 @@ void main() {
 		printf("%-7s%-25s\n", "1", "ToUpper");
 		printf("%-7s%-25s\n", "2", "ToLower"); 
 		printf("%-7s%-25s\n", "3", "Reverse"); 
+		printf("%-7s%-25s\n", "4", "Search"); 
 		printf("Select function [Index]: ");
 		inputParamTerminal(out);
 		putchar('\n');
@@ -273,7 +277,105 @@ void main() {
 			}break;
 			case REVERSE: {
 				printf("=========== Reverse(str) ===========\n");
+				char k;
+				for(k=0; k < 8; k++)
+				{
+					get4Chars(str2,out, k);
+					*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
+				}
+				printf("String A: %s \n",str1_UPPER);
+				// WRITE INDEX and GO BIT
+				start_timer();
+				WRITE_CONTROL_STATUS = ((uint32_t) index << 2) | 2;
+				
+				while(!(READ_CONTROL_STATUS & 1));
+				
+				ticksHW = snapshot_timer();
+				
+				// SW
+				start_timer();
+				strReverse(str2,32);
+				ticksSW = snapshot_timer();
+				printf("String A SW Reversed: %s \n",str2);
+				for(k=0; k < 8; k++)
+				{
+					uint32_t val;
+					val = *(String_HW_ptr + k + 1);
+					printf("Read A: ");
+					
+					putchar(val & 0x000000FF);
+					putchar((val & 0x0000FF00) >> 8);
+					putchar((val & 0x00FF0000) >> 16);
+					putchar((val & 0xFF000000) >> 24);
+					putchar('\n');
+				}
+				CLEAR_CONTROL_STATUS;
+				/************ String to Lower Display Code *************/
+				
+					printf("=========== Reverse(str) ===========\n");
+					//printf("Software strToLower(%s) = %s \n",str1, str2);
+					//printf("Hardware strToLower(%s) = %s \n",str1, result_str);
+					printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
+					printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
+					printf("Speedup = %-8f\n",ticksSW/ticksHW*1.0);
+					printf("=================================================\n");
 			}break;
+			case SEARCH: {
+				printf("=========== Search(strA,strB) ===========\n");
+				char k;
+				for(k=0; k < 8; k++)
+				{
+					get4Chars(str1_UPPER,out, k);
+					*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
+				}
+				printf("String A: %s \n",str1_UPPER);
+				//char find [4]= {'S','O','N','G'};
+				char find [4]= {'G','N','O','S'};
+				//char find [4] = "SONG";
+				
+				get4Chars(find,out, 0);
+				printf("String B: %s \n",out);
+				*(String_HW_ptr + 8) = *((uint32_t *)(out));
+				
+				// WRITE INDEX and GO BIT
+				start_timer();
+				WRITE_CONTROL_STATUS = ((uint32_t) index << 2) | 2;
+				
+				while(!(READ_CONTROL_STATUS & 1));
+				
+				ticksHW = snapshot_timer();
+				
+				start_timer();
+				char res;
+				if(strstr(str1, find) != NULL)
+					// get offset in bytes
+					res = strstr(str1, find) - str1;
+				else
+					res = 0;
+				ticksSW = snapshot_timer();
+				
+				
+				uint32_t resHW;
+				resHW = *(String_HW_ptr + 8);
+				printf("Read B: %d\n",resHW);
+				
+				CLEAR_CONTROL_STATUS;
+				/************ String to Lower Display Code *************/
+				
+					printf("=========== Search(strA,strB) ===========\n");
+					if (res>0)	printf("SW FOUND at pos: %d \n",res);
+					else		printf("SW NOT EQUAL \n");
+					//printf("Hardware strcmp(%s, %s) = ",str1, str1);
+					if (resHW != 0xFF)	printf("HW FOUND at pos: %d \n",resHW);
+					else		printf("HW NOT FOUND \n");
+					//printf("Software strToLower(%s) = %s \n",str1, str2);
+					//printf("Hardware strToLower(%s) = %s \n",str1, result_str);
+					printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
+					printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
+					printf("Speedup = %-8f\n",ticksSW/ticksHW*1.0);
+					printf("=================================================\n");
+			}break;
+			
 			default: {
 				printf("\nOption not handled.\n");
 			}break;
@@ -286,52 +388,6 @@ void main() {
 	}
 }
 
-/* void stringHWCall(uint32_t index,char* stringA,char* stringB, char length){
-	
-	char k;
-	char out[4];
-	for(k=0; k < length/4; k++)
-	{
-		get4Chars(str1,out, k);
-		*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
-		if((k+1) <= 8)
-			printf("Write A: %s \n",out);
-		else
-			printf("Write B: %s \n",out);
-		 //printf("Read: %s \tFIFO Size: %u \n",out, *(String_HW_ptr+2));
-	}
-	// WRITE INDEX and GO BIT
-	WRITE_CONTROL_STATUS = ((uint32_t index) << 28) | 2;
-	
-	while(!(READ_CONTROL_STATUS & 1));
-	
-	for(k=0; k < length/4; k++)
-	{
-		uint32_t val;
-		val = *(String_HW_ptr + k + 1);
-		//printf("Read HEX: %x \n",val);
-		if((k+1) <= 8)
-			printf("Read A: ");
-		else
-			printf("Read B: ");
-		putchar(val & 0x000000FF);
-		putchar((val & 0x0000FF00) >> 8);
-		putchar((val & 0x00FF0000) >> 16);
-		putchar((val & 0xFF000000) >> 24);
-		putchar('\n');
-	}
-} */
-
-/********************************************************************************
- * clearTerminal()
-********************************************************************************/
-void clearTerminal()
-{
-	putchar(0x1B);
-	putchar('[');
-	putchar('2');
-	putchar('J');
-}
 
 /********************************************************************************
  * StringCompare Function converts inputted string to uint32_teger 32 bit
@@ -389,6 +445,17 @@ uint32_t stringHW_ToLower(uint32_t A)
 }
 
 /********************************************************************************
+ * StringReverse Function reverses string
+********************************************************************************/
+void strReverse(char* string, char length)
+{
+	// Swap character starting from two 
+    // corners 
+    for (int i = 0; i < length / 2; i++) 
+        SwapValue(&string[i], &string[length - i - 1]); 
+}
+
+/********************************************************************************
  * StringToUpper Function converts inputted string to uint32_teger 32 bit
 ********************************************************************************/
 void strToUpper(char* string, int length)
@@ -407,6 +474,27 @@ void strToLower(char* string, int length)
 	for (int i = 0; i < length; i++)
 		if (string[i] >= 'A' && string[i] <= 'Z')
 			string[i] += 32;
+}
+
+/********************************************************************************
+ * SwapValue Function 
+********************************************************************************/
+
+void SwapValue(char *a, char *b) {
+   char t = *a;
+   *a = *b;
+   *b = t;
+}
+
+/********************************************************************************
+ * clearTerminal()
+********************************************************************************/
+void clearTerminal()
+{
+	putchar(0x1B);
+	putchar('[');
+	putchar('2');
+	putchar('J');
 }
 
 /********************************************************************************
