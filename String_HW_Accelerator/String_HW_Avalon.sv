@@ -107,7 +107,11 @@ module String_HW_Avalon (input logic clk, reset, read, write, chipselect,
 			else if (read_reg_A) 		readdata <= StringA[address - 1];  			   // READ FROM StringA
 			else if (write_reg_B) 		StringB[address - MAX_BLOCKS - 1] <= writedata; // WRITE TO StringB
 			else if (read_reg_B) 		readdata <= StringB[address - MAX_BLOCKS - 1];  // READ FROM StringB
-			else if (read_reg_Result)   readdata <= Result[address-1];			   	   // READ FROM RESULT
+			else if (read_reg_Result)   begin 
+											readdata <= Result[address-1];			   	// READ FROM RESULT
+											StringA <= 0;								// Reset String
+											StringB <= 0;								// Reset String
+										end
 		end
 	end
 	
