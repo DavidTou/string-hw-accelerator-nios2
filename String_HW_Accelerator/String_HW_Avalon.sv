@@ -37,7 +37,7 @@ module String_HW_Avalon (input logic clk, reset, read, write, chipselect,
 						);
 	
 	logic write_reg_A, write_reg_B, write_reg_Control;
-	logic read_reg_A, read_reg_B, read_reg_Control;
+	logic read_reg_A, read_reg_B, read_reg_Control, read_reg_Result;
 	
 	logic [31:0] Control;
 	
@@ -50,8 +50,8 @@ module String_HW_Avalon (input logic clk, reset, read, write, chipselect,
 	* ADDRESS 1 - MAX_WORDS
 	*/
 	logic [0:MAX_WORDS-1] [31:0] StringA;
-	assign write_reg_A		 		= (address >= 1) && (address <= MAX_WORDS) && write && chipselect;  	// Write Register Flags
-	assign read_reg_A 		 		= (address >= 1) && (address <= MAX_WORDS) && read  && chipselect;      // Read Register Flags
+	assign write_reg_A		 		= (address >= 1) && (address <= MAX_WORDS) && write && chipselect && ~done;  	// Write Register Flags
+	assign read_reg_A 		 		= (address >= 1) && (address <= MAX_WORDS) && read  && chipselect;      		// Read Register Flags
 	/* ------ END StringA Flags --------- */
 	
 	
@@ -62,6 +62,12 @@ module String_HW_Avalon (input logic clk, reset, read, write, chipselect,
 	logic [0:MAX_WORDS-1] [31:0] StringB;
 	assign write_reg_B		 = (address > MAX_WORDS) && (address <= (MAX_WORDS+MAX_WORDS)) && write && chipselect; 	// Write Register Flags
 	assign read_reg_B 		 = (address > MAX_WORDS) && (address <= (MAX_WORDS+MAX_WORDS)) && read  && chipselect;  // Read Register Flags
+	
+	/* ------ Result Flags ---------
+	* ADDRESS 9 - 2*MAX_WORDS
+	*/
+	logic [0:MAX_WORDS-1] [31:0] Result;
+	assign read_reg_Result 	 = (address >= 1) && (address <= MAX_WORDS) && read  && chipselect && done;    		    // Read Register Flags
 	
 	
 	// Instantiate String_HW module
@@ -99,6 +105,7 @@ module String_HW_Avalon (input logic clk, reset, read, write, chipselect,
 			else if (read_reg_A) 		readdata <= StringA[address - 1];  			   // READ FROM StringA
 			else if (write_reg_B) 		StringB[address - MAX_WORDS - 1] <= writedata; // WRITE TO StringB
 			else if (read_reg_B) 		readdata <= StringB[address - MAX_WORDS - 1];  // READ FROM StringB
+			else if (read_reg_Result)   readdata <= Result[address - 1];
 		end
 	end
 	

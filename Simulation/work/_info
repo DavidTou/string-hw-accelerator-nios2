@@ -10,23 +10,23 @@ cModel Technology
 dC:/Users/David/Documents/GitHub/string-hw-accelerator-nios2
 vString_HW
 Z0 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
-DXx4 work 17 String_HW_sv_unit 0 22 fZEO7YLJKCodY;kdMiV]k3
+DXx4 work 17 String_HW_sv_unit 0 22 5dGHoRJ;QIY6X=oKHEC470
 Z1 VDg1SIo80bB@j0V0VzS_@n1
 r1
 !s85 0
 31
 !i10b 1
-!s100 AO?8IGg;^GKdGFL=0hWPf0
-I94:iJLoMl2iZ]MQK?3=A00
+!s100 =S0gT;BL4X6f<l3[`LaC_1
+I;^`6^hX[aML[XHF?2l7cj2
 !s105 String_HW_sv_unit
 S1
 Z2 dC:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/Simulation
-Z3 w1575845927
+Z3 w1575856432
 Z4 8C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW.sv
 Z5 FC:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW.sv
 L0 27
 Z6 OV;L;10.5b;63
-Z7 !s108 1575853500.000000
+Z7 !s108 1575856459.000000
 Z8 !s107 C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW.sv|
 Z9 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW.sv|
 !i113 1
@@ -46,14 +46,14 @@ I5LNdH:2lR?2]d@]hl<BnI2
 !s105 String_HW_Avalon_sv_unit
 S1
 R2
-Z12 w1575853454
+Z12 w1575854628
 Z13 8C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_Avalon.sv
 Z14 FC:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_Avalon.sv
 Z15 L0 33
 R6
-Z16 !s108 1575853501.000000
-Z17 !s107 C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_Avalon.sv|
-Z18 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_Avalon.sv|
+R7
+Z16 !s107 C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_Avalon.sv|
+Z17 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_Avalon.sv|
 !i113 1
 R10
 R11
@@ -75,47 +75,71 @@ R13
 R14
 L0 31
 R6
+R7
 R16
 R17
-R18
 !i113 1
 R10
 R11
 n@string_@h@w_@avalon_sv_unit
 vString_HW_Avalon_TB
 R0
-!s110 1575853501
-!i10b 1
-!s100 4`m^=lHgK>mOgYf_1I9<53
-IDiNIW<9G6OoaJXkk<3T6;3
+DXx4 work 27 String_HW_Avalon_TB_sv_unit 0 22 `?hkGbULNabQ^jPaC?9hJ2
 R1
-!s105 String_HW_Avalon_TB_sv_unit
-S1
-R2
-w1575851935
-8C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_Avalon_TB.sv
-FC:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_Avalon_TB.sv
-R15
-R6
 r1
 !s85 0
 31
-R16
-!s107 C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_Avalon_TB.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_Avalon_TB.sv|
+!i10b 1
+!s100 G<R4=Z1GzZc]7kL47WIQ<0
+InfgU045_JFi^<Y8Bnd0J60
+!s105 String_HW_Avalon_TB_sv_unit
+S1
+R2
+Z18 w1575855077
+Z19 8C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_Avalon_TB.sv
+Z20 FC:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_Avalon_TB.sv
+L0 35
+R6
+R7
+Z21 !s107 C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_Avalon_TB.sv|
+Z22 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_Avalon_TB.sv|
 !i113 1
 R10
 R11
 n@string_@h@w_@avalon_@t@b
-XString_HW_sv_unit
+XString_HW_Avalon_TB_sv_unit
 R0
-VfZEO7YLJKCodY;kdMiV]k3
+V`?hkGbULNabQ^jPaC?9hJ2
 r1
 !s85 0
 31
 !i10b 1
-!s100 @hKoJ0n^>4Q^<4W^k60ZJ0
-IfZEO7YLJKCodY;kdMiV]k3
+!s100 lThzG@1Z0a4NO?j=A2Fe73
+I`?hkGbULNabQ^jPaC?9hJ2
+!i103 1
+S1
+R2
+R18
+R19
+R20
+R15
+R6
+R7
+R21
+R22
+!i113 1
+R10
+R11
+n@string_@h@w_@avalon_@t@b_sv_unit
+XString_HW_sv_unit
+R0
+V5dGHoRJ;QIY6X=oKHEC470
+r1
+!s85 0
+31
+!i10b 1
+!s100 MLUe]XjA1K^RIE5^SMO6B1
+I5dGHoRJ;QIY6X=oKHEC470
 !i103 1
 S1
 R2
@@ -133,49 +157,49 @@ R11
 n@string_@h@w_sv_unit
 vString_HW_TB
 R0
-DXx4 work 20 String_HW_TB_sv_unit 0 22 5L_P70UYNJTz37Vg4:93Y3
+DXx4 work 20 String_HW_TB_sv_unit 0 22 Ikk1Bn<BYZZYl=0dQ3G9:2
 R1
 r1
 !s85 0
 31
 !i10b 1
-!s100 >m58z9eB@4GG158JEbiFY2
-Ii8XR6kfh`E4U=4C[3h4MG0
+!s100 CLaMYVgYe71<0Z74nZVXk0
+IEcaACbI5>QUD>K@O[ZX>H3
 !s105 String_HW_TB_sv_unit
 S1
 R2
-Z19 w1575844790
-Z20 8C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_TB.sv
-Z21 FC:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_TB.sv
+Z23 w1575856403
+Z24 8C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_TB.sv
+Z25 FC:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_TB.sv
 L0 25
 R6
-R16
-Z22 !s107 C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_TB.sv|
-Z23 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_TB.sv|
+R7
+Z26 !s107 C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_TB.sv|
+Z27 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_TB.sv|
 !i113 1
 R10
 R11
 n@string_@h@w_@t@b
 XString_HW_TB_sv_unit
 R0
-V5L_P70UYNJTz37Vg4:93Y3
+VIkk1Bn<BYZZYl=0dQ3G9:2
 r1
 !s85 0
 31
 !i10b 1
-!s100 ^1TNgC4No>B`0]0GVV[Ul1
-I5L_P70UYNJTz37Vg4:93Y3
+!s100 Dn9CaQXFkN_O=;Z5DPa3g3
+IIkk1Bn<BYZZYl=0dQ3G9:2
 !i103 1
 S1
 R2
-R19
-R20
-R21
+R23
+R24
+R25
 L0 23
 R6
-R16
-R22
-R23
+R7
+R26
+R27
 !i113 1
 R10
 R11

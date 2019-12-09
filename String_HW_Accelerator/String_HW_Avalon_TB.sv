@@ -40,7 +40,6 @@ module String_HW_Avalon_TB;
 	logic go, done;
 	logic [2:0] index;
 	logic [0:MAX_WORDS-1] [7:0] A, B, R;
-	logic [2:0] length;
 
 	String_HW_Avalon dut(.clk(clk),
 						 .reset(reset), 
