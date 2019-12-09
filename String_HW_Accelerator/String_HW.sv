@@ -5,17 +5,9 @@
  * David Tougaw and Matthew Bowen
  * 11/24/2019
  * --------------------------------------
- * String.h Hardware Accelerator
+ * String.h Hardware Accelerator +
  * --------------------------------------
  * Dev BOARD => Altera DE2-115
- * ------------------------------------------------------------------------------
- * -----------AVALON INTERFACE--------------------
- * ============== 32 bit String HW ==================
- *   	   32 bit registers
- *	|----Register 0 (A)---------|
- *	|----Register 1 (B)---------|
- *	|----Register 2 (Control)---|
- *	|----Register 3 (Result)----|
  * ------------------------------------------------------------------------------
  * 0) Wait for go
  * 1) Go to string function depending on index value

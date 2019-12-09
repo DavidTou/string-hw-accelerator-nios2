@@ -27,7 +27,7 @@
 #define CLOCK_RATE 50000000.0
 #define READ_CONTROL_STATUS *(String_HW_ptr)
 #define WRITE_CONTROL_STATUS *(String_HW_ptr)
-
+#define BUFFER_SIZE 64
 // INDEXES
 #define TEST -13
 #define COMPARE 0
@@ -49,7 +49,7 @@ void get4CharsInt(uint32_t value, char *out);
 void pointer4CharsInt(uint32_t value, char * out);
 void clearTerminal();
 
-void stringHWCall(uint32_t index,char* stringA,char* stringB);
+void stringHWCall(uint32_t index,char* stringA,char* stringB, char length);
 
 /* String HW prototypes */
 uint32_t stringHW_ToUpper(uint32_t A);
@@ -64,13 +64,16 @@ void strToLower(char* string, int length);
 volatile uint32_t * TIMER_ptr = (uint32_t *)TIMER_BASE;
 volatile uint32_t * String_HW_ptr = (uint32_t *)String_HW_BASE;
 
+
+char length = 64;
+char test[128] = "lylatagssongdamptynecapebarnflowonceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
+char str1[32] = "lylatagssongdamptynecapebarnflow"; 	// double quotes add null terminator
+char str2[32] = "onceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
+
 void main() {
 	
 	uint32_t ticksHW,ticksSW;
-	char length = 64;
-	char test[BUFFER_SIZE] = "lylatagssongdamptynecapebarnflowonceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
-	char str1[32] = "lylatagssongdamptynecapebarnflow"; 	// double quotes add null terminator
-	char str2[32] = "onceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
+	
 	char out [4];				// temp var
 	
 	while(1){
@@ -147,12 +150,35 @@ void main() {
 			case TOUPPER: {
 				
 				printf("=========== StringToUpper(str) ===========\n");
+				char k;
+				for(k=0; k < 8; k++)
+				{
+					get4Chars(str1,out, k);
+					*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
+					printf("Write A: %s \n",out);
+				}
+				// WRITE INDEX and GO BIT
+				WRITE_CONTROL_STATUS = ((uint32_t) index << 28) | 2;
 				
+				while(!(READ_CONTROL_STATUS & 1));
 				
+				for(k=0; k < 8; k++)
+				{
+					uint32_t val;
+					val = *(String_HW_ptr + k + 1);
+					printf("Read HEX: %x \n",val);
+					printf("Read A: ");
+					
+					putchar(val & 0x000000FF);
+					putchar((val & 0x0000FF00) >> 8);
+					putchar((val & 0x00FF0000) >> 16);
+					putchar((val & 0xFF000000) >> 24);
+					putchar('\n');
+				}
 				/************* String to Upper Display Code ***************/
 				
-					printf("=========== StringToUpper(str) ===========\n");
-				/*	printf("Software strToUpper(%s) = %s \n",str1, str2);
+				/*	printf("=========== StringToUpper(str) ===========\n");
+					printf("Software strToUpper(%s) = %s \n",str1, str2);
 					printf("Hardware strToUpper(%s) = %s \n",str1, result_str);
 					printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
 					printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
@@ -221,9 +247,10 @@ void main() {
 	}
 }
 
-void stringHWCall(uint32_t index,char* stringA,char* stringB){
+/* void stringHWCall(uint32_t index,char* stringA,char* stringB, char length){
 	
 	char k;
+	char out[4];
 	for(k=0; k < length/4; k++)
 	{
 		get4Chars(str1,out, k);
@@ -235,7 +262,7 @@ void stringHWCall(uint32_t index,char* stringA,char* stringB){
 		 //printf("Read: %s \tFIFO Size: %u \n",out, *(String_HW_ptr+2));
 	}
 	// WRITE INDEX and GO BIT
-	WRITE_CONTROL_STATUS = ((uint32_tindex) << 28) | 2;
+	WRITE_CONTROL_STATUS = ((uint32_t index) << 28) | 2;
 	
 	while(!(READ_CONTROL_STATUS & 1));
 	
@@ -254,7 +281,7 @@ void stringHWCall(uint32_t index,char* stringA,char* stringB){
 		putchar((val & 0xFF000000) >> 24);
 		putchar('\n');
 	}
-}
+} */
 
 /********************************************************************************
  * clearTerminal()
