@@ -59,7 +59,9 @@ module String_HW_Avalon_TB;
 		
 		
 /************** Test index 0 (string compare), inputs (abcdefgh, abcdefgh)******************/
-	
+			A = 0;
+			B = 0;
+			
 		// Write string A to Register A
 			address = 1;	    	
 			writedata = "abcd";  #20;	
@@ -145,75 +147,181 @@ module String_HW_Avalon_TB;
 			$display("String Compare(%s,%s) == %0d failed",A,B,R);
 	
 		// reset go bit to register 2 (Control)
-		address = 2; 
+		address = 0; 
 		writedata[1] = 0;   #20;	// reset go bit
 		write = 1;			#20;
 		
 		write = 0;read = 0; #20;
 		
-/************** Test index 0 (string compare), inputs (ab, ab)******************/
-	
-		// Write string A to register 0
-		address = 0;	    	
-		writedata = "abcd";  #20;	
-		write = 1;			 #20;
+/************** Test index 0 (string compare), inputs (abcdefgh, abcdabcd)******************/
+			A = 0;
+			B = 0;
+			
+		// Write string A to Register A
+			address = 1;	    	
+			writedata = "abcd";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+			
+			address = 2;	    	
+			writedata = "efgh";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
 		
-		write = 0;read = 0;  #20;
+		// Read string A from Register A
+			address = 1;	
+			read = 1;			#20;
+			A[0] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
+			
+			address = 2;	
+			read = 1;			#20;
+			A[1] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
 		
-		// Read A from register 0
-		address = 0;	
-		read = 1;			#20;
-		A = readdata; 		#20;	
+		// Write string B to Register B
+			address = 3;	    	
+			writedata = "abcd";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+			
+			address = 4;	    	
+			writedata = "abcd";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
 		
+		// Read string B from Register B
+			address = 3;	
+			read = 1;			#20;
+			B[0] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
+			
+			address = 4;	
+			read = 1;			#20;
+			B[1] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
 		
-		write = 0;read = 0; #20;	
-		
-		// write string B to register 1
-		address = 1;		
-		writedata = "abcd";	#20;
-		write = 1;			#20;		
-		
-		write = 0;read = 0; #20;	
-		
-		// Read B from register 1
-		address = 1;		
-		read = 1;			#20;
-		B = readdata;       #20;		
-		
-		write = 0;read = 0; #20;	
-		
-		// Write 0 to index and set go bit to register 2 (Control)
-		address = 2;		
+		// Write 0 to index and set go bit to Control Register
+		address = 0;		
 		writedata = 32'b000_10; #20;		
 		write = 1;			    #20;
 		
-		write = 0;read = 0; #200;	
+		write = 0;read = 0; #20;	
 		
 		// Read register 2 (control)
-		address = 2;		
+		address = 0;		
 		read = 1;			#20;
-		control = readdata; #200;	
+		control = readdata; #20;	
 		
 		write = 0;read = 0; #20;
 		
-		// Read register 3 (Result)
-		address = 3;  
-		read = 1;	  #20;
-		R = readdata; #20;			
+		// Read register A (Result)
+			address = 1;  
+			read = 1;	  #20;
+			R[0] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
+
+			address = 2;  
+			read = 1;	  #20;
+			R[1] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
 		
-		write = 0;read = 0; #20; 
+		assert (R == 0) 
+			$display("String Compare(%s,%s) == %0d PASSED",A,B,R);
+		else 
+			$display("String Compare(%s,%s) == %0d failed",A,B,R);
+			
+	
+		// reset go bit to register 2 (Control)
+		address = 0; 
+		writedata[1] = 0;   #20;	// reset go bit
+		write = 1;			#20;
+		
+		write = 0;read = 0; #20;
+		
+/************** Test index 0 (string compare), inputs (abc, abc)******************/
+			A = 0;
+			B = 0;
+			
+		// Write string A to Register A
+			address = 1;	    	
+			writedata = "abc";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+		
+		// Read string A from Register A
+			address = 1;	
+			read = 1;			#20;
+			A[0] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
+		
+		// Write string B to Register B
+			address = 3;	    	
+			writedata = "abc";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+		
+		// Read string B from Register B
+			address = 3;	
+			read = 1;			#20;
+			B[0] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;		
+		
+		// Write 0 to index and set go bit to Control Register
+		address = 0;		
+		writedata = 32'b000_10; #20;		
+		write = 1;			    #20;
+		
+		write = 0;read = 0; #20;	
+		
+		// Read register 2 (control)
+		address = 0;		
+		read = 1;			#20;
+		control = readdata; #20;	
+		
+		write = 0;read = 0; #20;
+		
+		// Read register A (Result)
+			address = 1;  
+			read = 1;	  #20;
+			R[0] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
+
+			address = 2;  
+			read = 1;	  #20;
+			R[1] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
 		
 		assert (R == 1) 
 			$display("String Compare(%s,%s) == %0d PASSED",A,B,R);
 		else 
 			$display("String Compare(%s,%s) == %0d failed",A,B,R);
+			
 	
 		// reset go bit to register 2 (Control)
-		address = 2; 
+		address = 0; 
 		writedata[1] = 0;   #20;	// reset go bit
 		write = 1;			#20;
 		
 		write = 0;read = 0; #20;
+	
+		$stop;
 		
 /************** Test index 1 (string To Upper), inputs (abcd)******************/
 	
@@ -258,7 +366,7 @@ module String_HW_Avalon_TB;
 			$display("Case String_To_Upper(%s) == %s failed", A, R);
 	
 		// reset go bit to register 2 (Control)
-		address = 2; 
+		address = 0; 
 		writedata[1] = 0;   #20;	// reset go bit
 		write = 1;			#20;
 		
@@ -411,7 +519,7 @@ module String_HW_Avalon_TB;
 		
 		write = 0;read = 0; #20;
 		
-	$stop;
+
 		
 	end
 
