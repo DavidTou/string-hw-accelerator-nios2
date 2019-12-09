@@ -20,12 +20,12 @@
 * ###############################################################################
 */
 `timescale 1ps / 1ps
-parameter MAX_WORDS = 8;
+parameter MAX_BLOCKS = 2;
 
 module String_HW_TB;			
 	logic clk, reset, go, done;
 	logic [3:0] index;
-	logic [0:MAX_WORDS-1] [7:0] A, B, R;
+	logic [0:MAX_BLOCKS*4-1] [7:0] A, B, R;
 
 	String_HW dut(.clk(clk),
 		.reset(reset),

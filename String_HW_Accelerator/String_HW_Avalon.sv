@@ -28,7 +28,7 @@
  * ###############################################################################
  */
 
-parameter MAX_WORDS = 8, ADDRESS_BITS = 4;
+parameter MAX_BLOCKS = 2, ADDRESS_BITS = 4;
 
 module String_HW_Avalon (input logic clk, reset, read, write, chipselect,
 						 input logic [ADDRESS_BITS:0] address,
@@ -50,27 +50,27 @@ module String_HW_Avalon (input logic clk, reset, read, write, chipselect,
 	/* ------ END Control/Status Flags --------- */
 	
 	/* ------ StringA Flags --------- 
-	* ADDRESS 1 - MAX_WORDS
+	* ADDRESS 1 - MAX_BLOCKS
 	*/
-	logic [0:MAX_WORDS-1] [31:0] StringA;
-	assign write_reg_A		 		= (address >= 1) && (address <= MAX_WORDS) && write && chipselect && ~done;  	// Write Register Flags
-	assign read_reg_A 		 		= (address >= 1) && (address <= MAX_WORDS) && read  && chipselect;      		// Read Register Flags
+	logic [0:MAX_BLOCKS-1] [31:0] StringA;
+	assign write_reg_A		 		= (address >= 1) && (address <= MAX_BLOCKS) && write && chipselect;			  	// Write Register Flags
+	assign read_reg_A 		 		= (address >= 1) && (address <= MAX_BLOCKS) && read  && chipselect && ~done;    // Read Register Flags
 	/* ------ END StringA Flags --------- */
 	
 	
 	
 	/* ------ StringB Flags ---------
-	* ADDRESS 9 - 2*MAX_WORDS
+	* ADDRESS 9 - 2*MAX_BLOCKS
 	*/
-	logic [0:MAX_WORDS-1] [31:0] StringB;
-	assign write_reg_B		 = (address > MAX_WORDS) && (address <= (MAX_WORDS+MAX_WORDS)) && write && chipselect; 	// Write Register Flags
-	assign read_reg_B 		 = (address > MAX_WORDS) && (address <= (MAX_WORDS+MAX_WORDS)) && read  && chipselect;  // Read Register Flags
+	logic [0:MAX_BLOCKS-1] [31:0] StringB;
+	assign write_reg_B		 = (address > MAX_BLOCKS) && (address <= (MAX_BLOCKS+MAX_BLOCKS)) && write && chipselect; 	// Write Register Flags
+	assign read_reg_B 		 = (address > MAX_BLOCKS) && (address <= (MAX_BLOCKS+MAX_BLOCKS)) && read  && chipselect;  // Read Register Flags
 	
 	/* ------ Result Flags ---------
-	* ADDRESS 9 - 2*MAX_WORDS
+	* ADDRESS 9 - 2*MAX_BLOCKS
 	*/
-	logic [0:MAX_WORDS-1] [31:0] Result;
-	assign read_reg_Result 	 = (address >= 1) && (address <= MAX_WORDS) && read  && chipselect && done;    		    // Read Register Flags
+	logic [0:MAX_BLOCKS-1] [31:0] Result;
+	assign read_reg_Result 	 = (address >= 1) && (address <= MAX_BLOCKS) && read  && chipselect && done;    		    // Read Register Flags
 	
 	
 	// Instantiate String_HW module
@@ -78,8 +78,8 @@ module String_HW_Avalon (input logic clk, reset, read, write, chipselect,
 				.reset(reset),
 				.go(start),
 			    .index(index),
-			    .A(A), 
-			    .B(B),
+			    .A(StringA), 
+			    .B(StringB),
 			    .done(done),
 			    .Result(Result)
 			    );
@@ -105,8 +105,8 @@ module String_HW_Avalon (input logic clk, reset, read, write, chipselect,
 			else if (read_reg_Control)	readdata <= Control; 						   // READ Control/STATUS REGISTER	
 			else if (write_reg_A) 		StringA[address - 1] <= writedata; 			   // WRITE TO StringA
 			else if (read_reg_A) 		readdata <= StringA[address - 1];  			   // READ FROM StringA
-			else if (write_reg_B) 		StringB[address - MAX_WORDS - 1] <= writedata; // WRITE TO StringB
-			else if (read_reg_B) 		readdata <= StringB[address - MAX_WORDS - 1];  // READ FROM StringB
+			else if (write_reg_B) 		StringB[address - MAX_BLOCKS - 1] <= writedata; // WRITE TO StringB
+			else if (read_reg_B) 		readdata <= StringB[address - MAX_BLOCKS - 1];  // READ FROM StringB
 			else if (read_reg_Result)   readdata <= Result[address-1];			   	   // READ FROM RESULT
 		end
 	end
