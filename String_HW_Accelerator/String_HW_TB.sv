@@ -50,9 +50,9 @@ module String_HW_TB;
 				go = 1;     #200;
 				
 				assert (R == 0) 
-					$display("String Compare(%0s,%0s) == %0d PASSED",A,B,R);
+					$display("String Compare(%s,%s) == %0d PASSED",A,B,R);
 				else 
-					$display("String Compare(%0s,%0s) == %0d failed",A,B,R);
+					$display("String Compare(%s,%s) == %0d failed",A,B,R);
 				
 				go = 0;	#20;
 
@@ -63,9 +63,9 @@ module String_HW_TB;
 				go = 1;     #200;
 				
 				assert (R == 0) 
-					$display("String Compare(%0s,%0s) == %0d PASSED",A,B,R);
+					$display("String Compare(%s,%s) == %0d PASSED",A,B,R);
 				else 
-					$display("String Compare(%0s,%0s) == %0d failed",A,B,R);
+					$display("String Compare(%s,%s) == %0d failed",A,B,R);
 				
 				go = 0;	#20;
 			
@@ -77,9 +77,9 @@ module String_HW_TB;
 				go = 1;     #200;
 				
 				assert (R == 1) 
-					$display("String Compare(%0s,%0s) == %0d PASSED",A,B,R);
+					$display("String Compare(%s,%s) == %0d PASSED",A,B,R);
 				else 
-					$display("String Compare(%0s,%0s) == %0d failed",A,B,R);
+					$display("String Compare(%s,%s) == %0d failed",A,B,R);
 				
 				go = 0;	#20;
 
@@ -90,9 +90,9 @@ module String_HW_TB;
 				go = 1;     #200;
 				
 				assert (R == 1) 
-					$display("String Compare(%0s,%0s) == %0d PASSED",A,B,R);
+					$display("String Compare(%s,%s) == %0d PASSED",A,B,R);
 				else 
-					$display("String Compare(%0s,%0s) == %0d failed",A,B,R);
+					$display("String Compare(%s,%s) == %0d failed",A,B,R);
 				
 				go = 0;	#20;
 		
@@ -102,9 +102,9 @@ module String_HW_TB;
 				go = 1;     #200;
 				
 				assert (R == "ABCDEFGH") 
-					$display("String_To_Upper(%0s) == %0s PASSED", A, R);
+					$display("String_To_Upper(%s) == %s PASSED", A, R);
 				else 
-					$display("Case String_To_Upper(%0s) == %0s failed", A, R);
+					$display("Case String_To_Upper(%s) == %s failed", A, R);
 
 				go = 0;	#20;
 
@@ -114,9 +114,9 @@ module String_HW_TB;
 				go = 1;     #200;
 				
 				assert (R == "AB") 
-					$display("String_To_Upper(%0s) == %0s PASSED", A, R);
+					$display("String_To_Upper(%s) == %s PASSED", A, R);
 				else 
-					$display("Case String_To_Upper(%0s) == %0s failed", A, R);
+					$display("Case String_To_Upper(%s) == %s failed", A, R);
 
 				go = 0;	#20;
 				
@@ -126,9 +126,9 @@ module String_HW_TB;
 				go = 1;     #200;
 				
 				assert (R == "ABCDEF") 
-					$display("String_To_Upper(%0s) == %0s PASSED", A, R);
+					$display("String_To_Upper(%s) == %s PASSED", A, R);
 				else 
-					$display("Case String_To_Upper(%0s) == %0s failed", A, R);
+					$display("Case String_To_Upper(%s) == %s failed", A, R);
 
 				go = 0;	#20;
 				
@@ -138,9 +138,9 @@ module String_HW_TB;
 				go = 1;     #200;
 				
 				assert (R == "AB") 
-					$display("String_To_Upper(%0s) == %0s PASSED", A, R);
+					$display("String_To_Upper(%s) == %s PASSED", A, R);
 				else 
-					$display("Case String_To_Upper(%0s) == %0s failed", A, R);
+					$display("Case String_To_Upper(%s) == %s failed", A, R);
 
 				go = 0;	#20;
 
@@ -150,9 +150,9 @@ module String_HW_TB;
 				go = 1;     #1000;
 				
 				assert (R == "abcdefgh") 
-					$display("String_To_Lower(%0s) == %0s PASSED", A, R);
+					$display("String_To_Lower(%s) == %s PASSED", A, R);
 				else 
-					$display("Case String_To_Lower(%0s) == %0s failed", A, R);
+					$display("Case String_To_Lower(%s) == %s failed", A, R);
 
 				go = 0;	#20;
 		
@@ -162,9 +162,9 @@ module String_HW_TB;
 				go = 1;     #1000;
 				
 				assert (R == "ab") 
-					$display("String_To_Lower(%0s) == %0s PASSED", A, R);
+					$display("String_To_Lower(%s) == %s PASSED", A, R);
 				else 
-					$display("Case String_To_Lower(%0s) == %0s failed", A, R);
+					$display("Case String_To_Lower(%s) == %s failed", A, R);
 
 				go = 0;	#20;
 				
@@ -174,9 +174,9 @@ module String_HW_TB;
 				go = 1;     #200;
 				
 				assert (R == "abcdef") 
-					$display("String_To_Lower(%0s) == %0s PASSED", A, R);
+					$display("String_To_Lower(%s) == %s PASSED", A, R);
 				else 
-					$display("Case String_To_Lower(%0s) == %0s failed", A, R);
+					$display("Case String_To_Lower(%s) == %s failed", A, R);
 
 				go = 0;	#20;
 
@@ -186,9 +186,33 @@ module String_HW_TB;
 				go = 1;     #200;
 				
 				assert (R == "ab") 
-					$display("String_To_Lower(%0s) == %0s PASSED", A, R);
+					$display("String_To_Lower(%s) == %s PASSED", A, R);
 				else 
-					$display("Case String_To_Lower(%0s) == %0s failed", A, R);
+					$display("Case String_To_Lower(%s) == %s failed", A, R);
+
+				go = 0;	#20;
+				
+/************** Test index 3 (string Reverse), inputs (Hello!)******************/ 
+				A = "Hello!";   
+				index = 3;  #20;
+				go = 1;     #200;
+				
+				assert (R == "!olleH") 
+					$display("StringReverse(%s) == %s PASSED", A, R);
+				else 
+					$display("Case String_To_Lower(%s) == %s failed", A, R);
+
+				go = 0;	#20;
+				
+/************** Test index 3 (string Reverse), inputs (!olleH)******************/ 
+				A = "!olleH";   
+				index = 3;  #20;
+				go = 1;     #200;
+				
+				assert (R == "Hello!") 
+					$display("StringReverse(%s) == %s PASSED", A, R);
+				else 
+					$display("Case String_To_Lower(%s) == %s failed", A, R);
 
 				go = 0;	#20;
 			

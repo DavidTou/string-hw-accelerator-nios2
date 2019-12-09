@@ -15,7 +15,7 @@
  * 3) Wait in Done state until go bit reset
  * ###############################################################################
  */
-parameter MAX_BLOCKS=8;	// Max number of characters
+parameter MAX_BLOCKS=2;	// Max number of characters
 module String_HW (input logic clk, reset, go,
 			   input logic [3:0]  index,
 			   input logic [0:MAX_BLOCKS*4-1][7:0] A, B,
@@ -59,6 +59,7 @@ module String_HW (input logic clk, reset, go,
 								0: nextstate <= S3;		// String Compare
 								1: nextstate <= S4; 	// String To Upper
 								2: nextstate <= S5; 	// String To Lower
+								3: nextstate <= S6;		// String Reverse
 						  default: nextstate <= RESET; 	// Invalid index
 						endcase
 					end
@@ -95,17 +96,13 @@ module String_HW (input logic clk, reset, go,
 				
 						nextstate <= DONE;
 					end
-				/* String Reverse [index = 3]
+				// String Reverse [index = 3]
 				S6: begin
-						for (i = 0; i < 4; i = i+1) 
-							if (A[i] >= "A" && A[i] <= "Z") // if character is uppercase
-								Result[i] <= A[i] + 32;		// Convert to lowercase
-							else
-								Result[i] <= A[i];			// Unchanged
-				
+						for (i = 0; i < MAX_BLOCKS*4; i = i+1) 
+							Result[i] <= A[MAX_BLOCKS*4-1 - i];	// Reverse String
+							
 						nextstate <= DONE;
 					end
-				*/
 				// DONE State. 
 			  DONE: begin
 						done <= 1;
