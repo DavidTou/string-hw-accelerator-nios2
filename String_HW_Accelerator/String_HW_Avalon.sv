@@ -28,9 +28,10 @@
  * ###############################################################################
  */
 
-parameter MAX_BLOCKS = 2, ADDRESS_BITS = 4;
+//parameter MAX_BLOCKS = 2, ADDRESS_BITS = 4;
 
-module String_HW_Avalon (input logic clk, reset, read, write, chipselect,
+module String_HW_Avalon #(MAX_BLOCKS = 2, ADDRESS_BITS = 4)
+						(input logic clk, reset, read, write, chipselect,
 						 input logic [ADDRESS_BITS:0] address,
 						 input logic [31:0] writedata, 
 						 output logic [31:0] readdata
