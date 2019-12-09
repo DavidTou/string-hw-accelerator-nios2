@@ -25,12 +25,14 @@ parameter MAX_BLOCKS = 2;
 module String_HW_TB;			
 	logic clk, reset, go, done;
 	logic [3:0] index;
+	logic [7:0] length;
 	logic [0:MAX_BLOCKS*4-1] [7:0] A, B, R;
 
 	String_HW dut(.clk(clk),
 		.reset(reset),
 		.go(go),
 		.index(index),
+		.length(length),
 		.A(A), 
 		.B(B),
 		.done(done),
@@ -193,11 +195,11 @@ module String_HW_TB;
 				go = 0;	#20;
 				
 /************** Test index 3 (string Reverse), inputs (Hello!)******************/ 
-				A = "Hello!";   
+				A = "Hello!  ";   
 				index = 3;  #20;
 				go = 1;     #200;
 				
-				assert (R == "!olleH") 
+				assert (R == "  !olleH") 
 					$display("StringReverse(%s) == %s PASSED", A, R);
 				else 
 					$display("Case String_To_Lower(%s) == %s failed", A, R);
@@ -205,14 +207,56 @@ module String_HW_TB;
 				go = 0;	#20;
 				
 /************** Test index 3 (string Reverse), inputs (!olleH)******************/ 
-				A = "!olleH";   
+				A = "  !olleH";   
 				index = 3;  #20;
 				go = 1;     #200;
 				
-				assert (R == "Hello!") 
+				assert (R == "Hello!  ") 
 					$display("StringReverse(%s) == %s PASSED", A, R);
 				else 
 					$display("Case String_To_Lower(%s) == %s failed", A, R);
+
+				go = 0;	#20;
+				
+/************** Test index 4 (string Search), inputs (It was I)******************/ 
+				A = "It was I";
+				B = "It      ";
+				length = 2;
+				index = 4;  #20;
+				go = 1;     #200;
+				
+				assert (R == 0) 
+					$display("StringSearch(%s, %s) == %0d PASSED", A, B, R);
+				else 
+					$display("Case StringSearch(%s, %s) == %0d failed", A, B, R);
+
+				go = 0;	#20;
+
+/************** Test index 4 (string Search), inputs (It was I)******************/ 
+				A = "It was I";
+				B = "was     ";
+				length = 3;
+				index = 4;  #20;
+				go = 1;     #200;
+				
+				assert (R == 3) 
+					$display("StringSearch(%s, %s) == %0d PASSED", A, B, R);
+				else 
+					$display("Case StringSearch(%s, %s) == %0d failed", A, B, R);
+
+				go = 0;	#20;
+
+/************** Test index 4 (string Search), inputs (It was I)******************/ 
+				A = "It was I";
+				B = " I      ";
+				length = 2;
+				index = 4;  #20;
+				go = 1;     #200;
+				
+				assert (R == 6) 
+					$display("StringSearch(%s, %s) == %0d PASSED", A, B, R);
+				else 
+					$display("Case StringSearch(%s, %s) == %0d failed", A, B, R);
 
 				go = 0;	#20;
 			

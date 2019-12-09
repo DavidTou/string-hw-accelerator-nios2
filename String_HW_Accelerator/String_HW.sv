@@ -18,6 +18,7 @@
 parameter MAX_BLOCKS=2;	// Max number of characters
 module String_HW (input logic clk, reset, go,
 			   input logic [3:0]  index,
+			   input logic [7:0] length,
 			   input logic [0:MAX_BLOCKS*4-1][7:0] A, B,
 			   output logic done,
 			   output logic [0:MAX_BLOCKS*4-1][7:0] Result
@@ -28,7 +29,8 @@ module String_HW (input logic clk, reset, go,
 				 S9=4'd9, DONE =4'd10;
 
 	logic [3:0] state, nextstate;
-	integer i, count;
+	logic found;
+	integer i, j, count, string_index;
 	
 	always_ff @(posedge clk)
 		if (reset) state <= RESET;		// synchronous Reset
@@ -46,6 +48,9 @@ module String_HW (input logic clk, reset, go,
 				// Wait for go signal
 				S1: begin 
 						done <= 0;
+						i <= 0;
+						j <= 0;
+						found <= 0;
 						Result <= '{default:8'h0};
 						if (go)
 							nextstate <= S2;
@@ -60,6 +65,7 @@ module String_HW (input logic clk, reset, go,
 								1: nextstate <= S4; 	// String To Upper
 								2: nextstate <= S5; 	// String To Lower
 								3: nextstate <= S6;		// String Reverse
+								4: nextstate <= S7;		// String Search
 						  default: nextstate <= RESET; 	// Invalid index
 						endcase
 					end
@@ -67,9 +73,9 @@ module String_HW (input logic clk, reset, go,
 				// String Compare [index = 0]
 				S3:	begin
 						if (A == B)
-							Result[0] <= 1;
+							Result <= 1;
 						else
-							Result[0] <= 0;
+							Result <= 0;
 								
 						nextstate <= DONE;
 				
@@ -103,6 +109,33 @@ module String_HW (input logic clk, reset, go,
 							
 						nextstate <= DONE;
 					end
+				// String Search [index = 4]
+				S7: begin
+						if (found) begin
+							Result <= string_index;
+							nextstate <= DONE;
+							end
+						else
+							Result <= 32'hFF;			// Default "Not Found" value
+						
+						if (i < MAX_BLOCKS*4 && ~found) begin
+							if (B[j] == A[i]) begin
+								if (j == 0)
+									string_index <= i;	// Mark starting location of string
+								j <= j + 1;
+								
+								if (j == length-1)
+									found <= 1;
+							end
+							else
+								j = 0;
+							
+							i <= i + 1;
+						end
+						else 
+							nextstate <= DONE;
+					end
+					
 				// DONE State. 
 			  DONE: begin
 						done <= 1;

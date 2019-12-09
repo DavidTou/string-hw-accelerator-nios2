@@ -600,7 +600,146 @@ module String_HW_Avalon_TB;
 		write = 1;			#20;
 		
 		write = 0;read = 0; #20;
+	
+/************** Test index 3 (string Reverse), inputs (Hello!)******************/
+	
+		A = 0;
+		B = 0;
+			
+		// Write string A to Register A
+			address = 1;	    	
+			writedata = "Hell";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+			
+			address = 2;	    	
+			writedata = "o!  ";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
 		
+		// Read string A from Register A
+			address = 1;	
+			read = 1;			#20;
+			A[0] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
+			
+			address = 2;	
+			read = 1;			#20;
+			A[1] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
+		
+		// Write 2 to index and set go bit to Control Register
+		address = 0;		
+		writedata = 32'b011_10; #20;		
+		write = 1;			    #20;
+		
+		write = 0;read = 0; #20;	
+		
+		// Read register 2 (control)
+		address = 0;		
+		read = 1;			#20;
+		control = readdata; #20;	
+		
+		write = 0;read = 0; #20;
+		
+		// Read register A (Result)
+			address = 1;  
+			read = 1;	  #20;
+			R[0] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
+
+			address = 2;  
+			read = 1;	  #20;
+			R[1] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
+		
+		assert (R == "  !olleH") 
+			$display("StringReverse(%s) == %s PASSED", A, R);
+		else 
+			$display("Case String_To_Lower(%s) == %s failed", A, R);
+	
+		// reset go bit to register 2 (Control)
+		address = 0; 
+		writedata[1] = 0;   #20;	// reset go bit
+		write = 1;			#20;
+		
+		write = 0;read = 0; #20;	
+		
+		/************** Test index 3 (string Reverse), inputs (  !olleH)******************/
+	
+		A = 0;
+		B = 0;
+			
+		// Write string A to Register A
+			address = 1;	    	
+			writedata = "  !o";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+			
+			address = 2;	    	
+			writedata = "lleH";  #20;	
+			write = 1;			 #20;
+			
+			write = 0;read = 0;  #20;
+		
+		// Read string A from Register A
+			address = 1;	
+			read = 1;			#20;
+			A[0] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
+			
+			address = 2;	
+			read = 1;			#20;
+			A[1] = readdata; 	#20;	
+			
+			write = 0;read = 0; #20;	
+		
+		// Write 2 to index and set go bit to Control Register
+		address = 0;		
+		writedata = 32'b011_10; #20;		
+		write = 1;			    #20;
+		
+		write = 0;read = 0; #20;	
+		
+		// Read register 2 (control)
+		address = 0;		
+		read = 1;			#20;
+		control = readdata; #20;	
+		
+		write = 0;read = 0; #20;
+		
+		// Read register A (Result)
+			address = 1;  
+			read = 1;	  #20;
+			R[0] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
+
+			address = 2;  
+			read = 1;	  #20;
+			R[1] = readdata; #20;			
+			
+			write = 0;read = 0; #20; 
+		
+		assert (R == "Hello!  ") 
+			$display("StringReverse(%s) == %s PASSED", A, R);
+		else 
+			$display("Case String_To_Lower(%s) == %s failed", A, R);
+	
+		// reset go bit to register 2 (Control)
+		address = 0; 
+		writedata[1] = 0;   #20;	// reset go bit
+		write = 1;			#20;
+		
+		write = 0;read = 0; #20;	
 	$stop;
 	end
 
