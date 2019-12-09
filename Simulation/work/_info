@@ -10,23 +10,23 @@ cModel Technology
 dC:/Users/David/Documents/GitHub/string-hw-accelerator-nios2
 vString_HW
 Z0 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
-DXx4 work 17 String_HW_sv_unit 0 22 7aKcOR4^`id]eZ@05<<3M0
+DXx4 work 17 String_HW_sv_unit 0 22 fZEO7YLJKCodY;kdMiV]k3
 Z1 VDg1SIo80bB@j0V0VzS_@n1
 r1
 !s85 0
 31
 !i10b 1
-!s100 Q:RXZWTgDE>a?J<i=K[2V1
-I`B9nkJb`[AbcICdbWG`?f2
+!s100 AO?8IGg;^GKdGFL=0hWPf0
+I94:iJLoMl2iZ]MQK?3=A00
 !s105 String_HW_sv_unit
 S1
 Z2 dC:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/Simulation
-Z3 w1575844829
+Z3 w1575845927
 Z4 8C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW.sv
 Z5 FC:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW.sv
 L0 27
 Z6 OV;L;10.5b;63
-Z7 !s108 1575845280.000000
+Z7 !s108 1575851130.000000
 Z8 !s107 C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW.sv|
 Z9 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW.sv|
 !i113 1
@@ -35,7 +35,7 @@ Z11 tCvgOpt 0
 n@string_@h@w
 vString_HW_Avalon
 R0
-!s110 1575845280
+!s110 1575851130
 !i10b 1
 !s100 jfSJF4Md=RfnTnVo:d^Y_2
 IMzG4i9Ni]PNUB_=4RToF62
@@ -60,13 +60,13 @@ R11
 n@string_@h@w_@avalon
 XString_HW_sv_unit
 R0
-V7aKcOR4^`id]eZ@05<<3M0
+VfZEO7YLJKCodY;kdMiV]k3
 r1
 !s85 0
 31
 !i10b 1
-!s100 @1IgY6T2VhRKISPSXX<ob1
-I7aKcOR4^`id]eZ@05<<3M0
+!s100 @hKoJ0n^>4Q^<4W^k60ZJ0
+IfZEO7YLJKCodY;kdMiV]k3
 !i103 1
 S1
 R2

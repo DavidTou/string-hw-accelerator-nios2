@@ -21,7 +21,7 @@
 */
 `timescale 1ps / 1ps
 
-module String_HW_TB;			
+module String;			
 	logic clk, reset, write, read,chipselect;
 	logic [2:0] address;
 	logic [31:0] writedata,readdata;
