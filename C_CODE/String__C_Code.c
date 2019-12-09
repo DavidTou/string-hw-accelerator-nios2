@@ -28,7 +28,11 @@
 #define READ_CONTROL_STATUS *(String_HW_ptr)
 #define WRITE_CONTROL_STATUS *(String_HW_ptr)
 
-#define BUFFER_SIZE 128
+#define TEST -13
+#define COMPARE 0
+#define TOUPPER 1
+#define TOLOWER 2
+#define REVERSE 3
 
 /* function prototypes */
 char get_char( void );
@@ -43,6 +47,8 @@ void get4Chars(char* string,char *out, int index);
 void get4CharsInt(uint32_t value, char *out);
 void pointer4CharsInt(uint32_t value, char * out);
 void clearTerminal();
+
+void stringHWCall(uint32_t index,char* stringA,char* stringB);
 
 /* String HW prototypes */
 uint32_t stringHW_ToUpper(uint32_t A);
@@ -61,8 +67,9 @@ void main() {
 	
 	uint32_t ticksHW,ticksSW;
 	char length = 64;
-	char str1[BUFFER_SIZE] = "lylatagssongdamptynecapebarnflowonceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
-	char str2[BUFFER_SIZE]; 	// double quotes add null terminator
+	char test[BUFFER_SIZE] = "lylatagssongdamptynecapebarnflowonceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
+	char str1[32] = "lylatagssongdamptynecapebarnflow"; 	// double quotes add null terminator
+	char str2[32] = "onceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
 	char out [4];				// temp var
 	
 	while(1){
@@ -83,7 +90,7 @@ void main() {
 		// input ASCII to number
 		char index = out[0] - 48;
 		switch(index) {
-			case -13: {
+			case TEST: {
 				printf("\n#### TEST READ/WRITE AVALON ####\n");
 				// WRITE 4 char blocks to HW module
 				char k;
@@ -91,7 +98,7 @@ void main() {
 				
 				for(k=0; k < length/4; k++)
 				{
-					get4Chars(str1,out, k);
+					get4Chars(test,out, k);
 					*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
 					if((k+1) <= 8)
 						printf("Write A: %s \n",out);
@@ -121,9 +128,9 @@ void main() {
 					putchar('\n');
 				}
 			}break;
-			case 0: {
+			case COMPARE: {
 				/********* StringCompare Display Code **********/
-				
+					//stringHWCall(COMPARE,str1,str2);
 					printf("=========== StringCompare(str1, str2) ===========\n");
 				/*	printf("Software strcmp(%s, %s) = ",str1, str2);
 					if (!resultSW)	printf("EQUAL \n");
@@ -136,7 +143,11 @@ void main() {
 					printf("=================================================\n");
 				*/
 			}break;
-			case 1: {
+			case TOUPPER: {
+				
+				printf("=========== StringToUpper(str) ===========\n");
+				
+				
 				/************* String to Upper Display Code ***************/
 				
 					printf("=========== StringToUpper(str) ===========\n");
@@ -147,7 +158,7 @@ void main() {
 					printf("=================================================\n");
 				*/
 			}break;
-			case 2: {
+			case TOLOWER: {
 				/************ String to Lower Display Code *************/
 				
 					printf("=========== StringToLower(str) ===========\n");
@@ -158,7 +169,7 @@ void main() {
 					printf("=================================================\n");
 				*/
 			}break;
-			case 3: {
+			case REVERSE: {
 				printf("=========== Reverse(str) ===========\n");
 			}break;
 			default: {
@@ -208,6 +219,42 @@ void main() {
 		*/
 	}
 }
+
+void stringHWCall(uint32_t index,char* stringA,char* stringB){
+	
+	char k;
+	for(k=0; k < length/4; k++)
+	{
+		get4Chars(str1,out, k);
+		*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
+		if((k+1) <= 8)
+			printf("Write A: %s \n",out);
+		else
+			printf("Write B: %s \n",out);
+		 //printf("Read: %s \tFIFO Size: %u \n",out, *(String_HW_ptr+2));
+	}
+	// WRITE INDEX and GO BIT
+	WRITE_CONTROL_STATUS = ((uint32_tindex) << 28) | 2;
+	
+	while(!(READ_CONTROL_STATUS & 1));
+	
+	for(k=0; k < length/4; k++)
+	{
+		uint32_t val;
+		val = *(String_HW_ptr + k + 1);
+		//printf("Read HEX: %x \n",val);
+		if((k+1) <= 8)
+			printf("Read A: ");
+		else
+			printf("Read B: ");
+		putchar(val & 0x000000FF);
+		putchar((val & 0x0000FF00) >> 8);
+		putchar((val & 0x00FF0000) >> 16);
+		putchar((val & 0xFF000000) >> 24);
+		putchar('\n');
+	}
+}
+
 /********************************************************************************
  * clearTerminal()
 ********************************************************************************/
