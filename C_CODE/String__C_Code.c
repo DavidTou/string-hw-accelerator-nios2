@@ -28,6 +28,7 @@
 #define READ_CONTROL_STATUS *(String_HW_ptr)
 #define WRITE_CONTROL_STATUS *(String_HW_ptr)
 
+// INDEXES
 #define TEST -13
 #define COMPARE 0
 #define TOUPPER 1
