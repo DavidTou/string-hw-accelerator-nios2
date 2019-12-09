@@ -25,10 +25,10 @@
  */
 parameter SIZE=8;	// Max number of characters
 module String_HW (input logic clk, reset, go,
-			   input logic [2:0]  index,
+			   input logic [3:0]  index,
 			   input logic [0:SIZE-1][7:0] A, B,
 			   output logic done,
-			   output logic [0:SIZE-1][7:0] result
+			   output logic [0:SIZE-1][7:0] Result
 			  );
 	parameter RESET=4'd0, S1=4'd1, S2=4'd2,
 				 S3=4'd3, S4=4'd4, S5=4'd5,
@@ -49,12 +49,12 @@ module String_HW (input logic clk, reset, go,
 							done <= 0;
 							nextstate <= S1;
 							count <= 0;
-							result <= 0;
+							Result <= 0;
 						end	
 				// Wait for go signal
 				S1: begin 
 						done <= 0;
-						result <= 0;
+						Result <= 0;
 						if (go)
 							nextstate <= S2;
 						else
@@ -74,9 +74,9 @@ module String_HW (input logic clk, reset, go,
 				// String Compare [index = 0]
 				S3:	begin
 						if (A == B)
-							result <= 1;
+							Result <= 1;
 						else
-							result <= 0;
+							Result <= 0;
 								
 						nextstate <= DONE;
 				
@@ -87,9 +87,9 @@ module String_HW (input logic clk, reset, go,
 				S4: begin
 						for (i = 0; i < SIZE; i = i+1) 
 							if (A[i] >= "a" && A[i] <= "z") // if character is lowercase
-								result[i] <= A[i] - 32;		// Convert to uppercase
+								Result[i] <= A[i] - 32;		// Convert to uppercase
 							else
-								result[i] <= A[i];			// Unchanged
+								Result[i] <= A[i];			// Unchanged
 				
 						nextstate <= DONE;
 					end
@@ -97,9 +97,9 @@ module String_HW (input logic clk, reset, go,
 				S5: begin
 						for (i = 0; i < SIZE; i = i+1) 
 							if (A[i] >= "A" && A[i] <= "Z") // if character is uppercase
-								result[i] <= A[i] + 32;		// Convert to lowercase
+								Result[i] <= A[i] + 32;		// Convert to lowercase
 							else
-								result[i] <= A[i];			// Unchanged
+								Result[i] <= A[i];			// Unchanged
 				
 						nextstate <= DONE;
 					end
@@ -107,9 +107,9 @@ module String_HW (input logic clk, reset, go,
 				S6: begin
 						for (i = 0; i < 4; i = i+1) 
 							if (A[i] >= "A" && A[i] <= "Z") // if character is uppercase
-								result[i] <= A[i] + 32;		// Convert to lowercase
+								Result[i] <= A[i] + 32;		// Convert to lowercase
 							else
-								result[i] <= A[i];			// Unchanged
+								Result[i] <= A[i];			// Unchanged
 				
 						nextstate <= DONE;
 					end

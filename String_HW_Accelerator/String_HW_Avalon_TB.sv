@@ -30,25 +30,22 @@
 
 `timescale 1ps / 1ps
 
-parameter MAX_WORDS = 8;
+parameter MAX_WORDS = 8, ADDRESS_BITS = 4;
 
 module String_HW_Avalon_TB;			
 	logic clk, reset, read, write, chipselect;
-	logic [2:0] address;
+	logic [ADDRESS_BITS:0] address;
 	logic [31:0] writedata, readdata, control;
-	
-	logic go, done;
-	logic [2:0] index;
 	logic [0:MAX_WORDS-1] [7:0] A, B, R;
 
 	String_HW_Avalon dut(.clk(clk),
-						 .reset(reset), 
-						 .writedata(writedata), 
-						 .address(address), 
-						 .readdata(readdata), 
-						 .write(write), 
-						 .read(read), 
-						 .chipselect(chipselect)
+						 .reset(reset),
+						 .read(read),
+						 .write(write),
+						 .chipselect(chipselect),
+					     .address(address),
+						 .writedata(writedata),
+						 .readdata(readdata)
 						);
 	
 	initial
@@ -79,13 +76,13 @@ module String_HW_Avalon_TB;
 		// Read string A from Register A
 			address = 1;	
 			read = 1;			#20;
-			A = readdata; 		#20;	
+			A[0] = readdata; 	#20;	
 			
 			write = 0;read = 0; #20;	
 			
 			address = 2;	
 			read = 1;			#20;
-			A = readdata; 		#20;	
+			A[1] = readdata; 	#20;	
 			
 			write = 0;read = 0; #20;	
 		
@@ -105,13 +102,13 @@ module String_HW_Avalon_TB;
 		// Read string B from Register B
 			address = 9;	
 			read = 1;			#20;
-			B = readdata; 		#20;	
+			B[0] = readdata; 	#20;	
 			
 			write = 0;read = 0; #20;	
 			
 			address = 10;	
 			read = 1;			#20;
-			B = readdata; 		#20;	
+			B[1] = readdata; 	#20;	
 			
 			write = 0;read = 0; #20;	
 		
@@ -123,18 +120,18 @@ module String_HW_Avalon_TB;
 		write = 0;read = 0; #200;	
 		
 		// Read register 2 (control)
-		address = 2;		
+		address = 0;		
 		read = 1;			#20;
 		control = readdata; #200;	
 		
 		write = 0;read = 0; #20;
 		
-		// Read register 3 (Result)
-		address = 3;  
+		// Read register A (Result)
+		address = 1;  
 		read = 1;	  #20;
 		R = readdata; #20;			
 		
-		write = 0;read = 0; #20; 
+		write = 0;read = 0; #20; 		
 		
 		assert (R == 0) 
 			$display("String Compare(%s,%s) == %0d PASSED",A,B,R);
