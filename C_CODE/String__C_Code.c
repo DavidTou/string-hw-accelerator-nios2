@@ -31,6 +31,7 @@
 #define WRITE_CONTROL_STATUS *(String_HW_ptr)
 #define CLEAR_CONTROL_STATUS *(String_HW_ptr) = 0;
 
+#define MAX_BLOCKS 8
 // INDEXES
 #define TEST -13
 #define COMPARE 0
@@ -145,7 +146,7 @@ void main() {
 			case COMPARE: {
 					printf("=========== StringCompare(str1, str2) ===========\n");
 					char k;
-					for(k=0; k < 8; k++)
+					for(k=0; k < MAX_BLOCKS; k++)
 					{
 						get4Chars(str1,out, k);
 						*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
@@ -153,10 +154,10 @@ void main() {
 					}
 					printf("String A: %s \n",str1);
 					printf("String B: %s \n",str1);
-					for(k=0; k < 8; k++)
+					for(k=0; k < MAX_BLOCKS; k++)
 					{
 						get4Chars(str2,out, k);
-						*(String_HW_ptr + k + 9) = *((uint32_t *)(out));
+						*(String_HW_ptr + k + MAX_BLOCKS + 1) = *((uint32_t *)(out));
 						//printf("WRITE B: %s \n",out);
 					}
 					// WRITE INDEX and GO BIT
@@ -190,7 +191,7 @@ void main() {
 				
 				printf("=========== StringToUpper(str) ===========\n");
 				char k;
-				for(k=0; k < 8; k++)
+				for(k=0; k < MAX_BLOCKS; k++)
 				{
 					get4Chars(str1,out, k);
 					*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
@@ -208,7 +209,7 @@ void main() {
 				strToUpper(str1,32);
 				ticksSW = snapshot_timer();
 				
-				for(k=0; k < 8; k++)
+				for(k=0; k < MAX_BLOCKS; k++)
 				{
 					uint32_t val;
 					val = *(String_HW_ptr + k + 1);
@@ -235,7 +236,7 @@ void main() {
 			case TOLOWER: {
 				printf("=========== StringToLower(str) ===========\n");
 				char k;
-				for(k=0; k < 8; k++)
+				for(k=0; k < MAX_BLOCKS; k++)
 				{
 					get4Chars(str1_UPPER,out, k);
 					*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
@@ -253,7 +254,7 @@ void main() {
 				strToLower(str1,32);
 				ticksSW = snapshot_timer();
 				
-				for(k=0; k < 8; k++)
+				for(k=0; k < MAX_BLOCKS; k++)
 				{
 					uint32_t val;
 					val = *(String_HW_ptr + k + 1);
@@ -280,7 +281,7 @@ void main() {
 			case REVERSE: {
 				printf("=========== Reverse(str) ===========\n");
 				char k;
-				for(k=0; k < 8; k++)
+				for(k=0; k < MAX_BLOCKS; k++)
 				{
 					get4Chars(str2,out, k);
 					*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
@@ -299,7 +300,7 @@ void main() {
 				strReverse(str2,32);
 				ticksSW = snapshot_timer();
 				printf("String A SW Reversed: %s \n",str2);
-				for(k=0; k < 8; k++)
+				for(k=0; k < MAX_BLOCKS; k++)
 				{
 					uint32_t val;
 					val = *(String_HW_ptr + k + 1);
@@ -325,7 +326,7 @@ void main() {
 			case SEARCH: {
 				printf("=========== Search(strA,strB) ===========\n");
 				char k;
-				for(k=0; k < 8; k++)
+				for(k=0; k < MAX_BLOCKS; k++)
 				{
 					get4Chars(str1_UPPER,out, k);
 					*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
@@ -337,7 +338,7 @@ void main() {
 				
 				get4Chars(find,out, 0);
 				printf("String B: %s \n",out);
-				*(String_HW_ptr + 9) = *((uint32_t *)(out));
+				*(String_HW_ptr + MAX_BLOCKS + 1) = *((uint32_t *)(out));
 				
 				// WRITE INDEX and GO BIT
 				uint32_t len = 32;
