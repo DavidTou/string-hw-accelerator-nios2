@@ -1,16 +1,14 @@
 /* 
  * ###############################################################################
  * CPE423
- * Midterm - SW - HW Greatest Common Divisor
+ * FINAL PROJECT - String.h Hardware Accelerator +
  * David Tougaw 
- * 10/15/2019
+ * 12/9/19
  * -----------------------------------------------
- * Greatest Common Divisor Comparison
- * SW and HW using NIOS 2
- * 32 bit integer inputs A and B
+ * D. Tougaw & Matthew Bowen
  * -----------------------------------------------
  * Dev BOARD => Altera DE2-115
- * DE2-115 Computer System + Custom GCD comp.
+ * DE2-115 Computer System + Custom Avalon comp.
  * -----------------------------------------------
  * JTAG_UART used for terminal inputs and outputs
  * ------------------------------------------------------------------------------
@@ -390,6 +388,17 @@ void main() {
 		inputParamTerminal(str2);
 		clearTerminal();
 	}
+}
+
+/********************************************************************************
+ * StringSearch Function Returns position of searched string within string
+********************************************************************************/
+void strReverse(char* string, char * find)
+{
+	// Swap character starting from two 
+    // corners 
+    for (int i = 0; i < length / 2; i++) 
+        SwapValue(&string[i], &string[length - i - 1]); 
 }
 
 /********************************************************************************
