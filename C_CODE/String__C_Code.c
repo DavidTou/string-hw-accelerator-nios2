@@ -75,7 +75,6 @@ void strReverse(char* string, char length);
 volatile uint32_t * TIMER_ptr = (uint32_t *)TIMER_BASE;
 volatile uint32_t * String_HW_ptr = (uint32_t *)String_HW_BASE;
 
-
 char length = 64;
 char test[] = "lylatagssongdamptynecapebarnflowonceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
 
