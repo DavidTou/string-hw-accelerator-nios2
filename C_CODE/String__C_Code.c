@@ -74,7 +74,7 @@ volatile uint32_t * String_HW_ptr = (uint32_t *)String_HW_BASE;
 
 char length = 64;
 char test[65] = "lylatagssongdamptynecapebarnflowonceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
-char cmp_1 [33] = 	"LYLA----LYLA----LYLA----LYLA----";
+char cmp_1 [33] = 	"LYLA----------------------------";
 char cmp_2 [33] = 	"LYLA----LYLA----LYLA----LYLA----";
 
 char str1_UPPER[33] = "LYLAtagsSONGdamptyneCAPEBARNflow";
