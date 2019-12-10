@@ -57,11 +57,6 @@ void SwapValue(char *a, char *b);
 
 void stringHWCall(uint32_t index,char* stringA,char* stringB, char length);
 
-/* String HW prototypes */
-uint32_t stringHW_ToUpper(uint32_t A);
-uint32_t stringHW_ToLower(uint32_t A);
-uint32_t stringHW_compare(uint32_t A, uint32_t B);
-
 /* String SW prototypes */
 void strToUpper(char* string, int length);
 void strToLower(char* string, int length);
@@ -75,7 +70,7 @@ volatile uint32_t * String_HW_ptr = (uint32_t *)String_HW_BASE;
 char length = 64;
 char test[65] = "lylatagssongdamptynecapebarnflowonceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
 char cmp_1 [33] = 	"LYLA----LYLA----LYLA----LYLA----";
-char cmp_2 [33] = 	"LYLA----LYLA----LYLA----LYLA----";
+char cmp_2 [33] = 	"LYLA----LYLA----DAVE----LYLA----";
 
 char str1_UPPER[33] = "LYLAtagsSONGdamptyneCAPEBARNflow";
 
@@ -156,24 +151,11 @@ void main() {
 					printf("String B: %s \n",cmp_2);
 					for(k=0; k < MAX_BLOCKS; k++)
 					{
-						get4Chars(cmp_1,out, k);
+						get4Chars(cmp_2,out, k);
 						*(String_HW_ptr + k + MAX_BLOCKS + 1) = *((uint32_t *)(out));
 						//printf("WRITE B: %s \n",out);
 					}
 					// WRITE INDEX and GO BIT
-					for(k=0; k < MAX_BLOCKS+MAX_BLOCKS; k++)
-					{
-						uint32_t val;
-						val = *(String_HW_ptr + k + 1);
-						printf("Read [%d]: ",(k+1));
-						
-						putchar(val & 0x000000FF);
-						putchar((val & 0x0000FF00) >> 8);
-						putchar((val & 0x00FF0000) >> 16);
-						putchar((val & 0xFF000000) >> 24);
-						putchar('\n');
-					}
-					inputParamTerminal(str2);
 					start_timer();
 					WRITE_CONTROL_STATUS = 0b00010;	// index = 0, go = 1
 					
@@ -183,23 +165,10 @@ void main() {
 					
 					uint32_t resHW = *(String_HW_ptr + 8);
 					
-					for(k=0; k < MAX_BLOCKS; k++)
-					{
-						uint32_t val;
-						val = *(String_HW_ptr + k + 1);
-						printf("Read Res [%d]: ",(k+1));
-						
-						putchar(val & 0x000000FF);
-						putchar((val & 0x0000FF00) >> 8);
-						putchar((val & 0x00FF0000) >> 16);
-						putchar((val & 0xFF000000) >> 24);
-						putchar('\n');
-					}
-					
 					CLEAR_CONTROL_STATUS;
 					
 					start_timer();
-					uint32_t resSW = strcmp(str1,str1);
+					uint32_t resSW = strcmp(cmp_1,cmp_2);
 					ticksSW = snapshot_timer();
 				/********* StringCompare Display Code **********/
 					printf("=========== StringCompare(str1, str2) ===========\n");
@@ -420,62 +389,6 @@ void main() {
 		inputParamTerminal(str2);
 		clearTerminal();
 	}
-}
-
-
-/********************************************************************************
- * StringCompare Function converts inputted string to uint32_teger 32 bit
-********************************************************************************/
-uint32_t stringHW_compare(uint32_t A, uint32_t B)
-{
-	uint32_t result;
-	*(String_HW_ptr) = A;
-	*(String_HW_ptr+1) = B;
-	
-	*(String_HW_ptr+2) = 0b00010;	// index = 0, go = 1
-	
-	while((*(String_HW_ptr+2) & 0b01) != 0b01);	// wait for done
-	result = *(String_HW_ptr+3);				// store result
-	
-	*(String_HW_ptr+2) = 0;		// reset go bit
-	
-	return result;
-}
-
-/********************************************************************************
- * StringToUpper Function converts inputted string to uint32_teger 32 bit
-********************************************************************************/
-uint32_t stringHW_ToUpper(uint32_t A)
-{
-	
-	uint32_t result;
-	*(String_HW_ptr) = A;
-	*(String_HW_ptr+2) = 0b00110;	// index = 1, go = 1
-	
-	while((*(String_HW_ptr+2) & 0b01) != 0b01);	// wait for done
-	result = *(String_HW_ptr+3);				// store result
-	
-	*(String_HW_ptr+2) = 0;		// reset go bit
-	
-	return result;
-}
-
-/********************************************************************************
- * StringToLower Function converts inputted string to uint32_teger 32 bit
-********************************************************************************/
-uint32_t stringHW_ToLower(uint32_t A)
-{
-	uint32_t result;
-	*(String_HW_ptr) = A;
-	
-	*(String_HW_ptr+2) = 0b01010;	// index = 2, go = 1
-	
-	while((*(String_HW_ptr+2) & 0b01) != 0b01);	// wait for done
-	result = *(String_HW_ptr+3);				// store result
-	
-	*(String_HW_ptr+2) = 0;		// reset go bit
-	
-	return result;
 }
 
 /********************************************************************************
