@@ -30,14 +30,17 @@
 #include <string.h>
 #include <stdint.h>
 
+// INTERVAL TIMER
 #define CLOCK_RATE 50000000.0
+
 #define BUFFER_SIZE 64
 
+// STRING.h HW Macros
 #define READ_CONTROL_STATUS *(String_HW_ptr)
 #define WRITE_CONTROL_STATUS *(String_HW_ptr)
 #define CLEAR_CONTROL_STATUS *(String_HW_ptr) = 0;
-
 #define MAX_BLOCKS 8
+
 // INDEXES
 #define TEST -13
 #define COMPARE 0
@@ -116,6 +119,7 @@ void main() {
 				char k;
 				printf("Control/Status: %x\n",READ_CONTROL_STATUS);
 				
+				// Write StringA and StringB
 				for(k=0; k < length/4; k++)
 				{
 					get4Chars(test,out, k);
@@ -126,6 +130,7 @@ void main() {
 						printf("Write B: %s \n",out);
 				}
 				
+				// TEST CONTROL READ/WRITE
 				WRITE_CONTROL_STATUS = 0xFEED0000;
 				printf("WRITE Control/Status: %x\n",0xFEED0000);
 				
@@ -149,55 +154,62 @@ void main() {
 				CLEAR_CONTROL_STATUS;
 			}break;
 			case COMPARE: {
-					printf("=========== StringCompare(str1, str2) ===========\n");
-					char k;
-					for(k=0; k < MAX_BLOCKS; k++)
-					{
-						get4Chars(cmp_1,out, k);
-						*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
-						//printf("WRITE A: %s \n",out);
-					}
-					printf("String A: %s \n",cmp_1);
-					printf("String B: %s \n",cmp_2);
-					for(k=0; k < MAX_BLOCKS; k++)
-					{
-						get4Chars(cmp_2,out, k);
-						*(String_HW_ptr + k + MAX_BLOCKS + 1) = *((uint32_t *)(out));
-						//printf("WRITE B: %s \n",out);
-					}
-					// WRITE INDEX and GO BIT
-					start_timer();
-					WRITE_CONTROL_STATUS = 0b00010;	// index = 0, go = 1
-					
-					while(!(READ_CONTROL_STATUS & 1));
-					
-					ticksHW = snapshot_timer();
-					
-					uint32_t resHW = *(String_HW_ptr + MAX_BLOCKS);
-					
-					CLEAR_CONTROL_STATUS;
-					
-					start_timer();
-					uint32_t resSW = strcmp(cmp_1,cmp_2);
-					ticksSW = snapshot_timer();
+				printf("=========== StringCompare(str1, str2) ===========\n");
+				char k;
+				// Write StringA
+				for(k=0; k < MAX_BLOCKS; k++)
+				{
+					get4Chars(cmp_1,out, k);
+					*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
+					//printf("WRITE A: %s \n",out);
+				}
+				printf("String A: %s \n",cmp_1);
+				printf("String B: %s \n",cmp_2);
+				// Write StringB
+				for(k=0; k < MAX_BLOCKS; k++)
+				{
+					get4Chars(cmp_2,out, k);
+					*(String_HW_ptr + k + MAX_BLOCKS + 1) = *((uint32_t *)(out));
+					//printf("WRITE B: %s \n",out);
+				}
+				// WRITE INDEX and GO BIT
+				// SOFTWARE CC
+				start_timer();
+				WRITE_CONTROL_STATUS = 0b00010;	// index = 0, go = 1
+				// POLL for DONE BIT
+				while(!(READ_CONTROL_STATUS & 1));
+														
+				ticksHW = snapshot_timer();
+				
+				uint32_t resHW = *(String_HW_ptr + MAX_BLOCKS);
+				
+				// CLEAR CONTROL/STATUS REGISTER
+				CLEAR_CONTROL_STATUS;
+				
+				// SOFTWARE CC
+				start_timer();
+				uint32_t resSW = strcmp(cmp_1,cmp_2);
+				ticksSW = snapshot_timer();
+				
 				/********* StringCompare Display Code **********/
-					printf("=========== StringCompare(str1, str2) ===========\n");
-					//printf("Software strcmp(%s, %s) = ",str1, str1);
-					if (!resSW)	printf("SW EQUAL \n");
-					else		printf("SW NOT EQUAL \n");
-					//printf("Hardware strcmp(%s, %s) = ",str1, str1);
-					if (resHW)	printf("HW EQUAL \n");
-					else		printf("HW NOT EQUAL \n");
-					printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
-					printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
-					printf("Speedup = %-8f\n",ticksSW*1.0/ticksHW);
-					printf("=================================================\n");
+				printf("=========== StringCompare(str1, str2) ===========\n");
+				//printf("Software strcmp(%s, %s) = ",str1, str1);
+				if (!resSW)	printf("SW EQUAL \n");
+				else		printf("SW NOT EQUAL \n");
+				//printf("Hardware strcmp(%s, %s) = ",str1, str1);
+				if (resHW)	printf("HW EQUAL \n");
+				else		printf("HW NOT EQUAL \n");
+				printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
+				printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
+				printf("Speedup = %-8f\n",ticksSW*1.0/ticksHW);
+				printf("=================================================\n");
 				
 			}break;
 			case TOUPPER: {
 				
 				printf("=========== StringToUpper(str) ===========\n");
 				char k;
+				// Write StringA
 				for(k=0; k < MAX_BLOCKS; k++)
 				{
 					get4Chars(str1,out, k);
@@ -205,17 +217,21 @@ void main() {
 				}
 				printf("String A: %s \n",str1);
 				// WRITE INDEX and GO BIT
+				// HARDWARE CC
 				start_timer();
 				WRITE_CONTROL_STATUS = ((uint32_t) index << 2) | 2;
 				
+				// POLL for DONE BIT
 				while(!(READ_CONTROL_STATUS & 1));
 				
 				ticksHW = snapshot_timer();
 				
+				// SOFTWARE CC
 				start_timer();
 				strToUpper(str1,32);
 				ticksSW = snapshot_timer();
 				
+				// WRITE READ Result 32 bits (4chars) at a time
 				for(k=0; k < MAX_BLOCKS; k++)
 				{
 					uint32_t val;
@@ -228,12 +244,11 @@ void main() {
 					putchar((val & 0xFF000000) >> 24);
 					putchar('\n');
 				}
+				// CLEAR CONTROL/STATUS REGISTER
 				CLEAR_CONTROL_STATUS;
 				/************* String to Upper Display Code ***************/
 				
 				printf("=========== StringToUpper(str) ===========\n");
-				//printf("Software strToUpper(%s) = %s \n",str1, str2);
-				//printf("Hardware strToUpper(%s) = %s \n",str1, result_str);
 				printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
 				printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
 				printf("Speedup = %-8f\n",ticksSW*1.0/ticksHW);
@@ -243,6 +258,7 @@ void main() {
 			case TOLOWER: {
 				printf("=========== StringToLower(str) ===========\n");
 				char k;
+				// Write StringA
 				for(k=0; k < MAX_BLOCKS; k++)
 				{
 					get4Chars(str1_UPPER,out, k);
@@ -250,17 +266,21 @@ void main() {
 				}
 				printf("String A: %s \n",str1_UPPER);
 				// WRITE INDEX and GO BIT
+				// HARDWARE CC
 				start_timer();
 				WRITE_CONTROL_STATUS = ((uint32_t) index << 2) | 2;
 				
+				// POLL for DONE BIT
 				while(!(READ_CONTROL_STATUS & 1));
 				
 				ticksHW = snapshot_timer();
 				
+				// SOFTWARE CC
 				start_timer();
 				strToLower(str1,32);
 				ticksSW = snapshot_timer();
 				
+				// WRITE READ Result 32 bits (4chars) at a time
 				for(k=0; k < MAX_BLOCKS; k++)
 				{
 					uint32_t val;
@@ -273,21 +293,22 @@ void main() {
 					putchar((val & 0xFF000000) >> 24);
 					putchar('\n');
 				}
+				
+				// CLEAR CONTROL/STATUS REGISTER
 				CLEAR_CONTROL_STATUS;
 				/************ String to Lower Display Code *************/
 				
-					printf("=========== StringToLower(str) ===========\n");
-					//printf("Software strToLower(%s) = %s \n",str1, str2);
-					//printf("Hardware strToLower(%s) = %s \n",str1, result_str);
-					printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
-					printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
-					printf("Speedup = %-8f\n",ticksSW*1.0/ticksHW);
-					printf("=================================================\n");
+				printf("=========== StringToLower(str) ===========\n");
+				printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
+				printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
+				printf("Speedup = %-8f\n",ticksSW*1.0/ticksHW);
+				printf("=================================================\n");
 				
 			}break;
 			case REVERSE: {
 				printf("=========== Reverse(str) ===========\n");
 				char k;
+				// Write StringA
 				for(k=0; k < MAX_BLOCKS; k++)
 				{
 					get4Chars(str1_UPPER_rev,out, k);
@@ -295,18 +316,22 @@ void main() {
 				}
 				printf("String A: %s \n",str1_UPPER_rev);
 				// WRITE INDEX and GO BIT
+				// HARDWARE CC
 				start_timer();
 				WRITE_CONTROL_STATUS = ((uint32_t) index << 2) | 2;
 				
+				// POLL for DONE BIT
 				while(!(READ_CONTROL_STATUS & 1));
 				
 				ticksHW = snapshot_timer();
 				
-				// SW
+				// SOFTWARE CC
 				start_timer();
 				strReverse(str1_UPPER_rev,32);
 				ticksSW = snapshot_timer();
 				printf("String A SW Reversed: %s \n",str1_UPPER_rev);
+				
+				// WRITE READ Result 32 bits (4chars) at a time
 				for(k=0; k < MAX_BLOCKS; k++)
 				{
 					uint32_t val;
@@ -319,20 +344,21 @@ void main() {
 					putchar((val & 0xFF000000) >> 24);
 					putchar('\n');
 				}
-				CLEAR_CONTROL_STATUS;
-				/************ String to Lower Display Code *************/
 				
-					printf("=========== Reverse(str) ===========\n");
-					//printf("Software strToLower(%s) = %s \n",str1, str2);
-					//printf("Hardware strToLower(%s) = %s \n",str1, result_str);
-					printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
-					printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
-					printf("Speedup = %-8f\n",ticksSW*1.0/ticksHW);
-					printf("=================================================\n");
+				// CLEAR CONTROL/STATUS REGISTER
+				CLEAR_CONTROL_STATUS;
+				/************ String Reverse Display Code *************/
+				
+				printf("=========== Reverse(str) ===========\n");
+				printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
+				printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
+				printf("Speedup = %-8f\n",ticksSW*1.0/ticksHW);
+				printf("=================================================\n");
 			}break;
 			case SEARCH: {
 				printf("=========== Search(strA,strB) ===========\n");
 				char k;
+				// Write StringA
 				for(k=0; k < MAX_BLOCKS; k++)
 				{
 					get4Chars(str1_UPPER,out, k);
@@ -341,20 +367,25 @@ void main() {
 				printf("String A: %s \n",str1_UPPER);
 				
 				// Uncomment and handle more than 4 chars with loop
-				//get4Chars(find,out, 0);
+				// get4Chars(find,out, 0);
+				
+				// Write StringB
 				printf("String B: %s \n",find);
 				*(String_HW_ptr + 9) = *((uint32_t *)(find));
 				
-				// WRITE INDEX and GO BIT
-				uint32_t len = 4;
-				start_timer();
 				
+				uint32_t len = 4;
+				
+				// WRITE INDEX and GO BIT
+				// HARDWARE CC
+				start_timer();
 				WRITE_CONTROL_STATUS = (len << 6) |((uint32_t) index << 2) | 2;
 				
 				while(!(READ_CONTROL_STATUS & 1));
 				
 				ticksHW = snapshot_timer();
 				
+				// SOFTWARE CC
 				start_timer();
 				
 				char *ptr = strstr(str1_UPPER, find);
@@ -364,23 +395,21 @@ void main() {
 				uint32_t resHW;
 				resHW = *(String_HW_ptr + MAX_BLOCKS);
 				
+				// CLEAR CONTROL/STATUS REGISTER
 				CLEAR_CONTROL_STATUS;
-				/************ String to Lower Display Code *************/
+				/************ String Search Display Code *************/
 				
-					printf("=========== Search(strA,strB) ===========\n");
-					if (res>=0)	printf("SW FOUND at pos: %d \n",res);
-					else		printf("SW NOT FOUND \n");
-					//printf("Hardware strcmp(%s, %s) = ",str1, str1);
-					if (resHW != 0xFF)	printf("HW FOUND at pos: %d \n",resHW);
-					else		printf("HW NOT FOUND \n");
-					//printf("Software strToLower(%s) = %s \n",str1, str2);
-					//printf("Hardware strToLower(%s) = %s \n",str1, result_str);
-					printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
-					printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
-					printf("Speedup = %-8f\n",ticksSW*1.0/ticksHW);
-					printf("=================================================\n");
+				printf("=========== Search(strA,strB) ===========\n");
+				if (res>=0)	printf("SW FOUND at pos: %d \n",res);
+				else		printf("SW NOT FOUND \n");
+				if (resHW != 0xFF)	printf("HW FOUND at pos: %d \n",resHW);
+				else		printf("HW NOT FOUND \n");
+				printf("Software CC = %-8d ET = %-5f us\n",ticksSW,ticksSW/CLOCK_RATE*1000000);
+				printf("Hardware CC = %-8d ET = %-5f us\n",ticksHW,ticksHW/CLOCK_RATE*1000000);
+				printf("Speedup = %-8f\n",ticksSW*1.0/ticksHW);
+				printf("=================================================\n");
 			}break;
-			
+			// DEFAULT CASE when UNKNOWN INDEX
 			default: {
 				printf("\nOption not handled.\n");
 			}break;
@@ -388,7 +417,10 @@ void main() {
 		}
 		
 		printf("Any char to continue..");
+		// WAIT FOR ANY KEYBOARD INPUT
 		inputParamTerminal(str2);
+		
+		// CLEAR TERMINAL
 		clearTerminal();
 	}
 }
