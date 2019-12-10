@@ -15,7 +15,7 @@
  * 3) Wait in Done state until go bit reset
  * ###############################################################################
  */
-module String_HW #(MAX_BLOCKS = 2)
+module String_HW #(MAX_BLOCKS = 8)
 			  (input logic clk, reset, go,
 			   input logic [3:0]  index,
 			   input logic [7:0] length,

@@ -73,18 +73,19 @@ volatile uint32_t * String_HW_ptr = (uint32_t *)String_HW_BASE;
 
 
 char length = 64;
-char test[128] = "lylatagssongdamptynecapebarnflowonceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
+char test[65] = "lylatagssongdamptynecapebarnflowonceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
+char cmp_1 [33] = 	"LYLA----LYLA----LYLA----LYLA----";
+char cmp_2 [33] = 	"LYLA----LYLA----LYLA----LYLA----";
 
-
-char str1_UPPER[128] = "LYLAtagsSONGdamptyneCAPEBARNflow";
+char str1_UPPER[33] = "LYLAtagsSONGdamptyneCAPEBARNflow";
 
 void main() {
 	
 	uint32_t ticksHW,ticksSW;
 	
 	while(1){
-		char str1[65] = "lylatagssongdamptynecapebarnflow"; 	// double quotes add null terminator
-		char str2[65] = "onceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
+		char str1[33] = "lylatagssongdamptynecapebarnflow"; 	// double quotes add null terminator
+		char str2[33] = "onceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
 		char out [4];				// temp var
 		// reset for next round
 		ticksSW=0;
@@ -148,26 +149,54 @@ void main() {
 					char k;
 					for(k=0; k < MAX_BLOCKS; k++)
 					{
-						get4Chars(str1,out, k);
+						get4Chars(cmp_1,out, k);
 						*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
 						//printf("WRITE A: %s \n",out);
 					}
-					printf("String A: %s \n",str1);
-					printf("String B: %s \n",str1);
+					printf("String A: %s \n",cmp_1);
+					printf("String B: %s \n",cmp_2);
 					for(k=0; k < MAX_BLOCKS; k++)
 					{
-						get4Chars(str2,out, k);
+						get4Chars(cmp_1,out, k);
 						*(String_HW_ptr + k + MAX_BLOCKS + 1) = *((uint32_t *)(out));
 						//printf("WRITE B: %s \n",out);
 					}
 					// WRITE INDEX and GO BIT
+					for(k=0; k < MAX_BLOCKS+MAX_BLOCKS; k++)
+					{
+						uint32_t val;
+						val = *(String_HW_ptr + k + 1);
+						printf("Read [%d]: ",(k+1));
+						
+						putchar(val & 0x000000FF);
+						putchar((val & 0x0000FF00) >> 8);
+						putchar((val & 0x00FF0000) >> 16);
+						putchar((val & 0xFF000000) >> 24);
+						putchar('\n');
+					}
+					inputParamTerminal(str2);
 					start_timer();
 					WRITE_CONTROL_STATUS = 0b00010;	// index = 0, go = 1
 					
 					while(!(READ_CONTROL_STATUS & 1));
 					
 					ticksHW = snapshot_timer();
-					uint32_t resHW = *(String_HW_ptr + 1);
+					
+					uint32_t resHW = *(String_HW_ptr + 8);
+					
+					for(k=0; k < MAX_BLOCKS; k++)
+					{
+						uint32_t val;
+						val = *(String_HW_ptr + k + 1);
+						printf("Read Res [%d]: ",(k+1));
+						
+						putchar(val & 0x000000FF);
+						putchar((val & 0x0000FF00) >> 8);
+						putchar((val & 0x00FF0000) >> 16);
+						putchar((val & 0xFF000000) >> 24);
+						putchar('\n');
+					}
+					
 					CLEAR_CONTROL_STATUS;
 					
 					start_timer();
@@ -283,7 +312,7 @@ void main() {
 				char k;
 				for(k=0; k < MAX_BLOCKS; k++)
 				{
-					get4Chars(str2,out, k);
+					get4Chars(str1_UPPER,out, k);
 					*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
 				}
 				printf("String A: %s \n",str1_UPPER);
@@ -297,9 +326,9 @@ void main() {
 				
 				// SW
 				start_timer();
-				strReverse(str2,32);
+				strReverse(str1_UPPER,32);
 				ticksSW = snapshot_timer();
-				printf("String A SW Reversed: %s \n",str2);
+				printf("String A SW Reversed: %s \n",str1_UPPER);
 				for(k=0; k < MAX_BLOCKS; k++)
 				{
 					uint32_t val;
@@ -332,13 +361,13 @@ void main() {
 					*(String_HW_ptr + k + 1) = *((uint32_t *)(out));
 				}
 				printf("String A: %s \n",str1_UPPER);
-				char find [4]= {'S','O','N','G'};
-				//char find [4]= {'G','N','O','S'};
+				//char find [4]= {'S','O','N','G'};
+				char find [4]= {'G','N','O','S'};
 				//char find [4] = "SONG";
 				
 				get4Chars(find,out, 0);
 				printf("String B: %s \n",out);
-				*(String_HW_ptr + MAX_BLOCKS + 1) = *((uint32_t *)(out));
+				*(String_HW_ptr + 1) = *((uint32_t *)(out));
 				
 				// WRITE INDEX and GO BIT
 				uint32_t len = 32;
@@ -389,7 +418,7 @@ void main() {
 		}
 		
 		printf("Any char to continue..");
-		inputParamTerminal(str1);
+		inputParamTerminal(str2);
 		clearTerminal();
 	}
 }
