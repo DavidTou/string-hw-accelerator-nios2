@@ -12,19 +12,13 @@
  * --------AVALON INTERFACE--------------------
  * ======String HW Accelerator==================
  *   	   32 bit registers
- *	|----Register 0 (A)---------|
- *	|----Register 1 (B)---------|
- *	|----Register 2 (Control)---|
- *	|----Register 3 (Result)----|
+ *	|----Register 0 (Control)---|
+ *	|----Register 1-7  (A)------|
+ *	|----Register 8-15 (B)------|
  *	
- *	
- *	|----(Control Register)---|
- *	   [length,index,go,done]
- *	
- * ------------------------------------------------------------------------------
- * 0) LoadA => load 32 bit A
- * 1) LoadB => load 32 bit B and start calculation
- * 2) Output result and done signal
+ *	|------------(Control Register)--------------|
+ *	   length[13:7], index[6:2], go[1], done[0]
+ *
  * ###############################################################################
  */
 
@@ -47,7 +41,7 @@ module String_HW_Avalon #(MAX_BLOCKS = 2, ADDRESS_BITS = 5)
 	/* ------ Control/Status Flags --------- */
 	assign read_reg_Control  = (address == 0) && read  && chipselect;
 	assign write_reg_Control = (address == 0) && write && chipselect;
-	/* ------ END Control/Status Flags --------- */
+	
 	
 	/* ------ StringA Flags --------- 
 	* ADDRESS 1 - MAX_BLOCKS
@@ -55,9 +49,6 @@ module String_HW_Avalon #(MAX_BLOCKS = 2, ADDRESS_BITS = 5)
 	logic [0:MAX_BLOCKS-1] [31:0] StringA;
 	assign write_reg_A		 		= (address >= 1) && (address <= MAX_BLOCKS) && write && chipselect;			  	// Write Register Flags
 	assign read_reg_A 		 		= (address >= 1) && (address <= MAX_BLOCKS) && read  && chipselect && ~done;    // Read Register Flags
-	/* ------ END StringA Flags --------- */
-	
-	
 	
 	/* ------ StringB Flags ---------
 	* ADDRESS 9 - 2*MAX_BLOCKS
@@ -96,22 +87,22 @@ module String_HW_Avalon #(MAX_BLOCKS = 2, ADDRESS_BITS = 5)
 	always_ff@(posedge clk)
 	begin
 		if (reset) begin
-			StringA		  <= '{default:32'h0};		//initialize StringA to NULL Chars
-			StringB		  <= '{default:32'h0};		//initialize StringB to NULL Chars
-			Control[31:1] <= 0;
+			StringA		  <= '{default:32'h0};		// initialize StringA to NULL Chars
+			StringB		  <= '{default:32'h0};		// initialize StringB to NULL Chars
+			Control[31:1] <= 0;						// Reset Control Register
 			end
 		// StringA & StringB Read/Write
 		else begin
- 			if (write_reg_Control) 		Control[31:1] <= writedata[31:1];			   // WRITE Control/STATUS REGISTER  (ignore bit 0: done)
-			else if (read_reg_Control)	readdata <= Control; 						   // READ Control/STATUS REGISTER	
-			else if (write_reg_A) 		StringA[address - 1] <= writedata; 			   // WRITE TO StringA
-			else if (read_reg_A) 		readdata <= StringA[address - 1];  			   // READ FROM StringA
+ 			if (write_reg_Control) 		Control[31:1] <= writedata[31:1];			    // WRITE Control/STATUS REGISTER  (ignore bit 0: done)
+			else if (read_reg_Control)	readdata <= Control; 						    // READ Control/STATUS REGISTER	
+			else if (write_reg_A) 		StringA[address - 1] <= writedata; 			    // WRITE TO StringA
+			else if (read_reg_A) 		readdata <= StringA[address - 1];  			    // READ FROM StringA
 			else if (write_reg_B) 		StringB[address - MAX_BLOCKS - 1] <= writedata; // WRITE TO StringB
 			else if (read_reg_B) 		readdata <= StringB[address - MAX_BLOCKS - 1];  // READ FROM StringB
 			else if (read_reg_Result)   begin 
 											readdata <= Result[address-1];			   	// READ FROM RESULT
-											StringA <= 0;								// Reset String
-											StringB <= 0;								// Reset String
+											StringA <= 0;								// Reset String A
+											StringB <= 0;								// Reset String B
 										end
 		end
 	end

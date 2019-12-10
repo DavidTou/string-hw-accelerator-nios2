@@ -12,19 +12,13 @@
  * --------AVALON INTERFACE--------------------
  * ======String HW Accelerator==================
  *   	   32 bit registers
- *	|----Register 0 (A)---------|
- *	|----Register 1 (B)---------|
- *	|----Register 2 (Control)---|
- *	|----Register 3 (Result)----|
+ *	|----Register 0 (Control)---|
+ *	|----Register 1-7  (A)------|
+ *	|----Register 8-15 (B)------|
  *	
- *	
- *	|----(Control Register)---|
- *	   [length,index,go,done]
- *	
- * ------------------------------------------------------------------------------
- * 0) LoadA => load 32 bit A
- * 1) LoadB => load 32 bit B and start calculation
- * 2) Output result and done signal
+ *	|------------(Control Register)--------------|
+ *	   length[13:7], index[6:2], go[1], done[0]
+ *
  * ###############################################################################
  */
 

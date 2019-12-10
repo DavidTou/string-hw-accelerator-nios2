@@ -1,24 +1,21 @@
-/*
-* ###############################################################################
-* CPE423
-* Assignment 4 - Greatest Common Divisor (GCD Hardware Test Bench)
-* Matthew Bowen
-* 10/18/2019
-* --------------------------------------
-* Greatest Common Divisor
-* 32 bit integer inputs A and B
-* --------------------------------------
-* Dev BOARD => Altera DE2-115 and NIOS2
-* --------------------------------------
-* signals: reset, go, done, result
-* ------------------------------------------------------------------------------
-* After initial Reset, FSM will follow these steps:
-* 0) RESET		=> Initialize all output values  
-* 1) WAIT       => Wait for go signal to start computation (After User has passed input numbers)
-* 2) GO         => Compute 32 bit GCD and store in result register 
-* 3) AGAIN		=> Wait for again signal to restart the system to poll for new input operands
-* ###############################################################################
-*/
+/* 
+ * ###############################################################################
+ * CPE423
+ * String_HW 
+ * David Tougaw and Matthew Bowen
+ * 11/24/2019
+ * --------------------------------------
+ * String.h Hardware Accelerator +
+ * --------------------------------------
+ * Dev BOARD => Altera DE2-115
+ * ------------------------------------------------------------------------------
+ * 0) Wait for go
+ * 1) Go to string function depending on index value
+ * 2) Perform Computation
+ * 3) Wait in Done state until go bit reset
+ * ###############################################################################
+ */
+ 
 `timescale 1ps / 1ps
 parameter MAX_BLOCKS = 2;
 
