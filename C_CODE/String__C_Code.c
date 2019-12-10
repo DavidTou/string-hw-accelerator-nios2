@@ -119,7 +119,6 @@ void main() {
 						printf("Write A: %s \n",out);
 					else
 						printf("Write B: %s \n",out);
-					 //printf("Read: %s \tFIFO Size: %u \n",out, *(String_HW_ptr+2));
 				}
 				
 				WRITE_CONTROL_STATUS = 0xFEED0000;
