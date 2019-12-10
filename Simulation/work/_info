@@ -10,7 +10,7 @@ cModel Technology
 dC:/Users/David/Documents/GitHub/string-hw-accelerator-nios2
 vString_HW
 Z0 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
-Z1 !s110 1575932818
+Z1 !s110 1575940591
 !i10b 1
 !s100 ]WI;41lAMTE6FI8A@DNj_3
 I:j:DHBzPbooUKB4ch8RiK3
@@ -26,7 +26,7 @@ Z7 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z8 !s108 1575932818.000000
+Z8 !s108 1575940591.000000
 Z9 !s107 C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW.sv|
 Z10 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW.sv|
 !i113 1
@@ -37,16 +37,16 @@ vString_HW_Avalon
 R0
 R1
 !i10b 1
-!s100 cHB;:Mz3DQbA:0^L98YAB0
-IN>H:>4h?[lW>AfJh85ZD;2
+!s100 Ym20HRO1:K59kW3czj5WK2
+IG`jIl;ELkoC^bj=n`JUCN2
 R2
 !s105 String_HW_Avalon_sv_unit
 S1
 R3
-w1575923559
+w1575933242
 Z13 8C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_Avalon.sv
 Z14 FC:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_Avalon.sv
-Z15 L0 33
+Z15 L0 31
 R7
 r1
 !s85 0
@@ -73,7 +73,7 @@ R3
 w1575882426
 R13
 R14
-L0 31
+R15
 R7
 !s108 1575883997.000000
 R16
@@ -122,7 +122,7 @@ R3
 R18
 R19
 R20
-R15
+L0 33
 R7
 R8
 R21
@@ -173,9 +173,9 @@ Z24 8C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Acc
 Z25 FC:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_TB.sv
 L0 25
 R7
-R8
-Z26 !s107 C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_TB.sv|
-Z27 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_TB.sv|
+Z26 !s108 1575940592.000000
+Z27 !s107 C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_TB.sv|
+Z28 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/Matthew/Documents/GitHub/string-hw-accelerator-nios2/String_HW_Accelerator/String_HW_TB.sv|
 !i113 1
 R11
 R12
@@ -197,9 +197,9 @@ R24
 R25
 L0 23
 R7
-R8
 R26
 R27
+R28
 !i113 1
 R11
 R12
