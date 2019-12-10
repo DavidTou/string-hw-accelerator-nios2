@@ -51,6 +51,6 @@
 #define EDGE_DETECT_CTRL_BASE		0xFF203070
 #define ADC_BASE			0xFF204000
 
-#define String_HW_BASE 0x08200080
+#define String_HW_BASE 0x08200040
 
 #endif

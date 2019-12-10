@@ -30,7 +30,7 @@
 
 `timescale 1ps / 1ps
 
-parameter MAX_BLOCKS = 2, ADDRESS_BITS = 4;
+parameter MAX_BLOCKS = 2, ADDRESS_BITS = 5;
 
 module String_HW_Avalon_TB;			
 	logic clk, reset, read, write, chipselect;
