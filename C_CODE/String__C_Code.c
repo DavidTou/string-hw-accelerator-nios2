@@ -16,6 +16,7 @@
  * ------------------------------------------------------------------------------
  * ###############################################################################
  */
+// MATTHEW FSM MASTER###
 // include files
 #include "address_map_nios2.h"
 
@@ -70,7 +71,7 @@ volatile uint32_t * String_HW_ptr = (uint32_t *)String_HW_BASE;
 char length = 64;
 char test[65] = "lylatagssongdamptynecapebarnflowonceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
 char cmp_1 [33] = 	"LYLA----LYLA----LYLA----LYLA----";
-char cmp_2 [33] = 	"LYLA----LYLA----DAVE----LYLA----";
+char cmp_2 [33] = 	"LYLA------------LYLA----LYLA----";
 
 char str1_UPPER[33] = "LYLAtagsSONGdamptyneCAPEBARNflow";
 
@@ -330,12 +331,12 @@ void main() {
 				}
 				printf("String A: %s \n",str1_UPPER);
 				//char find [4]= {'S','O','N','G'};
-				char find [4]= {'G','N','O','S'};
-				//char find [4] = "SONG";
+				//char find [4]= {'G','N','O','S'};
+				char find [5] = "SONG";
 				
 				get4Chars(find,out, 0);
 				printf("String B: %s \n",out);
-				*(String_HW_ptr + 1) = *((uint32_t *)(out));
+				*(String_HW_ptr + 9) = *((uint32_t *)(out));
 				
 				// WRITE INDEX and GO BIT
 				uint32_t len = 32;
@@ -349,11 +350,11 @@ void main() {
 				
 				start_timer();
 				char res;
-				if(strstr(str1, find) != NULL)
+				/* if(res = strstr(str1, find) != NULL)
 					// get offset in bytes
-					res = strstr(str1, find);
-				else
-					res = 0;
+					*res = *res - &str1;
+				else */
+					res = 0; 
 				ticksSW = snapshot_timer();
 				
 				
