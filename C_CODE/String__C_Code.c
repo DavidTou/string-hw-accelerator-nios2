@@ -16,7 +16,6 @@
  * ------------------------------------------------------------------------------
  * ###############################################################################
  */
-// MATTHEW FSM MASTER###
 // include files
 #include "address_map_nios2.h"
 
@@ -164,7 +163,7 @@ void main() {
 					
 					ticksHW = snapshot_timer();
 					
-					uint32_t resHW = *(String_HW_ptr + 8);
+					uint32_t resHW = *(String_HW_ptr + MAX_BLOCKS);
 					
 					CLEAR_CONTROL_STATUS;
 					
@@ -360,7 +359,7 @@ void main() {
 				
 				printf("SW: %d\n",res);
 				uint32_t resHW;
-				resHW = *(String_HW_ptr + 1);
+				resHW = *(String_HW_ptr + MAX_BLOCKS);
 				printf("HW: %d\n",resHW);
 				
 				CLEAR_CONTROL_STATUS;
