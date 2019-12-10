@@ -2,6 +2,14 @@
  * ###############################################################################
  * CPE423
  * FINAL PROJECT - String.h Hardware Accelerator +
+  _____  _          _                   _       _   _  _    _         
+/  ___|| |        (_)                 | |     | | | || |  | |    _   
+\ `--. | |_  _ __  _  _ __    __ _    | |__   | |_| || |  | |  _| |_ 
+ `--. \| __|| '__|| || '_ \  / _` |   | '_ \  |  _  || |/\| | |_   _|
+/\__/ /| |_ | |   | || | | || (_| | _ | | | | | | | |\  /\  /   |_|  
+\____/  \__||_|   |_||_| |_| \__, |(_)|_| |_| \_| |_/ \/  \/         
+                              __/ |                                  
+                             |___/                                   
  * David Tougaw 
  * 12/9/19
  * -----------------------------------------------
@@ -67,8 +75,9 @@ volatile uint32_t * String_HW_ptr = (uint32_t *)String_HW_BASE;
 
 char length = 64;
 char test[] = "lylatagssongdamptynecapebarnflowonceafanjohnleadkokodirtgeekhaul"; 	// double quotes add null terminator
+
 char cmp_1 [] = 	"LYLA----LYLA----LYLA----LYLA----";
-char cmp_2 [] = 	"LYLA------------LYLA----LYLA----";
+char cmp_2 [] = 	"LYLA----DAVE----LYLA----LYLA----";
 char str1_UPPER_rev[] = "LYLAtagsSONGdamptyneCAPEbarnFLOW";
 
 char str1_UPPER[] = "LYLAtagsSONGdamptyneCAPEBARNflow";
@@ -85,6 +94,7 @@ void main() {
 		// reset for next round
 		ticksSW=0;
 		ticksHW=0;
+		// MENU ECHO
 		printf("\n#### string.h vs String HW + peripheral ####\n");
 		printf("####    BY D. Tougaw & Matthew Bowen    ####\n");
 		printf("%-7s%-25s\n", "Index", "Function"); 
